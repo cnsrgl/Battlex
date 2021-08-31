@@ -1331,7 +1331,7 @@ export default {
           BeastAttack.play()
           this.RandomPosition();
           this.logs.push({ log: this.CanavarSaldirPuan + " - It hit you" });
-          this.CanavarSaldirPuan = Math.floor(Math.random() * 10) + 0;
+          this.CanavarSaldirPuan = Math.floor(Math.random() * 12) + 0;
           if (this.P2W > 0) {
             this.P2W = this.P2W - this.CanavarSaldirPuan;
             document.getElementById("Sword_2").style.animationPlayState = "running";
