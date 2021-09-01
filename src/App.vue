@@ -655,6 +655,7 @@
 
 <script>
 //Import components
+import io from "socket.io-client"
 import Characters from "@/Characters";
 //Import components
 
@@ -681,6 +682,7 @@ export default {
   name: "App",
   data() {
     return {
+      socket: {},
       //To remove the Attack button from the DOM at the end of the round.
       AttackBtnControl: true,
       //Public Path
@@ -744,7 +746,12 @@ export default {
   components: {
     Characters
   },
+
   methods: {
+WELCOME_MESSAGE(data) {
+console.log(data);
+},
+
     NextPage: function(page) {
       button.play();
       if (page == 1) {
@@ -873,6 +880,8 @@ export default {
     },
   },
   mounted() {
+    this.socket=io("http://localhost:3333")
+    this.socket.on ("WELCOME_MESSAGE", this.WELCOME_MESSAGE)
     window.addEventListener("keyup", this.AttackKeyUp);
     window.addEventListener("keyup", this.HellKeyUp);
     window.addEventListener("keyup", this.HPKeyUp);
