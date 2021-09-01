@@ -12,6 +12,6 @@ module.exports = {
       .loader('vue-loader-v16');
   },
     devServer: {
-        'port': 5500
+        'port': 5600
     }
   };
