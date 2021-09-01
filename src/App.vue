@@ -5,478 +5,30 @@
   <nav v-if="Login == 3" class="nav">
     <img class="logo" src="/img/logo.svg" alt="" />
     <div class="score">
-      <!-- !Score Bar svg-->
-      <svg
-        width="791"
-        height="210"
-        viewBox="0 0 791 210"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <Characters name="ScoreBar" />
+      <span class="belirt">
+        <span class="skor1">{{ Score1 }}</span>
+        <span class="skor2">{{ Score2 }}</span>
+      </span>
+      <span id="round"
+        >Round: <strong>{{ Round }}</strong></span
       >
-        <g id="Group 1">
-          <g id="Group">
-            <g id="Group_2">
-              <g id="Group_3">
-                <path
-                  id="Score"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M652.128 208.563C590.054 198.847 497.97 197.39 448.612 197.39C417.654 197.39 396.528 197.929 396.311 197.949H394.89C394.692 197.949 373.567 197.39 342.609 197.39C293.25 197.39 201.147 198.847 139.073 208.563L129.932 210L122.528 205.69C107.956 196.769 94.6413 185.904 82.9427 173.387C76.2348 175.544 69.2314 176.615 62.1923 176.56C54.6227 176.516 47.0929 175.449 39.8032 173.387L36.9601 172.609L34.5514 171.232C32.9917 170.334 -3.47455 149.105 0.434663 110.637L1.00722 104.99L0.434663 99.3435C-3.51403 60.895 32.9917 39.6456 34.5514 38.7677L36.9601 37.391L39.8032 36.6128C47.0716 34.546 54.5825 33.4789 62.133 33.4404C69.1703 33.3891 76.1721 34.4528 82.8834 36.5929C94.5973 24.0743 107.933 13.2147 122.528 4.30974L129.932 0L139.073 1.43658C201.167 11.1534 293.25 12.61 342.629 12.61C373.586 12.61 394.692 12.0513 394.909 12.0513H396.311C396.528 12.0513 417.614 12.61 448.592 12.61C497.951 12.61 590.054 11.1534 652.128 1.43658L661.269 0L668.692 4.30974C683.263 13.2244 696.578 24.0832 708.278 36.5929C714.989 34.4512 721.991 33.3874 729.028 33.4404C736.579 33.4804 744.09 34.5475 751.358 36.6128L754.182 37.391L756.59 38.7677C758.15 39.6456 794.616 60.895 790.707 99.3435L790.055 104.99L790.628 110.637C794.577 149.105 758.071 170.334 756.511 171.232L754.103 172.609L751.279 173.387C744.009 175.443 736.499 176.51 728.949 176.56V176.56C721.91 176.616 714.907 175.546 708.199 173.387C696.503 185.906 683.187 196.772 668.613 205.69L661.19 210L652.128 208.563Z"
-                  fill="url(#Score-1-1-0_linear)"
-                />
-                <path
-                  id="Score_2"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M129.932 0L134.947 16.5606C134.947 16.5606 427.94 44.8732 656.175 16.5606L661.19 0C661.19 0 548.849 11.9715 395.521 11.9715C242.194 11.9715 129.932 0 129.932 0Z"
-                  fill="#FC8B4F"
-                />
-                <path
-                  id="Score_3"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M661.269 210L656.254 187.254C656.254 187.254 419.332 159.141 135.026 187.254L130.011 210C130.011 210 434.87 182.645 661.269 210Z"
-                  fill="#590A43"
-                />
-                <path
-                  id="Score_4"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M770.312 105.629C773.431 136.116 744.29 152.676 744.29 152.676C716.866 160.318 704.369 145.972 704.369 145.972L709.522 133.362C692.503 166.164 656.214 187.234 656.214 187.234C558.958 172.03 232.164 172.03 134.986 187.234C134.986 187.234 98.7177 166.164 81.6791 133.362L86.8124 145.972C86.8124 145.972 74.3345 160.318 46.9108 152.676C46.9108 152.676 17.7695 136.116 20.8692 105.629L49.2406 98.8047L20.8494 91.981C17.7497 61.5335 46.8911 44.933 46.8911 44.933C74.3148 37.3311 86.7927 51.677 86.7927 51.677L81.6593 64.247C98.6782 31.4651 134.967 10.3753 134.967 10.3753C232.223 25.619 395.581 21.3093 395.581 21.3093C395.581 21.3093 558.978 25.619 656.195 10.3753H656.313C658.149 11.4527 684.072 27.0356 701.723 51.677C704.604 55.6528 707.197 59.8338 709.482 64.1872L704.329 51.6171C704.329 51.6171 716.827 37.2713 744.251 44.8732C744.251 44.8732 773.392 61.4736 770.272 91.9211L741.921 98.7449L770.312 105.629Z"
-                  fill="url(#Score-1-1-1_linear)"
-                />
-                <path
-                  id="Score_5"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M770.312 91.981L790.056 104.99C790.056 104.99 791.457 116.383 790.648 121.79L770.312 105.748L741.96 98.9245L770.312 91.981Z"
-                  fill="#590A43"
-                />
-                <path
-                  id="Score_6"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M704.428 51.6769L708.278 36.5928C708.278 36.5928 731.516 26.9957 754.182 37.391L744.31 44.933C744.31 44.933 715.78 36.9919 704.428 51.6769Z"
-                  fill="#FC8B4F"
-                />
-                <path
-                  id="Score_7"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M37.0193 37.391L46.891 44.933C46.891 44.933 71.3927 36.6128 86.7729 51.677L82.9426 36.5929C67.9038 32.1854 51.8993 32.4636 37.0193 37.391V37.391Z"
-                  fill="#FC8B4F"
-                />
-                <path
-                  id="Score_8"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M1.06644 104.99L20.8099 91.981L49.1616 98.8247L20.8494 105.748L0.316183 118.278C0.316183 118.278 -0.690732 109.878 1.06644 104.99Z"
-                  fill="#590A43"
-                />
-                <path
-                  id="Score_9"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M708.278 173.387L704.428 145.952C704.428 145.952 716.965 158.622 744.33 152.696L754.201 172.649C754.201 172.649 730.825 182.545 708.278 173.387Z"
-                  fill="#590A43"
-                />
-                <path
-                  id="Score_10"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M86.7729 145.952L82.9426 173.387C82.9426 173.387 64.7589 181.248 37.0193 172.609L46.891 152.657C46.891 152.657 77.1578 159.979 86.7729 145.952Z"
-                  fill="#590A43"
-                />
-                <path
-                  id="Score_11"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M82.9426 36.5929L86.7926 51.6769L81.679 64.267L71.294 83.0423L57.0984 98.8247L74.5121 83.6209L93.0513 51.6769L99.1125 39.8651L82.9426 36.5929Z"
-                  fill="#52134C"
-                />
-                <path
-                  id="Score_12"
-                  opacity="0.2"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M395.6 54.59V83.5212L766.501 67.7188L770.588 78.8323L49.2208 98.7848L20.8494 91.981C17.7497 61.5335 46.8911 44.933 46.8911 44.933C74.3148 37.3311 86.7927 51.677 86.7927 51.677L81.6593 64.247C98.6782 31.4651 134.967 10.3753 134.967 10.3753C232.223 25.619 395.581 21.3093 395.581 21.3093C395.581 21.3093 558.978 25.619 656.195 10.3753H656.313C678.228 18.3563 704.349 51.6171 704.349 51.6171H701.743L395.6 54.59Z"
-                  fill="#D9772F"
-                />
-                <path
-                  id="Score_13"
-                  style="mix-blend-mode: multiply"
-                  opacity="0.2"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M20.6323 118.119L704.448 145.953L695.899 153.455L26.2197 131.347L20.6323 118.119Z"
-                  fill="url(#Score-1-1-2_linear)"
-                />
-                <path
-                  id="Score_14"
-                  style="mix-blend-mode: multiply"
-                  opacity="0.2"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M236.132 179.014L293.842 157.305L371.178 148.327L477.358 146.232L492.916 146.751L339.213 156.527L298.996 162.613L271.157 177.677L236.132 179.014Z"
-                  fill="url(#Score-1-1-3_linear)"
-                />
-                <path
-                  id="Score_15"
-                  style="mix-blend-mode: multiply"
-                  opacity="0.2"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M386.301 175.841L416.015 166.304L445.393 158.483L548 148.566L607.803 150.542L553.647 161.316L489.54 158.143L458.602 160.498L443.913 161.655L412.402 171.472L406.992 175.841H386.301Z"
-                  fill="url(#Score-1-1-4_linear)"
-                />
-                <path
-                  id="Score_16"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M641.288 12.4903L668.89 17.1591L658.88 7.92114L641.288 12.4903Z"
-                  fill="#D37B4F"
-                />
-                <path
-                  id="Score_17"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M123.851 17.8375L148.59 12.3306L131.373 4.76865L123.851 17.8375Z"
-                  fill="#D37B4F"
-                />
-                <path
-                  id="Score_18"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M122.824 179.014L157.711 184.361L132.933 196.412L122.824 179.014Z"
-                  fill="#934A4D"
-                />
-                <path
-                  id="Score_19"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M631.278 184.122L668.396 179.014L657.399 192.382L631.278 184.122Z"
-                  fill="#934A4D"
-                />
-                <path
-                  id="Score_20"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M735.899 154.013L750.174 148.566L746.008 156.048L735.899 154.013Z"
-                  fill="#934A4D"
-                />
-                <path
-                  id="Score_21"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M40.7508 49.3026L70.6424 42.5986H43.811L40.7508 49.3026Z"
-                  fill="#D37B4F"
-                />
-                <path
-                  id="Score_22"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M74.5122 83.6209L90.7413 64.5862L99.1126 39.8651L74.5122 83.6209Z"
-                  fill="#CC654F"
-                />
-                <path
-                  id="Score_23"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M277.929 21.0698L318.838 25.9382L467.309 36.5929L341.069 22.0275L277.929 21.0698Z"
-                  fill="url(#Score-1-1-5_linear)"
-                />
-                <path
-                  id="Score_24"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M277.929 21.0698L302.036 21.429L467.309 36.5929L324.445 27.1154L277.929 21.0698Z"
-                  fill="#CC654F"
-                />
-                <path
-                  id="Score_25"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M185.885 182.745L229.143 148.566L209.439 181.129L185.885 182.745Z"
-                  fill="url(#Score-1-1-6_linear)"
-                />
-                <path
-                  id="Score_26"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M209.439 181.129L204.148 179.014L229.143 148.566L209.439 181.129Z"
-                  fill="#CC654F"
-                />
-                <path
-                  id="Score_27"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M704.428 51.6769L663.184 81.8052L696.254 42.1197L704.428 51.6769Z"
-                  fill="url(#Score-1-1-7_linear)"
-                />
-                <path
-                  id="Score_28"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M704.428 51.6769L700.42 50.6793L663.184 81.8052L704.428 51.6769Z"
-                  fill="#CC654F"
-                />
-                <path
-                  id="Score_29"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M696.254 42.1197L708.278 36.5929L700.42 50.6793L663.184 81.8052L696.254 42.1197Z"
-                  fill="#52134C"
-                />
-              </g>
-              <g id="Group_4">
-                <path
-                  id="Score_30"
-                  d="M68.4114 122.249C75.6517 122.249 81.5211 113.78 81.5211 103.334C81.5211 92.8875 75.6517 84.419 68.4114 84.419C61.1712 84.419 55.3018 92.8875 55.3018 103.334C55.3018 113.78 61.1712 122.249 68.4114 122.249Z"
-                  fill="url(#Score-1-1-8_linear)"
-                />
-                <path
-                  id="Score_31"
-                  style="mix-blend-mode: multiply"
-                  opacity="0.8"
-                  d="M68.4114 125.84C74.823 125.84 80.0206 117.372 80.0206 106.925C80.0206 96.479 74.823 88.0104 68.4114 88.0104C61.9999 88.0104 56.8022 96.479 56.8022 106.925C56.8022 117.372 61.9999 125.84 68.4114 125.84Z"
-                  fill="url(#Score-1-1-9_linear)"
-                />
-                <path
-                  id="Score_32"
-                  d="M68.4114 118.538C74.2342 118.538 78.9544 111.731 78.9544 103.334C78.9544 94.9371 74.2342 88.1302 68.4114 88.1302C62.5887 88.1302 57.8684 94.9371 57.8684 103.334C57.8684 111.731 62.5887 118.538 68.4114 118.538Z"
-                  fill="url(#Score-1-1-10_radial)"
-                />
-                <path
-                  id="Score_33"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M75.3414 93.4375C75.9337 94.8143 75.7757 96.191 74.9663 96.5701C74.1568 96.9492 72.9919 96.1112 72.4391 94.7544C71.8863 93.3976 72.0047 92.0009 72.7945 91.6218C73.5842 91.2428 74.6306 92.0808 75.3414 93.4375Z"
-                  fill="white"
-                />
-                <path
-                  id="Score_34"
-                  d="M76.8544 91.1422C77.2631 90.7293 77.0318 89.826 76.3379 89.1247C75.6439 88.4234 74.7501 88.1897 74.3415 88.6027C73.9328 89.0157 74.1641 89.9189 74.858 90.6202C75.552 91.3215 76.4458 91.5552 76.8544 91.1422Z"
-                  fill="white"
-                />
-                <g id="Score_35" style="mix-blend-mode: soft-light">
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M63.8901 108.961C64.6799 110.736 64.4627 112.552 63.4163 112.951C62.3699 113.35 60.8891 112.353 60.0994 110.577C59.3097 108.801 59.5268 106.965 60.5732 106.586C61.6196 106.207 63.1201 107.165 63.8901 108.961Z"
-                    fill="white"
-                  />
-                </g>
-              </g>
-              <g id="Group_5">
-                <path
-                  id="Score_36"
-                  d="M719.453 118.717C726.693 118.717 732.562 110.249 732.562 99.8024C732.562 89.3559 726.693 80.8874 719.453 80.8874C712.213 80.8874 706.343 89.3559 706.343 99.8024C706.343 110.249 712.213 118.717 719.453 118.717Z"
-                  fill="url(#Score-1-1-11_linear)"
-                />
-                <path
-                  id="Score_37"
-                  style="mix-blend-mode: multiply"
-                  opacity="0.8"
-                  d="M719.453 122.329C725.864 122.329 731.062 113.86 731.062 103.414C731.062 92.9673 725.864 84.4988 719.453 84.4988C713.041 84.4988 707.844 92.9673 707.844 103.414C707.844 113.86 713.041 122.329 719.453 122.329Z"
-                  fill="url(#Score-1-1-12_linear)"
-                />
-                <path
-                  id="Score_38"
-                  d="M719.453 115.006C725.276 115.006 729.996 108.199 729.996 99.8024C729.996 91.4056 725.276 84.5986 719.453 84.5986C713.63 84.5986 708.91 91.4056 708.91 99.8024C708.91 108.199 713.63 115.006 719.453 115.006Z"
-                  fill="url(#Score-1-1-13_radial)"
-                />
-                <path
-                  id="Score_39"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M726.284 89.9259C726.876 91.2827 726.718 92.6793 725.929 93.0385C725.139 93.3976 723.954 92.5796 723.382 91.2228C722.809 89.866 722.947 88.4694 723.757 88.1102C724.566 87.7511 725.692 88.5691 726.284 89.9259Z"
-                  fill="white"
-                />
-                <path
-                  id="Score_40"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M727.39 85.5962C728.081 86.2946 728.318 87.1924 727.903 87.5915C727.488 87.9905 726.6 87.791 725.929 87.0927C725.257 86.3943 725.001 85.4765 725.415 85.0974C725.83 84.7183 726.699 84.8979 727.39 85.5962Z"
-                  fill="white"
-                />
-                <g id="Score_41" style="mix-blend-mode: soft-light">
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M715.03 105.429C715.8 107.205 715.583 109.04 714.537 109.419C713.49 109.799 712.01 108.841 711.22 107.065C710.43 105.289 710.667 103.454 711.713 103.075C712.76 102.695 714.162 103.753 715.03 105.429Z"
-                    fill="white"
-                  />
-                </g>
-              </g>
-            </g>
-          </g>
-        </g>
-        <defs>
-          <linearGradient
-            id="Score-1-1-0_linear"
-            x1="395.6"
-            y1="210"
-            x2="395.6"
-            y2="0"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#651D32" />
-            <stop offset="1" stop-color="#893928" />
-          </linearGradient>
-          <linearGradient
-            id="Score-1-1-1_linear"
-            x1="395.6"
-            y1="187.234"
-            x2="395.6"
-            y2="10.3753"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#8C3832" />
-            <stop offset="1" stop-color="#AC4A31" />
-          </linearGradient>
-          <linearGradient
-            id="Score-1-1-2_linear"
-            x1="20.6323"
-            y1="135.777"
-            x2="704.448"
-            y2="135.777"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#C77CBD" />
-            <stop offset="1" stop-color="#974577" />
-          </linearGradient>
-          <linearGradient
-            id="Score-1-1-3_linear"
-            x1="30947.5"
-            y1="2817.96"
-            x2="64344.8"
-            y2="2817.96"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#C77CBD" />
-            <stop offset="1" stop-color="#974577" />
-          </linearGradient>
-          <linearGradient
-            id="Score-1-1-4_linear"
-            x1="43727.6"
-            y1="2366.03"
-            x2="68575.7"
-            y2="2366.03"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#C77CBD" />
-            <stop offset="1" stop-color="#974577" />
-          </linearGradient>
-          <linearGradient
-            id="Score-1-1-5_linear"
-            x1="26936.9"
-            y1="245.378"
-            x2="45102.2"
-            y2="245.378"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#651D32" />
-            <stop offset="1" stop-color="#893928" />
-          </linearGradient>
-          <linearGradient
-            id="Score-1-1-6_linear"
-            x1="4258.62"
-            y1="2986.42"
-            x2="5206.4"
-            y2="2986.42"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#651D32" />
-            <stop offset="1" stop-color="#893928" />
-          </linearGradient>
-          <linearGradient
-            id="Score-1-1-7_linear"
-            x1="14517.1"
-            y1="1274.75"
-            x2="15378.7"
-            y2="1274.75"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#651D32" />
-            <stop offset="1" stop-color="#893928" />
-          </linearGradient>
-          <linearGradient
-            id="Score-1-1-8_linear"
-            x1="68.4114"
-            y1="122.249"
-            x2="68.4114"
-            y2="84.419"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#7A5E89" />
-            <stop offset="1" stop-color="#C7C4D1" />
-          </linearGradient>
-          <linearGradient
-            id="Score-1-1-9_linear"
-            x1="861.318"
-            y1="2473.94"
-            x2="861.318"
-            y2="1756.69"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#C77CBD" />
-            <stop offset="1" stop-color="#974577" />
-          </linearGradient>
-          <radialGradient
-            id="Score-1-1-10_radial"
-            cx="0"
-            cy="0"
-            r="1"
-            gradientUnits="userSpaceOnUse"
-            gradientTransform="translate(68.0955 112.432) scale(12.241 12.3705)"
-          >
-            <stop stop-color="#00FFFF" />
-            <stop offset="0.97" stop-color="#00C0DB" />
-          </radialGradient>
-          <linearGradient
-            id="Score-1-1-11_linear"
-            x1="10260.7"
-            y1="2331.77"
-            x2="10260.7"
-            y2="1614.51"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#7A5E89" />
-            <stop offset="1" stop-color="#C7C4D1" />
-          </linearGradient>
-          <linearGradient
-            id="Score-1-1-12_linear"
-            x1="9168.59"
-            y1="2403.85"
-            x2="9168.59"
-            y2="1686.6"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#C77CBD" />
-            <stop offset="1" stop-color="#974577" />
-          </linearGradient>
-          <radialGradient
-            id="Score-1-1-13_radial"
-            cx="0"
-            cy="0"
-            r="1"
-            gradientUnits="userSpaceOnUse"
-            gradientTransform="translate(8389.27 1744.55) scale(130.733 188.527)"
-          >
-            <stop stop-color="#00FFFF" />
-            <stop offset="0.97" stop-color="#00C0DB" />
-          </radialGradient>
-        </defs>
-      </svg>
-      <!-- !Score Bar svg-->
     </div>
-    <span class="belirt">
-      <span class="skor1">{{ Score1 }}</span>
-      <span class="skor2">{{ Score2 }}</span>
-    </span>
-    <span id="round"
-      >Round: <strong>{{ Round }}</strong></span
+    <button style="margin-right:70px;" class="HowToPlay" @click="ShowInfo()">
+      <span>{{ IconQuestion }}</span>
+    </button>
+    <div
+      v-if="IconQuestion === 'x'"
+      class="Result"
+      style="z-index: 10;background-color:rgb(46 18 72 / 95%); transform:scale(1)"
     >
+     <p>
+        How to Play ?
+      </p>
+      <p>
+        <Characters name="Keyboard" />
+      </p>
+    </div>
   </nav>
   <!--! Nickname Screen-->
   <div v-if="Login == 0" class="NicknameScreen">
@@ -498,15 +50,64 @@
   <div v-if="Login == 1" class="ChooseScreen">
     <div class="welcome">Choose your character</div>
     <div class="CharactersFlx">
-      <span class="Characters" ><Characters tabindex="1" @click="CharacterID=1" name="Ch_A" /><!-- Component --></span>
-      <span class="Characters"><Characters tabindex="2" @click="CharacterID=2" name="Ch_B" /><!-- Component --></span>
-      <span class="Characters"><Characters tabindex="3" @click="CharacterID=5" name="Ch_E" /><!-- Component --> </span>
-      <span class="Characters"> <Characters tabindex="4" @click="CharacterID=3" name="Ch_C" /><!-- Component --></span>
-      <span class="Characters"><Characters tabindex="5" @click="CharacterID=4" name="Ch_D" /><!-- Component --> </span>
-      <span class="Characters"><Characters tabindex="6" @click="CharacterID=6" name="Ch_F" /><!-- Component --> </span>
-      <span class="Characters"><Characters tabindex="7" @click="CharacterID=7" name="Ch_G" /><!-- Component --> </span>
+      <span class="Characters"
+        ><Characters
+          tabindex="1"
+          @click="CharacterID = 1"
+          name="Ch_A"
+        /><!-- Component --></span
+      >
+      <span class="Characters"
+        ><Characters
+          tabindex="2"
+          @click="CharacterID = 2"
+          name="Ch_B"
+        /><!-- Component --></span
+      >
+      <span class="Characters"
+        ><Characters
+          tabindex="3"
+          @click="CharacterID = 5"
+          name="Ch_E"
+        /><!-- Component -->
+      </span>
+      <span class="Characters">
+        <Characters
+          tabindex="4"
+          @click="CharacterID = 3"
+          name="Ch_C"
+        /><!-- Component --></span
+      >
+      <span class="Characters"
+        ><Characters
+          tabindex="5"
+          @click="CharacterID = 4"
+          name="Ch_D"
+        /><!-- Component -->
+      </span>
+      <span class="Characters"
+        ><Characters
+          tabindex="6"
+          @click="CharacterID = 6"
+          name="Ch_F"
+        /><!-- Component -->
+      </span>
+      <span class="Characters"
+        ><Characters
+          tabindex="7"
+          @click="CharacterID = 7"
+          name="Ch_G"
+        /><!-- Component -->
+      </span>
     </div>
-    <button @keyup.enter="NextPage(3)" v-show="CharacterID > 0" id="Basla" @click="NextPage(3)">Start</button>
+    <button
+      @keyup.enter="NextPage(3)"
+      v-show="CharacterID > 0"
+      id="Basla"
+      @click="NextPage(3)"
+    >
+      Start
+    </button>
   </div>
   <!--********************************************************************** Finish Choose your warrior screen-->
   <div class="Result" :style="ResultCss">
@@ -515,10 +116,16 @@
       <button v-if="ResultWin" class="PlayNextRound" @click="ResultClose">
         Play next round
       </button>
-      <button v-else-if="ResultLose" class="PlayNextRoundLose" @click="ResultClose">
+      <button
+        v-else-if="ResultLose"
+        class="PlayNextRoundLose"
+        @click="ResultClose"
+      >
         Play next round
       </button>
-      <button v-else-if="GameOver" class="PlayAgain" @click="GameOverTrue">PlayAgain</button>
+      <button v-else-if="GameOver" class="PlayAgain" @click="GameOverTrue">
+        PlayAgain
+      </button>
     </div>
   </div>
 
@@ -563,41 +170,41 @@
           >-{{ CanavarSaldirPuan }}</strong
         >
         <!-- !Human svg-->
-       <Characters name="Ch_D" />
+        <Characters name="Ch_D" />
 
         <!-- !Human svg-->
       </span>
-        <span v-if="CharacterID == 5" class="Damage">
+      <span v-if="CharacterID == 5" class="Damage">
         <strong
           v-if="ShowDmg1"
           :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
           >-{{ CanavarSaldirPuan }}</strong
         >
         <!-- !Human svg-->
-       <Characters name="Ch_E" />
+        <Characters name="Ch_E" />
 
         <!-- !Human svg-->
       </span>
-        <span v-if="CharacterID == 6" class="Damage">
+      <span v-if="CharacterID == 6" class="Damage">
         <strong
           v-if="ShowDmg1"
           :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
           >-{{ CanavarSaldirPuan }}</strong
         >
         <!-- !Human svg-->
-       <Characters name="Ch_F" />
+        <Characters name="Ch_F" />
 
         <!-- !Human svg-->
       </span>
-    
-        <span v-if="CharacterID == 7" class="Damage">
+
+      <span v-if="CharacterID == 7" class="Damage">
         <strong
           v-if="ShowDmg1"
           :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
           >-{{ CanavarSaldirPuan }}</strong
         >
         <!-- !Human svg-->
-       <Characters name="Ch_G" />
+        <Characters name="Ch_G" />
 
         <!-- !Human svg-->
       </span>
@@ -682,7 +289,7 @@
         <div v-else class="ProgressBarM" :style="{ width: P2W + '%' }"></div>
       </div>
       <div class="reverseLog">
-        <span v-for="(log, index) in logs.slice(-4)" :key="index" class="RedCP">
+        <span v-for="(log, index) in logs.slice(-3)" :key="index" class="RedCP">
           {{ log.log }}
         </span>
       </div>
@@ -913,70 +520,7 @@
           :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
           >-{{ SaldirPuan }}</strong
         >
-        <!-- !Beast svg-->
-        <svg
-          width="90"
-          height="54"
-          viewBox="0 0 90 54"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g id="Layer 2">
-            <g id="Layer 1">
-              <path
-                id="Vector_beast"
-                d="M85.94 26.53C86.73 25.78 87.26 25.82 88.27 24.32C89.28 22.82 87.55 22.17 86.27 22.85C83.07 24.54 83.5 24.92 84.04 22.22C84.37 20.61 83.96 20.02 83.59 19.86C82.42 19.36 81.98 20.29 81.32 22.3C80.9784 23.4952 80.5055 24.6489 79.91 25.74C79.91 25.74 74.09 29.6 69.61 33.18C69.77 34.85 69.92 36.54 70.06 38.26C70.12 38.94 76.55 31.35 76.6 32C80.38 28.18 79.01 30.9 82.26 29.61C82.26 29.61 84.1 29.61 85.7 29.61C86.62 29.61 89.22 29.61 89.17 28.07C89.12 26.53 85.55 26.9 85.94 26.53Z"
-                fill="#721950"
-              />
-              <path
-                id="Vector_beast_2"
-                d="M9.21001 33.54C8.59916 32.4593 8.10632 31.3161 7.74001 30.13C7.04001 28.13 6.58001 27.21 5.42001 27.73C5.05001 27.9 4.66001 28.5 5.01001 30.1C5.60001 32.79 6.01001 32.4 2.79001 30.77C1.51001 30.12 -0.309985 30.67 0.790015 32.28C1.89001 33.89 2.36001 33.71 3.16001 34.44C3.56001 34.8 1.45368e-05 34.44 -0.0299855 36.08C-0.0599855 37.72 2.54001 37.57 3.47001 37.55C5.07001 37.55 6.90001 37.45 6.90001 37.45C10.16 39.45 15.68 45.4 19.63 48.91C19.7967 46.1833 20.05 43.5167 20.39 40.91C15.79 37.79 9.21001 33.54 9.21001 33.54Z"
-                fill="#721950"
-              />
-              <path
-                id="Vector_beast_3"
-                d="M69.08 33.58C69.08 33.22 68.99 32.85 68.94 32.48C68.82 31.54 68.69 30.62 68.55 29.7C67.43 22.09 65.78 15.46 62.68 10.41C61.3994 8.28255 59.7543 6.39712 57.82 4.84C53.93 1.75 48.66 -4.2934e-06 41.4 -4.2934e-06C35.245 -0.124852 29.1998 1.64124 24.08 5.06C21.7847 6.65926 19.7362 8.58642 18 10.78C14.7733 14.9248 12.5148 19.7391 11.39 24.87C11.06 26.3 10.8 27.77 10.61 29.26C10.3648 31.2305 10.2412 33.2143 10.24 35.2C10.24 48.72 12.4 52.08 21.91 52.52C23.1337 52.5599 24.3587 52.5365 25.58 52.45C26.58 52.39 27.58 52.32 28.67 52.23C31.59 52 35 51.75 39 51.8C43 51.85 46 52.14 48.65 52.43L51.98 52.79C53.9679 53.0623 55.9785 53.1293 57.98 52.99C69.1 52 70.67 46.71 69.08 33.58Z"
-                fill="#892B65"
-              />
-              <path
-                id="Vector_beast_4"
-                d="M36.78 25.59C36.78 29.17 33.56 32.07 29.58 32.07C25.6 32.07 22.39 29.17 22.39 25.59C22.39 22.01 25.61 19.12 29.58 19.12C33.55 19.12 36.78 22 36.78 25.59Z"
-                fill="#FFEED4"
-              />
-              <path
-                id="Vector_5"
-                d="M55.67 27C55.67 30.85 52.2 34 47.92 34C43.64 34 40.17 30.88 40.17 27C40.17 23.12 43.64 20 47.92 20C52.2 20 55.67 23.13 55.67 27Z"
-                fill="#FFEED4"
-              />
-              <path
-                id="Vector_6"
-                d="M28.12 25.59C28.1527 26.4544 27.8436 27.2969 27.2597 27.9351C26.6757 28.5733 25.8639 28.9559 25 29C24.1316 28.9611 23.3141 28.579 22.7273 27.9377C22.1404 27.2965 21.832 26.4484 21.87 25.58C21.8348 24.7132 22.1443 23.8678 22.7309 23.2287C23.3175 22.5896 24.1334 22.2089 25 22.17C25.8657 22.2141 26.6791 22.598 27.2633 23.2384C27.8475 23.8788 28.1554 24.7239 28.12 25.59V25.59Z"
-                fill="black"
-              />
-              <path
-                id="Vector_7"
-                d="M44.3 26.53C44.2554 27.034 44.0653 27.5142 43.7528 27.9121C43.4403 28.31 43.0188 28.6085 42.5397 28.7713C42.0606 28.934 41.5446 28.954 41.0543 28.8288C40.5641 28.7036 40.1208 28.4386 39.7785 28.0661C39.4361 27.6935 39.2094 27.2295 39.1259 26.7305C39.0425 26.2314 39.1059 25.7189 39.3084 25.2552C39.511 24.7915 39.8439 24.3967 40.2667 24.1189C40.6896 23.841 41.1841 23.692 41.69 23.69C42.4116 23.7238 43.0906 24.0411 43.5794 24.573C44.0682 25.1048 44.3272 25.8082 44.3 26.53V26.53Z"
-                fill="black"
-              />
-              <path
-                id="Vector_8"
-                d="M39.48 43.28C39.48 43.28 39.48 45.38 39.27 45.1C38.9067 44.5171 38.573 43.9164 38.27 43.3C37.42 45.23 37.48 45.09 37.15 44.3C36.9 43.73 36.6 43.02 36.6 43.02C36.31 43.02 35.6 45.71 35.36 45.16C35.12 44.61 34.46 42.94 34.46 42.94C33.9038 43.3576 33.452 43.8984 33.14 44.52C33.7116 45.1692 34.4693 45.6266 35.31 45.83C35.6382 45.9039 35.9736 45.9407 36.31 45.94C37.7177 46.0353 39.1068 45.5759 40.18 44.66C39.94 43.94 39.64 43.24 39.48 43.28Z"
-                fill="#F9FFD5"
-              />
-              <path
-                id="Vector_9"
-                d="M34.3 41.66C34.742 41.0411 35.1526 40.4003 35.53 39.74C35.82 39.19 37.36 39.43 37.71 39.43C37.71 39.43 36.81 41.06 37.1 40.49C37.49 39.73 37.89 39.26 38.43 41.49C39.01 40.49 39.19 39.95 39.43 39.6C39.67 39.25 40.3 41.33 40.31 41.33C40.55 41.33 41.06 39.95 41.37 38.93C41.3371 38.7446 41.2398 38.5768 41.0953 38.4561C40.9508 38.3354 40.7683 38.2695 40.58 38.27C39.5 38.27 39.11 38.99 37.3 39.16C36.2096 39.1695 35.1273 38.9727 34.11 38.58C33.7316 38.4322 33.3191 38.394 32.92 38.47C33.22 39.59 33.86 41.42 34.3 41.66Z"
-                fill="#F9FFD5"
-              />
-              <path
-                id="Vector_10"
-                d="M41.55 40.7C41.5722 40.1282 41.515 39.5561 41.38 39C41.07 40 40.56 41.45 40.32 41.4C40.32 41.4 39.64 39.4 39.44 39.67C39.24 39.94 39.01 40.59 38.44 41.56C37.9 39.3 37.5 39.77 37.11 40.56C36.82 41.13 37.72 39.5 37.72 39.5C37.37 39.5 35.83 39.26 35.54 39.81C35.1626 40.4703 34.752 41.1111 34.31 41.73C33.87 41.49 33.23 39.66 32.94 38.57H32.86C32 39.22 32 40.9 32 41.8C31.9971 42.1068 32.0341 42.4127 32.11 42.71C32.2854 43.3968 32.6291 44.0292 33.11 44.55C33.423 43.9403 33.871 43.4102 34.42 43C34.42 43 35.01 44.52 35.32 45.22C35.63 45.92 36.32 43.08 36.56 43.08C36.56 43.08 36.86 43.79 37.11 44.36C37.44 45.12 37.38 45.26 38.23 43.36C38.533 43.9764 38.8667 44.5771 39.23 45.16C39.39 45.44 39.43 43.34 39.44 43.34C39.6 43.34 39.9 44 40.13 44.75C40.637 44.212 41.0254 43.5735 41.2701 42.8758C41.5147 42.1781 41.61 41.4369 41.55 40.7Z"
-                fill="#070F1B"
-              />
-            </g>
-          </g>
-        </svg>
-        <!-- !Beast svg-->
+        <Characters name="Beast1" />
       </span>
       <div class="ProgressBarSBg">
         <span class="Usstekal"> <strong>HP : </strong>{{ P1W }} </span>
@@ -1058,7 +602,11 @@
         <div v-else class="ProgressBarS" :style="{ width: P1W + '%' }"></div>
       </div>
       <div class="reverseLog">
-        <span v-for="(log, index) in logsB.slice(-4)" :key="index" class="RedCP">
+        <span
+          v-for="(log, index) in logsB.slice(-3)"
+          :key="index"
+          class="RedCP"
+        >
           {{ log.log }}
         </span>
       </div>
@@ -1105,15 +653,10 @@
   </div>
 </template>
 
-
-
 <script>
-
 //Import components
-import Characters from '@/Characters'
+import Characters from "@/Characters";
 //Import components
-
-
 
 //Sounds Game
 var button = new Audio("./sounds/button.wav");
@@ -1124,31 +667,37 @@ var BeastAttack = new Audio("./sounds/beast-attack.wav");
 var burning = new Audio("./sounds/burning.wav");
 var slash = new Audio("./sounds/slash.mp3");
 
-button.buffered
-call_war.buffered
-gol.buffered
-wtg.buffered
-BeastAttack.buffered
-slash.buffered
-burning.buffered
+button.buffered;
+call_war.buffered;
+gol.buffered;
+wtg.buffered;
+BeastAttack.buffered;
+slash.buffered;
+burning.buffered;
 BeastAttack.volume = 0.1;
 //Sounds Game
-
 
 export default {
   name: "App",
   data() {
     return {
-      AttackBtnControl:true,
+      //To remove the Attack button from the DOM at the end of the round.
+      AttackBtnControl: true,
+      //Public Path
       publicPath: process.env.BASE_URL,
+      //Logs
       logs: [{ log: "" }],
       logsB: [{ log: "" }],
+
       CharacterID: 0,
       P1W: 100,
       P2W: 100,
       SaldirPuan: 0,
       CanavarSaldirPuan: 0,
+
       Sonuc: "",
+
+      GameOver: false,
       ResultWin: false,
       ResultLose: false,
       ResultCss: "",
@@ -1156,17 +705,19 @@ export default {
       Score1: 0,
       Score2: 0,
       Round: 1,
+
       ShowDmg1: false,
       ShowDmg2: false,
       RandomCss: "",
-      GameOver: false,
+      IconQuestion: "?",
+
       RandomTop: 0,
       RandomLeft: 0,
       CanavarSaldirOto: false,
       CanavarHPOto: false,
       CHPO_Interval: null,
       CSO_Interval: null,
-      PlayerName: "Player",
+      PlayerName: "",
       //HELL ATTACK TIMER
       timerEnabled: false,
       timerCount: 10,
@@ -1194,7 +745,7 @@ export default {
     Characters
   },
   methods: {
-    NextPage: function (page) {
+    NextPage: function(page) {
       button.play();
       if (page == 1) {
         button.play();
@@ -1204,7 +755,7 @@ export default {
         return (this.Login = 2);
       } else if (page == 3) {
         button.play();
-        call_war.currentTime = 0
+        call_war.currentTime = 0;
         call_war.play(); // Begin game
         return (this.Login = 3);
       } else if (page == 4) {
@@ -1212,31 +763,31 @@ export default {
       }
     },
 
-    AttackKeyUp: function (e) {
+    AttackKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 49 && document.getElementById("Attack")) {
         document.getElementById("Attack").click();
       }
     },
-    SlashKeyUp: function (e) {
+    SlashKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 51 && document.getElementById("SlashAttack")) {
         document.getElementById("SlashAttack").click();
       }
     },
-    HPKeyUp: function (e) {
+    HPKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 50 && document.getElementById("HP")) {
         document.getElementById("HP").click();
       }
     },
-    HellKeyUp: function (e) {
+    HellKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 52 && document.getElementById("HellAttack")) {
         document.getElementById("HellAttack").click();
       }
     },
-    Attack: function () {
+    Attack: function() {
       document.getElementById("Attack").disabled = true;
       this.timerEnabledA = true;
       this.TimerDisabledBtnA = 1;
@@ -1247,12 +798,12 @@ export default {
       this.ShowDmg = true;
       this.CanavarSaldirOto = true;
       this.CanavarHPOto = true;
-        
+
       if (this.SaldirPuan == 0) {
         this.logsB.push({ log: "Miss" });
       }
     },
-    hp: function () {
+    hp: function() {
       document.getElementById("HP").disabled = true;
       this.timerEnabledH = true;
       this.SaldirPuan = 2;
@@ -1261,7 +812,7 @@ export default {
       this.logs.push({ log: "+ 5 life points" });
       3;
     },
-    HellAttack: function () {
+    HellAttack: function() {
       document.getElementById("HellAttack").disabled = true;
       this.timerEnabled = true;
       this.SaldirPuan = Math.floor(Math.random() * 20) + 2;
@@ -1270,7 +821,7 @@ export default {
       this.logsB.push({ log: this.SaldirPuan + " damage" });
       setTimeout(() => {}, 2000);
     },
-    SlashAttack: function () {
+    SlashAttack: function() {
       this.timerEnabledS = true;
       this.TimerDisabledBtnS = 5;
       document.getElementById("SlashAttack").disabled = true;
@@ -1278,11 +829,11 @@ export default {
       this.logsB.push({ log: this.SaldirPuan + " damage" });
       this.P1W = this.P1W - this.SaldirPuan;
     },
-    RandomPosition () {
+    RandomPosition() {
       this.RandomTop = Math.floor(Math.random() * (70 - 10)) + 10;
       this.RandomLeft = Math.floor(Math.random() * (80 - 0)) + 0;
     },
-    ResultClose () {
+    ResultClose() {
       button.play();
       call_war.play();
       this.ResultWin = false;
@@ -1290,9 +841,9 @@ export default {
       this.ResultCss = "";
       document.getElementById("round").style.transform = "scale(1)";
       document.getElementById("round").style.background = "transparent";
-      this.AttackBtnControl=true;
+      this.AttackBtnControl = true;
     },
-   GameOverTrue () {
+    GameOverTrue() {
       button.play();
       this.ResultWin = false;
       this.ResultLose = false;
@@ -1301,17 +852,25 @@ export default {
       this.Score1 = 0;
       this.Score2 = 0;
       this.Round = 1;
-      this.P1W= 100;
-      this.P2W= 100;
-      this.SaldirPuan= 0;
-      this.CanavarSaldirPuan= 0;
-      this.ShowDmg1= false;
-      this.ShowDmg2= false;
+      this.P1W = 100;
+      this.P2W = 100;
+      this.SaldirPuan = 0;
+      this.CanavarSaldirPuan = 0;
+      this.ShowDmg1 = false;
+      this.ShowDmg2 = false;
       document.getElementById("round").style.transform = "scale(1)";
       document.getElementById("round").style.background = "transparent";
-      this.AttackBtnControl=true;
+      this.AttackBtnControl = true;
       this.Login = 1;
-   }
+    },
+
+    ShowInfo() {
+      if (this.IconQuestion === "?") {
+        this.IconQuestion = "x";
+      } else {
+        this.IconQuestion = "?";
+      }
+    },
   },
   mounted() {
     window.addEventListener("keyup", this.AttackKeyUp);
@@ -1319,24 +878,26 @@ export default {
     window.addEventListener("keyup", this.HPKeyUp);
     window.addEventListener("keyup", this.SlashKeyUp);
 
-
     //var dark = new Audio ('./sounds/dark.wav');
     //  dark.play();
   },
   watch: {
-    CanavarSaldirOto: function (value) {
+    CanavarSaldirOto: function(value) {
       if (value == true) {
         this.CSO_Interval = setInterval(() => {
           this.ShowDmg1 = true;
-          BeastAttack.play()
+          BeastAttack.play();
           this.RandomPosition();
           this.logs.push({ log: this.CanavarSaldirPuan + " - It hit you" });
-          this.CanavarSaldirPuan = Math.floor(Math.random() * 12) + 0;
+          this.CanavarSaldirPuan = Math.floor(Math.random() * 11) + 0;
           if (this.P2W > 0) {
             this.P2W = this.P2W - this.CanavarSaldirPuan;
-            document.getElementById("Sword_2").style.animationPlayState = "running";
-            document.getElementById("Sword_2_10").style.animationPlayState = "running";
-            document.getElementById("hearth_4").style.animationPlayState = "running";
+            document.getElementById("Sword_2").style.animationPlayState =
+              "running";
+            document.getElementById("Sword_2_10").style.animationPlayState =
+              "running";
+            document.getElementById("hearth_4").style.animationPlayState =
+              "running";
           }
           if (this.CanavarSaldirPuan === 0) {
             this.logs.push({ log: "Miss" });
@@ -1345,14 +906,15 @@ export default {
       } else {
         clearInterval(this.CSO_Interval);
         document.getElementById("Sword_2").style.animationPlayState = "paused";
-        document.getElementById("Sword_2_10").style.animationPlayState = "paused";
+        document.getElementById("Sword_2_10").style.animationPlayState =
+          "paused";
         document.getElementById("hearth_4").style.animationPlayState = "paused";
         this.ShowDmg2 = false;
         this.ShowDmg1 = false;
         this.CanavarSaldirOto = false;
       }
     },
-    CanavarHPOto: function (value) {
+    CanavarHPOto: function(value) {
       if (value == true && this.P1W <= 100) {
         this.CHPO_Interval = setInterval(() => {
           this.ShowDmg1 = true;
@@ -1360,29 +922,33 @@ export default {
           this.logsB.push({
             log: "+ " + this.CanavarSaldirPuan + " life points",
           });
-          this.CanavarSaldirPuan = Math.floor(Math.random() * 5) + 1;
+          this.CanavarSaldirPuan = Math.floor(Math.random() * 4) + 1;
           if (this.P1W > 0) {
             this.P1W = this.P1W + this.CanavarSaldirPuan;
-            document.getElementById("Sword_2").style.animationPlayState ="running";
-            document.getElementById("Sword_2_10").style.animationPlayState = "running";
+            document.getElementById("Sword_2").style.animationPlayState =
+              "running";
+            document.getElementById("Sword_2_10").style.animationPlayState =
+              "running";
           }
         }, 2000);
       } else {
         clearInterval(this.CHPO_Interval);
         document.getElementById("Sword_2").style.animationPlayState = "paused";
-        document.getElementById("Sword_2_10").style.animationPlayState ="paused";
+        document.getElementById("Sword_2_10").style.animationPlayState =
+          "paused";
         this.CanavarHPOto = false;
       }
     },
 
     //* Player main
-    P2W: function (value) {
+    P2W: function(value) {
       if (value <= 0) {
         this.P2W = 0;
-        this.AttackBtnControl=false;
+        this.AttackBtnControl = false;
         gol.play();
         this.timerEnabledA = false;
-        this.ResultCss = "z-index: 10;background-color: #f44336; transform:scale(1)";
+        this.ResultCss =
+          "z-index: 12;background-color: #f44336; transform:scale(1)";
         this.Sonuc = this.Round + ".Round - You Lost";
         this.ResultLose = true;
         document.getElementById("round").style.transform = "scale(15)";
@@ -1401,22 +967,21 @@ export default {
         this.Round++;
         this.Score2++;
         console.log("Kaybettin");
-      }
-      else if (value >= 100){
-          this.P2W=100;
+      } else if (value >= 100) {
+        this.P2W = 100;
       }
     },
 
     //! Beast
-    P1W: function (value) {
+    P1W: function(value) {
       if (value <= 0) {
-        this.P1W=0;
-        this.AttackBtnControl=false;
+        this.P1W = 0;
+        this.AttackBtnControl = false;
         wtg.play();
         this.timerEnabledA = false;
         this.ResultWin = true;
         this.ResultCss =
-          "z-index: 10;background-color: #4caf50; transform:scale(1)";
+          "z-index: 12;background-color: #4caf50; transform:scale(1)";
         this.Sonuc = this.Round + ".Round - You Win";
         document.getElementById("round").style.transform = "scale(15)";
         document.getElementById("round").style.background = "black";
@@ -1434,13 +999,11 @@ export default {
         this.Round++;
         this.Score1++;
         console.log("Kazandın");
-      }
-       else if (value >= 100){
-          this.P1W=100;
+      } else if (value >= 100) {
+        this.P1W = 100;
       }
     },
 
- 
     // !HellTiming
     timerEnabled(value) {
       if (value) {
@@ -1470,7 +1033,7 @@ export default {
     },
     // !HellTiming
     // !SlashTiming
-    timerEnabledS: function (value) {
+    timerEnabledS: function(value) {
       if (value) {
         slash.play();
         setTimeout(() => {
@@ -1498,7 +1061,7 @@ export default {
     // !SlashTiming
     // !HP Timing
 
-    timerEnabledH: function (value) {
+    timerEnabledH: function(value) {
       if (value) {
         var hpup = new Audio("./sounds/hp.wav");
         hpup.play();
@@ -1527,7 +1090,7 @@ export default {
     },
     // !HP Timing
     // !Attack Timing Start
-    timerEnabledA: function (value) {
+    timerEnabledA: function(value) {
       if (value) {
         var attack_default = new Audio("./sounds/attack.wav");
         attack_default.play();
@@ -1547,40 +1110,38 @@ export default {
           this.timerCountA = 1;
           this.timerEnabledA = false;
           this.TimerDisabledBtnA = 0;
-           if (this.AttackBtnControl==true) {
+          if (this.AttackBtnControl == true) {
             document.getElementById("Attack").disabled = false;
           }
-
         }
       },
     },
-       // *GAME OVER BEGIN* //
-    Score1: function (say) {
+    // *GAME OVER BEGIN* //
+    Score1: function(say) {
       console.log("Oyuncu Skoru: " + this.Score1);
       if (say == 3) {
         console.log("Oyunu Kazandın. Skorun: " + this.Score1);
         wtg.play();
-        this.ResultWin=false;
-        this.GameOver=true;
+        this.ResultWin = false;
+        this.GameOver = true;
         this.ResultCss =
-          "z-index: 10;background-color: #4caf50; transform:scale(1)";
+          "z-index: 12;background-color: #4caf50; transform:scale(1)";
         this.Sonuc = "✌️❤️ You defeated the monster ❤️✌️";
-      } 
+      }
     },
-    Score2: function (say) {
+    Score2: function(say) {
       console.log("Canavar Skoru: " + this.Score2);
       if (say == 3) {
         console.log("Oyunu Kaybettin. Skorun: " + this.Score2);
         gol.play();
-        this.ResultLose=false;
-        this.GameOver=true;
+        this.ResultLose = false;
+        this.GameOver = true;
         this.ResultCss =
-          "z-index: 10;background-color: #FF2E2E; transform:scale(1)";
+          "z-index: 12;background-color: #FF2E2E; transform:scale(1)";
         this.Sonuc = " 🖕👹 The monster slapped you 👹🖕 ";
-      }      
-    }  // *GAME OVER END* //
+      }
+    }, // *GAME OVER END* //
   },
 };
 </script>
-<style>
-</style>
+<style></style>
