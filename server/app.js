@@ -29,13 +29,7 @@ io.on("connection", socket => {
         const index = users.indexOf(socket.id);
         users.splice(index, 1);
         io.emit('users', users);
-      });
-
-  // // console.log(socket.id);
-    // users.push(socket.id)
-    // console.log("Kullanıcılar: ",users.slice(-1));
-    // //Socket id sini clienta gönder
-    // socket.emit("USER_CONNECTED", `${users.slice(-1)}`)
+      })
 
 });
 });
