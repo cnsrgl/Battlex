@@ -1441,6 +1441,15 @@ fill:#18ab29
   font-weight: 600;
   }
 
+  .ConnectionStat {
+    position:absolute;
+    left:0;
+    top:0;
+    width: auto;
+    height: auto;
+    padding: 10px;
+  }
+
   @keyframes info {
     0% {
       background-color: #39274a;

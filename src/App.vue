@@ -31,6 +31,7 @@
     </div>
   </nav>
   <!--! Nickname Screen-->
+ 
   <div v-if="Login == 0" class="NicknameScreen">
     <div class="welcome">Welcome <br />{{ PlayerName }}</div>
     <input
@@ -48,6 +49,17 @@
 
   <!--********************************************************************** Begin Choose your warrior screen-->
   <div v-if="Login == 1" class="ChooseScreen">
+<!--  List Connected People -->   
+      <div class="ConnectionStat">
+      <h3>Online Players</h3>
+      <p v-for="(user,index) in users" :key="user.id">
+        {{index + 1}}. {{user.name}}
+      </p>
+      </div>
+<!--  List Connected People -->
+
+
+
     <div class="welcome">Choose your character</div>
     <div class="CharactersFlx">
       <span class="Characters"
@@ -683,6 +695,7 @@ export default {
   data() {
     return {
       socket: {},
+      users:[],
       //To remove the Attack button from the DOM at the end of the round.
       AttackBtnControl: true,
       //Public Path
@@ -748,14 +761,19 @@ export default {
   },
 
   methods: {
-WELCOME_MESSAGE(data) {
-console.log(data);
+USER_CONNECTED(data) {
+this.users.push(data)
+console.log("Eklendi",this.users);
 },
+
 
     NextPage: function(page) {
       button.play();
       if (page == 1) {
         button.play();
+        //socket
+        this.socket.emit('new_user',this.PlayerName)
+        //socket
         return (this.Login = 1);
       } else if (page == 2) {
         button.play();
@@ -881,7 +899,17 @@ console.log(data);
   },
   mounted() {
     this.socket=io("http://localhost:3333")
-    this.socket.on ("WELCOME_MESSAGE", this.WELCOME_MESSAGE)
+    //SERVERDAN USER_CONNECTED ile socket.id alınıyor
+    this.socket.on ("USER_CONNECTED", this.USER_CONNECTED)
+
+    this.socket.on ("users", (data) => {
+      this.users = data
+      console.log(data);
+    })
+
+
+
+    // Keyboard Event
     window.addEventListener("keyup", this.AttackKeyUp);
     window.addEventListener("keyup", this.HellKeyUp);
     window.addEventListener("keyup", this.HPKeyUp);
@@ -897,10 +925,10 @@ console.log(data);
           this.ShowDmg1 = true;
           BeastAttack.play();
           this.RandomPosition();
-          this.logs.push({ log: this.CanavarSaldirPuan + " - It hit you" });
           this.CanavarSaldirPuan = Math.floor(Math.random() * 11) + 0;
           if (this.P2W > 0) {
             this.P2W = this.P2W - this.CanavarSaldirPuan;
+            this.logs.push({ log: this.CanavarSaldirPuan + " - It hit you" });
             document.getElementById("Sword_2").style.animationPlayState =
               "running";
             document.getElementById("Sword_2_10").style.animationPlayState =
