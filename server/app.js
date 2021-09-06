@@ -16,7 +16,6 @@ const io = Socketio(server, {
 
 server.listen(PORT, () => {
 io.on("connection", socket => {
-
     socket.on('new_user', (name) => {
         users.push({
           id: socket.id,
@@ -24,12 +23,10 @@ io.on("connection", socket => {
         });
         io.emit('users', users);
       });
-    
       socket.on('disconnect', () => {
         const index = users.indexOf(socket.id);
         users.splice(index, 1);
         io.emit('users', users);
       })
-
-});
-});
+    });
+  });

@@ -33,7 +33,8 @@
   <!--! Nickname Screen-->
  
   <div v-if="Login == 0" class="NicknameScreen">
-    <div class="welcome">Welcome <br />{{ PlayerName }}</div>
+        <img class="main-logo" src="/img/logo.svg" alt="" />
+    <div class="welcome">Welcome</div>
     <input
       id="textbox"
       v-model="PlayerName"
@@ -109,6 +110,27 @@
           tabindex="7"
           @click="CharacterID = 7"
           name="Ch_G"
+        /><!-- Component -->
+      </span>
+      <span class="Characters"
+        ><Characters
+          tabindex="8"
+          @click="CharacterID = 8"
+          name="Ch_H"
+        /><!-- Component -->
+      </span>
+      <span class="Characters"
+        ><Characters
+          tabindex="9"
+          @click="CharacterID = 9"
+          name="Ch_I"
+        /><!-- Component -->
+      </span>
+      <span class="Characters"
+        ><Characters
+          tabindex="10"
+          @click="CharacterID = 10"
+          name="Ch_J"
         /><!-- Component -->
       </span>
     </div>
@@ -217,6 +239,39 @@
         >
         <!-- !Human svg-->
         <Characters name="Ch_G" />
+
+        <!-- !Human svg-->
+      </span>
+      <span v-if="CharacterID == 8" class="Damage">
+        <strong
+          v-if="ShowDmg1"
+          :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
+          >-{{ CanavarSaldirPuan }}</strong
+        >
+        <!-- !Human svg-->
+        <Characters name="Ch_H" />
+
+        <!-- !Human svg-->
+      </span>
+      <span v-if="CharacterID == 9" class="Damage">
+        <strong
+          v-if="ShowDmg1"
+          :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
+          >-{{ CanavarSaldirPuan }}</strong
+        >
+        <!-- !Human svg-->
+        <Characters name="Ch_I" />
+
+        <!-- !Human svg-->
+      </span>
+      <span v-if="CharacterID == 10" class="Damage">
+        <strong
+          v-if="ShowDmg1"
+          :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
+          >-{{ CanavarSaldirPuan }}</strong
+        >
+        <!-- !Human svg-->
+        <Characters name="Ch_J" />
 
         <!-- !Human svg-->
       </span>
