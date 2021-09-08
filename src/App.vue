@@ -14,26 +14,28 @@
         >Round: <strong>{{ Round }}</strong></span
       >
     </div>
-    <button style="margin-right:70px;" class="HowToPlay" @click="ShowInfo()">
+    <button style="margin-right: 70px" class="HowToPlay" @click="ShowInfo()">
       <span>{{ IconQuestion }}</span>
     </button>
     <div
       v-if="IconQuestion === 'x'"
       class="Result"
-      style="z-index: 10;background-color:rgb(46 18 72 / 95%); transform:scale(1)"
+      style="
+        z-index: 10;
+        background-color: rgb(46 18 72 / 95%);
+        transform: scale(1);
+      "
     >
-     <p>
-        How to Play ?
-      </p>
+      <p>How to Play ?</p>
       <p>
         <Characters name="Keyboard" />
       </p>
     </div>
   </nav>
   <!--! Nickname Screen-->
- 
+
   <div v-if="Login == 0" class="NicknameScreen">
-        <img class="main-logo" src="/img/logo.svg" alt="" />
+    <img class="main-logo" src="/img/logo.svg" alt="" />
     <div class="welcome">Welcome</div>
     <input
       id="textbox"
@@ -50,16 +52,37 @@
 
   <!--********************************************************************** Begin Choose your warrior screen-->
   <div v-if="Login == 1" class="ChooseScreen">
-<!--  List Connected People -->   
-      <div class="ConnectionStat">
+    <!--  List Connected People -->
+    <div id="leftbar">
+      <button id="chat" @click="ShowLeftBar()"><Characters name="chat" /></button>
+      <form @submit.prevent="sendMessage">
+        <div class="MessagesPlayers">
+          <ul>
+            <li v-for="(message, index) in messages" :key="index">
+              <div style="background:#330667;" v-if="message.sender==PlayerName">
+              {{ message.message }}
+              </div>
+              <div v-else>
+              <strong style="color:#b996f7">{{ message.sender}}:&nbsp;  </strong> {{ message.message }}
+              </div>
+            </li>
+          </ul>
+        </div>
+          <input
+            autofocus
+            type="text"
+            v-model="message"
+            placeholder="Message"
+          />
+      </form>
+    </div>
+    <div class="ConnectionStat">
       <h3>Online Players</h3>
-      <p v-for="(user,index) in users" :key="user.id">
-        {{index + 1}}. {{user.name}}
+      <p v-for="(user, index) in users" :key="user.id">
+        {{ index + 1 }}. {{ user.name }}
       </p>
-      </div>
-<!--  List Connected People -->
-
-
+    </div>
+    <!--  List Connected People -->
 
     <div class="welcome">Choose your character</div>
     <div class="CharactersFlx">
@@ -722,7 +745,7 @@
 
 <script>
 //Import components
-import io from "socket.io-client"
+import io from "socket.io-client";
 import Characters from "@/Characters";
 //Import components
 
@@ -750,7 +773,10 @@ export default {
   data() {
     return {
       socket: {},
-      users:[],
+      users: [],
+      message: null,
+      messages: [],
+      leftbar:false,
       //To remove the Attack button from the DOM at the end of the round.
       AttackBtnControl: true,
       //Public Path
@@ -812,22 +838,46 @@ export default {
     };
   },
   components: {
-    Characters
+    Characters,
   },
 
   methods: {
-USER_CONNECTED(data) {
-this.users.push(data)
-console.log("Eklendi",this.users);
+ShowLeftBar() {
+  if (this.leftbar==true) {
+      this.leftbar=false;
+      document.getElementById("leftbar").style.transform = "translateX(-300px)";
+  }
+  else if (this.leftbar==false) {
+      this.leftbar=true;
+      document.getElementById("leftbar").style.transform = "translateX(0px)";
+  }
+
 },
 
+    sendMessage() {
+      var info = {
+        sender: this.PlayerName,
+        message: this.message,
+      };
+      this.socket.emit("sendmessageclient", info);
+      // Return Messages on server
+      this.socket.on("messagesserver", (messages) => {
+        this.messages = messages;
+        console.log(this.messages);
+      });
+      this.message = ""
+    },
+    USER_CONNECTED(data) {
+      this.users.push(data);
+      console.log("Eklendi", this.users);
+    },
 
-    NextPage: function(page) {
+    NextPage: function (page) {
       button.play();
       if (page == 1) {
         button.play();
         //socket
-        this.socket.emit('new_user',this.PlayerName)
+        this.socket.emit("new_user", this.PlayerName);
         //socket
         return (this.Login = 1);
       } else if (page == 2) {
@@ -843,31 +893,31 @@ console.log("Eklendi",this.users);
       }
     },
 
-    AttackKeyUp: function(e) {
+    AttackKeyUp: function (e) {
       var keyCode = e.keyCode;
       if (keyCode == 49 && document.getElementById("Attack")) {
         document.getElementById("Attack").click();
       }
     },
-    SlashKeyUp: function(e) {
+    SlashKeyUp: function (e) {
       var keyCode = e.keyCode;
       if (keyCode == 51 && document.getElementById("SlashAttack")) {
         document.getElementById("SlashAttack").click();
       }
     },
-    HPKeyUp: function(e) {
+    HPKeyUp: function (e) {
       var keyCode = e.keyCode;
       if (keyCode == 50 && document.getElementById("HP")) {
         document.getElementById("HP").click();
       }
     },
-    HellKeyUp: function(e) {
+    HellKeyUp: function (e) {
       var keyCode = e.keyCode;
       if (keyCode == 52 && document.getElementById("HellAttack")) {
         document.getElementById("HellAttack").click();
       }
     },
-    Attack: function() {
+    Attack: function () {
       document.getElementById("Attack").disabled = true;
       this.timerEnabledA = true;
       this.TimerDisabledBtnA = 1;
@@ -883,7 +933,7 @@ console.log("Eklendi",this.users);
         this.logsB.push({ log: "Miss" });
       }
     },
-    hp: function() {
+    hp: function () {
       document.getElementById("HP").disabled = true;
       this.timerEnabledH = true;
       this.SaldirPuan = 2;
@@ -892,7 +942,7 @@ console.log("Eklendi",this.users);
       this.logs.push({ log: "+ 5 life points" });
       3;
     },
-    HellAttack: function() {
+    HellAttack: function () {
       document.getElementById("HellAttack").disabled = true;
       this.timerEnabled = true;
       this.SaldirPuan = Math.floor(Math.random() * 20) + 2;
@@ -901,7 +951,7 @@ console.log("Eklendi",this.users);
       this.logsB.push({ log: this.SaldirPuan + " damage" });
       setTimeout(() => {}, 2000);
     },
-    SlashAttack: function() {
+    SlashAttack: function () {
       this.timerEnabledS = true;
       this.TimerDisabledBtnS = 5;
       document.getElementById("SlashAttack").disabled = true;
@@ -953,17 +1003,19 @@ console.log("Eklendi",this.users);
     },
   },
   mounted() {
-    this.socket=io("http://localhost:3333")
+    this.socket = io("http://178.193.216.170:3333/");
     //SERVERDAN USER_CONNECTED ile socket.id alınıyor
-    this.socket.on ("USER_CONNECTED", this.USER_CONNECTED)
+    this.socket.on("USER_CONNECTED", this.USER_CONNECTED);
 
-    this.socket.on ("users", (data) => {
-      this.users = data
+    this.socket.on("users", (data) => {
+      this.users = data;
       console.log(data);
-    })
-
-
-
+    });
+      // Return Messages on server
+      this.socket.on("messagesserver", (messages) => {
+        this.messages = messages;
+        console.log(this.messages);
+      });
     // Keyboard Event
     window.addEventListener("keyup", this.AttackKeyUp);
     window.addEventListener("keyup", this.HellKeyUp);
@@ -974,7 +1026,7 @@ console.log("Eklendi",this.users);
     //  dark.play();
   },
   watch: {
-    CanavarSaldirOto: function(value) {
+    CanavarSaldirOto: function (value) {
       if (value == true) {
         this.CSO_Interval = setInterval(() => {
           this.ShowDmg1 = true;
@@ -1006,7 +1058,7 @@ console.log("Eklendi",this.users);
         this.CanavarSaldirOto = false;
       }
     },
-    CanavarHPOto: function(value) {
+    CanavarHPOto: function (value) {
       if (value == true && this.P1W <= 100) {
         this.CHPO_Interval = setInterval(() => {
           this.ShowDmg1 = true;
@@ -1033,7 +1085,7 @@ console.log("Eklendi",this.users);
     },
 
     //* Player main
-    P2W: function(value) {
+    P2W: function (value) {
       if (value <= 0) {
         this.P2W = 0;
         this.AttackBtnControl = false;
@@ -1065,7 +1117,7 @@ console.log("Eklendi",this.users);
     },
 
     //! Beast
-    P1W: function(value) {
+    P1W: function (value) {
       if (value <= 0) {
         this.P1W = 0;
         this.AttackBtnControl = false;
@@ -1125,7 +1177,7 @@ console.log("Eklendi",this.users);
     },
     // !HellTiming
     // !SlashTiming
-    timerEnabledS: function(value) {
+    timerEnabledS: function (value) {
       if (value) {
         slash.play();
         setTimeout(() => {
@@ -1153,7 +1205,7 @@ console.log("Eklendi",this.users);
     // !SlashTiming
     // !HP Timing
 
-    timerEnabledH: function(value) {
+    timerEnabledH: function (value) {
       if (value) {
         var hpup = new Audio("./sounds/hp.wav");
         hpup.play();
@@ -1182,7 +1234,7 @@ console.log("Eklendi",this.users);
     },
     // !HP Timing
     // !Attack Timing Start
-    timerEnabledA: function(value) {
+    timerEnabledA: function (value) {
       if (value) {
         var attack_default = new Audio("./sounds/attack.wav");
         attack_default.play();
@@ -1209,7 +1261,7 @@ console.log("Eklendi",this.users);
       },
     },
     // *GAME OVER BEGIN* //
-    Score1: function(say) {
+    Score1: function (say) {
       console.log("Oyuncu Skoru: " + this.Score1);
       if (say == 3) {
         console.log("Oyunu Kazandın. Skorun: " + this.Score1);
@@ -1221,7 +1273,7 @@ console.log("Eklendi",this.users);
         this.Sonuc = "✌️❤️ You defeated the monster ❤️✌️";
       }
     },
-    Score2: function(say) {
+    Score2: function (say) {
       console.log("Canavar Skoru: " + this.Score2);
       if (say == 3) {
         console.log("Oyunu Kaybettin. Skorun: " + this.Score2);
