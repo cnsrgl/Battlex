@@ -27,7 +27,7 @@ io.on("connection", socket => {
       socket.on('sendmessageclient',(info) => {
           messages.push(info)
           console.log(info);
-          io.emit("messagesserver",messages.slice(-10))
+          io.emit("messagesserver",messages.slice(-20))
       })
       io.emit("messagesserver",messages)
 
