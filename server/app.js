@@ -11,8 +11,10 @@ const io = Socketio(server, {
     },
 });
 
-let users = []
-let messages = []
+const users = []
+const messages = []
+// const connections = [null, null];
+
 
 server.listen(PORT, () => {
 io.on("connection", socket => {
@@ -22,8 +24,23 @@ io.on("connection", socket => {
           name
         });
         io.emit('users', users);
-        console.log(process.env.PORT);
       });
+
+//       //ONLINE
+//       let playerIndex = -1;
+//       for (const i in connections) {
+//         if (connections[i] === null) {
+//           playerIndex = i;
+//         }
+//       }
+//       socket.emit('player-number', playerIndex);
+//       console.log(`Player: ${playerIndex}  Conn ID: ${socket.id} has connected`);
+//       if (playerIndex == -1) return;
+//       connections[playerIndex] = socket;
+//  // Tell everyone else what player number just connected
+//       socket.broadcast.emit('player-connect', playerIndex);
+
+      //CHAT
       socket.on('sendmessageclient',(info) => {
           messages.push(info)
           console.log(info);
