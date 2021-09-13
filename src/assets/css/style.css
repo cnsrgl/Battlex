@@ -1657,6 +1657,16 @@ color:white;
   touch-action: auto;
 }
 
+.FormFlex{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
 @keyframes info {
   0% {
     background-color: #39274a;

@@ -13,14 +13,6 @@ const wtg = new Audio("./sounds/winthisgame.ogg");
 const BeastAttack = new Audio("./sounds/beast-attack.wav");
 const burning = new Audio("./sounds/burning.wav");
 const slash = new Audio("./sounds/slash.mp3");
-
-button.buffered;
-call_war.buffered;
-gol.buffered;
-wtg.buffered;
-BeastAttack.buffered;
-slash.buffered;
-burning.buffered;
 BeastAttack.volume = 0.1;
 //Sounds Game
 
@@ -600,7 +592,7 @@ export default {
   <div v-if="Login == 0" class="NicknameScreen">
     <img class="main-logo" src="/img/logo.svg" alt="" />
     <div class="welcome">Welcome</div>
-    <form @submit.prevent="NextPage(1)">
+    <form class="FormFlex" @submit.prevent="NextPage(1)">
     <input 
       id="textbox"
       v-model="PlayerName"
