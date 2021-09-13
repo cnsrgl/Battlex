@@ -1,336 +1,6 @@
-<template>
-  <div class="stars">
-    <div v-for="index in 10" :key="index" class="star"></div>
-  </div>
-  <nav v-if="Login == 3" class="nav">
-    <img class="logo" src="/img/logo.svg" alt="" />
-    <div class="score">
-      <Othersvg name="ScoreBar" />
-      <span class="belirt">
-        <span class="skor1">{{ Score1 }}</span>
-        <span class="skor2">{{ Score2 }}</span>
-      </span>
-      <span id="round"
-        >Round: <strong>{{ Round }}</strong></span
-      >
-    </div>
-    <button style="margin-right: 70px" class="HowToPlay" @click="ShowInfo()">
-      <span>{{ IconQuestion }}</span>
-    </button>
-    <div
-      v-if="IconQuestion === 'x'"
-      class="Result"
-      style="
-        z-index: 10;
-        background-color: rgb(46 18 72 / 95%);
-        transform: scale(1);
-      "
-    >
-      <p>How to Play ?</p>
-      <p>
-        <Othersvg name="Keyboard" />
-      </p>
-    </div>
-  </nav>
-  <!--! Nickname Screen-->
-
-  <div v-if="Login == 0" class="NicknameScreen">
-    <img class="main-logo" src="/img/logo.svg" alt="" />
-    <div class="welcome">Welcome</div>
-    <input
-      id="textbox"
-      v-model="PlayerName"
-      class="textbox"
-      type="text"
-      placeholder="Write Nickname"
-    />
-    <button v-show="PlayerName !== ''" id="Basla" @click="NextPage(1)">
-      Next
-    </button>
-  </div>
-  <!--! Nickname Screen-->
-
-  <!--********************************************************************** Begin Choose your warrior screen-->
-  <div v-if="Login == 1" class="ChooseScreen">
-    <!--  List Connected People -->
-    <div id="leftbar">
-      <div id="ChatHead">#General</div>
-      <button id="chat" @click="ShowLeftBar()">
-        <Othersvg name="chat" />
-      </button>
-      <form @submit.prevent="sendMessage">
-        <div class="MessagesPlayers">
-          <ul>
-            <li v-for="(message, index) in messages" :key="index">
-              <div
-                style="background: rgb(38 18 62)"
-                v-if="message.sender == PlayerName"
-              >
-                {{ message.message }}
-              </div>
-              <div v-else>
-                <strong style="color: #b996f7"
-                  >{{ message.sender }}:&nbsp;
-                </strong>
-                {{ message.message }}
-              </div>
-            </li>
-          </ul>
-        </div>
-        <input autofocus type="text" v-model="message" placeholder="Message" />
-      </form>
-    </div>
-    <div class="ConnectionStat">
-      <h3>Online Players</h3>
-      <p v-for="(user, index) in users" :key="user.id">
-        {{ index + 1 }}. {{ user.name }}
-      </p>
-    </div>
-    <!--  List Connected People -->
-
-    <div class="welcome">Choose your character</div>
-    <div class="CharactersFlx">
-      <span class="Characters"
-        ><Characters
-          tabindex="1"
-          @click="CharacterID = 1"
-          name="Ch_A"
-        /><!-- Component --></span
-      >
-      <span class="Characters"
-        ><Characters
-          tabindex="2"
-          @click="CharacterID = 2"
-          name="Ch_B"
-        /><!-- Component --></span
-      >
-      <span class="Characters"
-        ><Characters
-          tabindex="3"
-          @click="CharacterID = 5"
-          name="Ch_E"
-        /><!-- Component -->
-      </span>
-      <span class="Characters">
-        <Characters
-          tabindex="4"
-          @click="CharacterID = 3"
-          name="Ch_C"
-        /><!-- Component --></span
-      >
-      <span class="Characters"
-        ><Characters
-          tabindex="5"
-          @click="CharacterID = 4"
-          name="Ch_D"
-        /><!-- Component -->
-      </span>
-      <span class="Characters"
-        ><Characters
-          tabindex="6"
-          @click="CharacterID = 6"
-          name="Ch_F"
-        /><!-- Component -->
-      </span>
-      <span class="Characters"
-        ><Characters
-          tabindex="7"
-          @click="CharacterID = 7"
-          name="Ch_G"
-        /><!-- Component -->
-      </span>
-      <span class="Characters"
-        ><Characters
-          tabindex="8"
-          @click="CharacterID = 8"
-          name="Ch_H"
-        /><!-- Component -->
-      </span>
-      <span class="Characters"
-        ><Characters
-          tabindex="9"
-          @click="CharacterID = 9"
-          name="Ch_I"
-        /><!-- Component -->
-      </span>
-      <span class="Characters"
-        ><Characters
-          tabindex="10"
-          @click="CharacterID = 10"
-          name="Ch_J"
-        /><!-- Component -->
-      </span>
-    </div>
-    <button
-      @keyup.enter="NextPage(3)"
-      v-show="CharacterID > 0"
-      id="Basla"
-      @click="NextPage(3)"
-    >
-      Start
-    </button>
-  </div>
-  <!--********************************************************************** Finish Choose your warrior screen-->
-  <div class="Result" :style="ResultCss">
-    <div class="win">
-      <p>{{ Sonuc }}</p>
-      <button v-if="ResultWin" class="PlayNextRound" @click="ResultClose">
-        Play next round
-      </button>
-      <button
-        v-else-if="ResultLose"
-        class="PlayNextRoundLose"
-        @click="ResultClose"
-      >
-        Play next round
-      </button>
-      <button v-else-if="GameOver" class="PlayAgain" @click="GameOverTrue">
-        PlayAgain
-      </button>
-    </div>
-  </div>
-
-  <div v-if="Login == 3" class="players">
-    <div class="MainPlayer">
-      <p>{{ PlayerName }}</p>
-      <span v-if="CharacterID == 1" class="Damage">
-        <!-- For the damage image on the character. Will be looked at later due to performance loss. -->
-        <!-- <strong
-          v-if="ShowDmg1"
-          :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
-          >-{{ CanavarSaldirPuan }}</strong
-        > -->
-        <Characters name="Ch_A" />
-      </span>
-      <span v-if="CharacterID == 2" class="Damage">
-        <Characters name="Ch_B" />
-      </span>
-      <span v-if="CharacterID == 3" class="Damage">
-        <Characters name="Ch_C" />
-      </span>
-      <span v-if="CharacterID == 4" class="Damage">
-        <Characters name="Ch_D" />
-      </span>
-      <span v-if="CharacterID == 5" class="Damage">
-        <Characters name="Ch_E" />
-      </span>
-      <span v-if="CharacterID == 6" class="Damage">
-        <Characters name="Ch_F" />
-      </span>
-      <span v-if="CharacterID == 7" class="Damage">
-        <Characters name="Ch_G" />
-      </span>
-      <span v-if="CharacterID == 8" class="Damage">
-        <Characters name="Ch_H" />
-      </span>
-      <span v-if="CharacterID == 9" class="Damage">
-        <Characters name="Ch_I" />
-      </span>
-      <span v-if="CharacterID == 10" class="Damage">
-        <Characters name="Ch_J" />
-      </span>
-
-      <div class="ProgressBarSBg">
-        <span class="Usstekal"><strong>HP : </strong>{{ P2W }} </span>
-        <div v-if="P2W > 0" class="ProgressBarM" :style="{ width: P2W + '%' }">
-          <!-- !HP svg-->
-          <Othersvg name="HealthSvg" />
-        </div>
-        <div v-else class="ProgressBarM" :style="{ width: P2W + '%' }"></div>
-      </div>
-      <div class="reverseLog">
-        <span v-for="(log, index) in logs.slice(-3)" :key="index" class="RedCP">
-          {{ log.log }}
-        </span>
-      </div>
-    </div>
-    <div class="sword">
-      <!-- !sword svg-->
-    <Othersvg name="Swords" />
-    </div>
-    <div class="SecondePlayer">
-      <p>Beast</p>
-      <div v-if="timerEnabled" id="flame">
-        <div class="fire-wrapper">
-          <div
-            v-for="FireElement in 15"
-            :key="FireElement"
-            class="fire-element"
-          ></div>
-        </div>
-      </div>
-      <span class="DamageBeast">
-        <!-- <strong
-          v-show="ShowDmg2"
-          :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
-          >-{{ SaldirPuan }}</strong
-        > -->
-        <Othersvg name="Beast1" />
-      </span>
-      <div class="ProgressBarSBg">
-        <span class="Usstekal"> <strong>HP : </strong>{{ P1W }} </span>
-        <div v-if="P1W > 0" class="ProgressBarS" :style="{ width: P1W + '%' }">
-          <!-- Hearth svg -->
-          <Othersvg name="HealthSvg" />
-        </div>
-        <div v-else class="ProgressBarS" :style="{ width: P1W + '%' }"></div>
-      </div>
-      <div class="reverseLog">
-        <span
-          v-for="(log, index) in logsB.slice(-3)"
-          :key="index"
-          class="RedCP"
-        >
-          {{ log.log }}
-        </span>
-      </div>
-    </div>
-  </div>
-  <div v-if="Login == 3" class="buttons">
-    <!-- Saldırı Butonu -->
-    <div class="bgpower">
-      <button v-if="AttackBtnControl" id="Attack" @click="Attack">
-        Attack
-        <span v-if="TimerDisabledBtnA" class="ButtonTime">
-          {{ TimerDisabledBtnA }}
-        </span>
-      </button>
-    </div>
-    <div class="bgpower">
-      <button v-if="CanavarSaldirOto" id="HP" @click="hp">
-        <span v-if="TimerDisabledBtnH" class="ButtonTime">
-          {{ TimerDisabledBtnH }}
-        </span>
-      </button>
-    </div>
-    <div class="bgpower">
-      <button v-if="CanavarSaldirOto" id="SlashAttack" @click="SlashAttack">
-        Slash
-        <span v-if="TimerDisabledBtnS" class="ButtonTime">
-          {{ TimerDisabledBtnS }}
-        </span>
-      </button>
-    </div>
-    <div class="bgpower">
-      <button v-if="CanavarSaldirOto" id="HellAttack" @click="HellAttack">
-        Hell
-        <span v-if="TimerDisabledBtn" class="ButtonTime">
-          {{ TimerDisabledBtn }}
-        </span>
-      </button>
-    </div>
-    <div class="bgpower">
-      <!-- Resetleme Butonu -->
-      <button class="Restart">Restart</button>
-      <!-- Resetleme Butonu -->
-    </div>
-  </div>
-</template>
-
 <script>
 //Import components and path..
 import io from "socket.io-client";
-// import gsap from "GSAP"
 import Characters from "@/Characters.vue";
 import Othersvg from "./Other-svg.vue";
 //Import components
@@ -358,6 +28,7 @@ export default {
   name: "App",
   data() {
     return {
+      SOPlayers:"",
       socket: {},
       users: [],
       message: null,
@@ -428,7 +99,25 @@ export default {
     Othersvg,
   },
 
+   computed: {
+     OSPlayersFilter(){
+         return this.users.filter(user =>  
+         user.name.toLowerCase().includes(this.SOPlayers.toLowerCase())
+      )
+    }
+},
+
   methods: {
+  ConnectionFriend(){
+    var roomId = Math.floor(Math.random() * 999999999) + 1;
+    if (!this.socket.socket) 
+    {
+      this.socket.connect();
+    }
+    this.Socket.on('connection', function() {
+        this.Socket.emit('room', roomId);
+    });
+  },
     ShowLeftBar() {
       if (this.leftbar == true) {
         this.leftbar = false;
@@ -439,8 +128,8 @@ export default {
         document.getElementById("leftbar").style.transform = "translateX(0px)";
       }
     },
-
     sendMessage() {
+      if (this.message != "") {
       var info = {
         sender: this.PlayerName,
         message: this.message,
@@ -449,18 +138,18 @@ export default {
       // Return Messages on server
       this.socket.on("messagesserver", (messages) => {
         this.messages = messages;
-        console.log(this.messages);
       });
       this.message = "";
-    },
-    USER_CONNECTED(data) {
-      this.users.push(data);
-      console.log("Eklendi", this.users);
-    },
-
+      setTimeout(() => {
+      var MsgBox  = document.getElementById("MessagesPlayers")
+      MsgBox.scrollTop = MsgBox.scrollHeight
+      }, 1);
+     
+      }
+},
     NextPage: function (page) {
       button.play();
-      if (page == 1) {
+      if (page == 1 && this.PlayerName != "" && this.PlayerName != (" ")) {
         button.play();
         //socket
         this.socket.emit("new_user", this.PlayerName);
@@ -591,16 +280,13 @@ export default {
   mounted() {
     this.socket = io("http://178.193.216.170:3333/");
     //SERVERDAN USER_CONNECTED ile socket.id alınıyor
-    this.socket.on("USER_CONNECTED", this.USER_CONNECTED);
-
     this.socket.on("users", (data) => {
       this.users = data;
-      console.log(data);
     });
     // Return Messages on server
     this.socket.on("messagesserver", (messages) => {
       this.messages = messages;
-      console.log(this.messages);
+      // console.log(this.messages);
     });
     // Keyboard Event
     window.addEventListener("keyup", this.AttackKeyUp);
@@ -874,4 +560,344 @@ export default {
   },
 };
 </script>
-<style></style>
+
+<template>
+  <div class="stars">
+    <div v-for="index in 10" :key="index" class="star"></div>
+  </div>
+  <nav v-if="Login == 3" class="nav">
+    <img class="logo" src="/img/logo.svg" alt="" />
+    <div class="score">
+      <Othersvg name="ScoreBar" />
+      <span class="belirt">
+        <span class="skor1">{{ Score1 }}</span>
+        <span class="skor2">{{ Score2 }}</span>
+      </span>
+      <span id="round"
+        >Round: <strong>{{ Round }}</strong></span
+      >
+    </div>
+    <button style="margin-right: 70px" class="HowToPlay" @click="ShowInfo()">
+      <span>{{ IconQuestion }}</span>
+    </button>
+    <div
+      v-if="IconQuestion === 'x'"
+      class="Result"
+      style="
+        z-index: 10;
+        background-color: rgb(46 18 72 / 95%);
+        transform: scale(1);
+      "
+    >
+      <p>How to Play ?</p>
+      <p>
+        <Othersvg name="Keyboard" />
+      </p>
+    </div>
+  </nav>
+  <!--! Nickname Screen-->
+
+  <div v-if="Login == 0" class="NicknameScreen">
+    <img class="main-logo" src="/img/logo.svg" alt="" />
+    <div class="welcome">Welcome</div>
+    <form @submit.prevent="NextPage(1)">
+    <input 
+      id="textbox"
+      v-model="PlayerName"
+      maxlength="12"
+      class="textbox"
+      type="text"
+      placeholder="Write Nickname"
+    />
+    <button v-if="PlayerName !== ''" id="Basla">
+      Next
+    </button>
+    </form>
+  </div>
+  <!--! Nickname Screen-->
+
+  <div v-if="Login == 1 || Login == 3" id="leftbar">
+    <div id="ChatHead">#General</div>
+    <button id="chat" @click="ShowLeftBar()">
+      <Othersvg name="chat" />
+    </button>
+    <form @submit.prevent="sendMessage">
+      <div id="MessagesPlayers">
+        <ul>
+          <li v-for="(message, index) in messages" :key="index">
+            <div
+              style="background: rgb(38 18 62)"
+              v-if="message.sender == PlayerName"
+            >
+              {{ message.message }}
+            </div>
+            <div v-else>
+              <strong style="color: #b996f7"
+                >{{ message.sender }}:&nbsp;
+              </strong>
+              {{ message.message }}
+            </div>
+          </li>
+        </ul>
+      </div>
+      <input
+        autofocus
+        maxlength="100"
+        type="text"
+        v-model="message"
+        placeholder="Message"
+      />
+    </form>
+  </div>
+
+  <!--********************************************************************** Begin Choose your warrior screen-->
+  <div v-if="Login == 1" class="ChooseScreen">
+    <!--  List Connected People -->
+    <div class="ConnectionStat">
+      Online Players
+      <input class="SOPlayers" type="text" v-model="SOPlayers" />
+      <p v-for="user in OSPlayersFilter" :key="user.id">
+        <button class="OnlineUsers" @click="ConnectionFriend()">
+        {{ user.name }}
+        </button>
+      </p>
+    </div>
+    <!--  List Connected People -->
+    <div class="welcome">Choose your character</div>
+    <div class="CharactersFlx">
+      <span class="Characters"
+        ><Characters
+          tabindex="1"
+          @click="CharacterID = 1"
+          name="Ch_A"
+        /><!-- Component --></span
+      >
+      <span class="Characters"
+        ><Characters
+          tabindex="2"
+          @click="CharacterID = 2"
+          name="Ch_B"
+        /><!-- Component --></span
+      >
+      <span class="Characters"
+        ><Characters
+          tabindex="3"
+          @click="CharacterID = 5"
+          name="Ch_E"
+        /><!-- Component -->
+      </span>
+      <span class="Characters">
+        <Characters
+          tabindex="4"
+          @click="CharacterID = 3"
+          name="Ch_C"
+        /><!-- Component --></span
+      >
+      <span class="Characters"
+        ><Characters
+          tabindex="5"
+          @click="CharacterID = 4"
+          name="Ch_D"
+        /><!-- Component -->
+      </span>
+      <span class="Characters"
+        ><Characters
+          tabindex="6"
+          @click="CharacterID = 6"
+          name="Ch_F"
+        /><!-- Component -->
+      </span>
+      <span class="Characters"
+        ><Characters
+          tabindex="7"
+          @click="CharacterID = 7"
+          name="Ch_G"
+        /><!-- Component -->
+      </span>
+      <span class="Characters"
+        ><Characters
+          tabindex="8"
+          @click="CharacterID = 8"
+          name="Ch_H"
+        /><!-- Component -->
+      </span>
+      <span class="Characters"
+        ><Characters
+          tabindex="9"
+          @click="CharacterID = 9"
+          name="Ch_I"
+        /><!-- Component -->
+      </span>
+      <span class="Characters"
+        ><Characters
+          tabindex="10"
+          @click="CharacterID = 10"
+          name="Ch_J"
+        /><!-- Component -->
+      </span>
+    </div>
+    <button
+      @keyup.enter="NextPage(3)"
+      v-show="CharacterID > 0"
+      id="Basla"
+      @click="NextPage(3)"
+    >
+      Start
+    </button>
+  </div>
+  <!--********************************************************************** Finish Choose your warrior screen-->
+  <div class="Result" :style="ResultCss">
+    <div class="win">
+      <p>{{ Sonuc }}</p>
+      <button v-if="ResultWin" class="PlayNextRound" @click="ResultClose">
+        Play next round
+      </button>
+      <button
+        v-else-if="ResultLose"
+        class="PlayNextRoundLose"
+        @click="ResultClose"
+      >
+        Play next round
+      </button>
+      <button v-else-if="GameOver" class="PlayAgain" @click="GameOverTrue">
+        PlayAgain
+      </button>
+    </div>
+  </div>
+
+  <div v-if="Login == 3" class="players">
+    <div class="MainPlayer">
+      <p>{{ PlayerName }}</p>
+      <span v-if="CharacterID == 1" class="Damage">
+        <!-- For the damage image on the character. Will be looked at later due to performance loss. -->
+        <!-- <strong
+          v-if="ShowDmg1"
+          :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
+          >-{{ CanavarSaldirPuan }}</strong
+        > -->
+        <Characters name="Ch_A" />
+      </span>
+      <span v-if="CharacterID == 2" class="Damage">
+        <Characters name="Ch_B" />
+      </span>
+      <span v-if="CharacterID == 3" class="Damage">
+        <Characters name="Ch_C" />
+      </span>
+      <span v-if="CharacterID == 4" class="Damage">
+        <Characters name="Ch_D" />
+      </span>
+      <span v-if="CharacterID == 5" class="Damage">
+        <Characters name="Ch_E" />
+      </span>
+      <span v-if="CharacterID == 6" class="Damage">
+        <Characters name="Ch_F" />
+      </span>
+      <span v-if="CharacterID == 7" class="Damage">
+        <Characters name="Ch_G" />
+      </span>
+      <span v-if="CharacterID == 8" class="Damage">
+        <Characters name="Ch_H" />
+      </span>
+      <span v-if="CharacterID == 9" class="Damage">
+        <Characters name="Ch_I" />
+      </span>
+      <span v-if="CharacterID == 10" class="Damage">
+        <Characters name="Ch_J" />
+      </span>
+
+      <div class="ProgressBarSBg">
+        <span class="Usstekal"><strong>HP : </strong>{{ P2W }} </span>
+        <div v-if="P2W > 0" class="ProgressBarM" :style="{ width: P2W + '%' }">
+          <!-- !HP svg-->
+          <Othersvg name="HealthSvg" />
+        </div>
+        <div v-else class="ProgressBarM" :style="{ width: P2W + '%' }"></div>
+      </div>
+      <div class="reverseLog">
+        <span v-for="(log, index) in logs.slice(-3)" :key="index" class="RedCP">
+          {{ log.log }}
+        </span>
+      </div>
+    </div>
+    <div class="sword">
+      <!-- !sword svg-->
+      <Othersvg name="Swords" />
+    </div>
+    <div class="SecondePlayer">
+      <p>Beast</p>
+      <div v-if="timerEnabled" id="flame">
+        <div class="fire-wrapper">
+          <div
+            v-for="FireElement in 15"
+            :key="FireElement"
+            class="fire-element"
+          ></div>
+        </div>
+      </div>
+      <span class="DamageBeast">
+        <!-- <strong
+          v-show="ShowDmg2"
+          :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
+          >-{{ SaldirPuan }}</strong
+        > -->
+        <Othersvg name="Beast1" />
+      </span>
+      <div class="ProgressBarSBg">
+        <span class="Usstekal"> <strong>HP : </strong>{{ P1W }} </span>
+        <div v-if="P1W > 0" class="ProgressBarS" :style="{ width: P1W + '%' }">
+          <!-- Hearth svg -->
+          <Othersvg name="HealthSvg" />
+        </div>
+        <div v-else class="ProgressBarS" :style="{ width: P1W + '%' }"></div>
+      </div>
+      <div class="reverseLog">
+        <span
+          v-for="(log, index) in logsB.slice(-3)"
+          :key="index"
+          class="RedCP"
+        >
+          {{ log.log }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div v-if="Login == 3" class="buttons">
+    <!-- Saldırı Butonu -->
+    <div class="bgpower">
+      <button v-if="AttackBtnControl" id="Attack" @click="Attack">
+        Attack
+        <span v-if="TimerDisabledBtnA" class="ButtonTime">
+          {{ TimerDisabledBtnA }}
+        </span>
+      </button>
+    </div>
+    <div class="bgpower">
+      <button v-if="CanavarSaldirOto" id="HP" @click="hp">
+        <span v-if="TimerDisabledBtnH" class="ButtonTime">
+          {{ TimerDisabledBtnH }}
+        </span>
+      </button>
+    </div>
+    <div class="bgpower">
+      <button v-if="CanavarSaldirOto" id="SlashAttack" @click="SlashAttack">
+        Slash
+        <span v-if="TimerDisabledBtnS" class="ButtonTime">
+          {{ TimerDisabledBtnS }}
+        </span>
+      </button>
+    </div>
+    <div class="bgpower">
+      <button v-if="CanavarSaldirOto" id="HellAttack" @click="HellAttack">
+        Hell
+        <span v-if="TimerDisabledBtn" class="ButtonTime">
+          {{ TimerDisabledBtn }}
+        </span>
+      </button>
+    </div>
+    <div class="bgpower">
+      <!-- Resetleme Butonu -->
+      <button class="Restart">Restart</button>
+      <!-- Resetleme Butonu -->
+    </div>
+  </div>
+</template>
