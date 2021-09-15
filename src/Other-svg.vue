@@ -1281,7 +1281,83 @@
   <!-- Swords Swords Swords Swords Swords Swords Swords Swords Swords-->
 </template>
 <script>
+import gsap from "gsap";
 export default {
   props: ["name"],
+
+  mounted() {
+    gsap.config({
+      nullTargetWarn: false,
+    });
+    //The monster arm stood apart. I set the default location with this code.
+    gsap.set("#Vector_beast", { x: -10 });
+    var Beast = gsap.timeline({ repeat: -1 });
+    Beast.to("#Vector_beast_3,#Vector_beast,#Vector_beast_2", {
+      skewY: "1deg",
+      skewX: "1deg",
+      transformOrigin: "bottom",
+      duration: 0.1,
+    });
+    Beast.to("#Vector_beast_3,#Vector_beast,#Vector_beast_2", {
+      skewY: "7deg",
+      skewX: "4deg",
+      transformOrigin: "bottom",
+      duration: 0.3,
+    });
+    Beast.to("#Vector_beast_3,#Vector_beast,#Vector_beast_2", {
+      skewY: "1deg",
+      skewX: "1deg",
+      transformOrigin: "bottom",
+      duration: 0.1,
+    });
+    var BeastEyes = gsap.timeline({ repeat: -1 });
+    BeastEyes.to("#Vector_7,#Vector_6", {
+      x: "0",
+      transformOrigin: "bottom",
+      duration: 1,
+    });
+    BeastEyes.to("#Vector_7,#Vector_6", {
+      x: "5",
+      transformOrigin: "bottom",
+      duration: 0.3,
+    });
+    BeastEyes.to("#Vector_7,#Vector_6", {
+      x: "0",
+      transformOrigin: "bottom",
+      duration: 0.3,
+    });
+    var BeastEyesColor = gsap.timeline({ repeat: -1 });
+    BeastEyesColor.to("#Vector_beast_4,#Vector_5", {
+      scaleY: 1,
+      transformOrigin: "center",
+      duration: 0.5,
+    });
+    BeastEyesColor.to("#Vector_beast_4,#Vector_5", {
+      scaleY: 0.8,
+      transformOrigin: "center",
+      duration: 0.5,
+    });
+    BeastEyesColor.to("#Vector_beast_4,#Vector_5", {
+      scaleY: 1,
+      transformOrigin: "center",
+      duration: 0.5,
+    });
+    var BeastEyesTeeth = gsap.timeline({ repeat: -1 });
+    BeastEyesTeeth.to("#Vector_8", {
+      y: 0,
+      transformOrigin: "bottom",
+      duration: 0.5,
+    });
+    BeastEyesTeeth.to("#Vector_8", {
+      y: 2,
+      transformOrigin: "bottom",
+      duration: 0.5,
+    });
+    BeastEyesTeeth.to("#Vector_8", {
+      y: 0,
+      transformOrigin: "bottom",
+      duration: 0.5,
+    });
+  },
 };
 </script>
