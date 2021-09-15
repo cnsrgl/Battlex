@@ -1,4 +1,4 @@
-# beastx
+# BattleX
 
 ## Project setup
 ```

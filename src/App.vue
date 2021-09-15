@@ -3,6 +3,7 @@
 import io from "socket.io-client";
 import Characters from "@/Characters.vue";
 import Othersvg from "./Other-svg.vue";
+import gsap from "gsap";
 //Import components
 
 //Sounds Game
@@ -13,14 +14,6 @@ const wtg = new Audio("./sounds/winthisgame.ogg");
 const BeastAttack = new Audio("./sounds/beast-attack.wav");
 const burning = new Audio("./sounds/burning.wav");
 const slash = new Audio("./sounds/slash.mp3");
-
-button.buffered;
-call_war.buffered;
-gol.buffered;
-wtg.buffered;
-BeastAttack.buffered;
-slash.buffered;
-burning.buffered;
 BeastAttack.volume = 0.1;
 //Sounds Game
 
@@ -28,7 +21,7 @@ export default {
   name: "App",
   data() {
     return {
-      SOPlayers:"",
+      SOPlayers: "",
       socket: {},
       users: [],
       message: null,
@@ -59,8 +52,6 @@ export default {
       Score2: 0,
       Round: 1,
 
-      // ShowDmg1: false,
-      // ShowDmg2: false,
       RandomCss: "",
       IconQuestion: "?",
 
@@ -99,57 +90,54 @@ export default {
     Othersvg,
   },
 
-   computed: {
-     OSPlayersFilter(){
-         return this.users.filter(user =>  
-         user.name.toLowerCase().includes(this.SOPlayers.toLowerCase())
-      )
-    }
-},
+  computed: {
+    OSPlayersFilter() {
+      return this.users.filter((user) =>
+        user.name.toLowerCase().includes(this.SOPlayers.toLowerCase())
+      );
+    },
+  },
 
   methods: {
-  ConnectionFriend(){
-    var roomId = Math.floor(Math.random() * 999999999) + 1;
-    if (!this.socket.socket) 
-    {
-      this.socket.connect();
-    }
-    this.Socket.on('connection', function() {
-        this.Socket.emit('room', roomId);
-    });
-  },
+    ConnectionFriend() {
+      var roomId = Math.floor(Math.random() * 999999999) + 1;
+      if (!this.socket.socket) {
+        this.socket.connect();
+      }
+      this.Socket.on("connection", function () {
+        this.Socket.emit("room", roomId);
+      });
+    },
     ShowLeftBar() {
       if (this.leftbar == true) {
         this.leftbar = false;
-        document.getElementById("leftbar").style.transform =
-          "translateX(-305px)";
+        gsap.to("#leftbar", { duration: 0.1, x: "-305", y: 0, ease: "power2" });
       } else if (this.leftbar == false) {
         this.leftbar = true;
-        document.getElementById("leftbar").style.transform = "translateX(0px)";
+        gsap.to("#leftbar", { duration: 0.1, x: "0", y: 0, ease: "power2" });
       }
     },
     sendMessage() {
       if (this.message != "") {
-      var info = {
-        sender: this.PlayerName,
-        message: this.message,
-      };
-      this.socket.emit("sendmessageclient", info);
-      // Return Messages on server
-      this.socket.on("messagesserver", (messages) => {
-        this.messages = messages;
-      });
-      this.message = "";
-      setTimeout(() => {
-      var MsgBox  = document.getElementById("MessagesPlayers")
-      MsgBox.scrollTop = MsgBox.scrollHeight
-      }, 1);
-     
+        var info = {
+          sender: this.PlayerName,
+          message: this.message,
+        };
+        this.socket.emit("sendmessageclient", info);
+        // Return Messages on server
+        this.socket.on("messagesserver", (messages) => {
+          this.messages = messages;
+        });
+        this.message = "";
+        setTimeout(() => {
+          var MsgBox = document.getElementById("MessagesPlayers");
+          MsgBox.scrollTop = MsgBox.scrollHeight;
+        }, 1);
       }
-},
+    },
     NextPage: function (page) {
       button.play();
-      if (page == 1 && this.PlayerName != "" && this.PlayerName != (" ")) {
+      if (page == 1 && this.PlayerName != "" && this.PlayerName != " ") {
         button.play();
         //socket
         this.socket.emit("new_user", this.PlayerName);
@@ -199,8 +187,6 @@ export default {
       this.SaldirPuan = Math.floor(Math.random() * 5) + 0;
       this.P1W = this.P1W - this.SaldirPuan;
       this.logsB.push({ log: this.SaldirPuan + " damage" });
-      // this.ShowDmg2 = true;
-      // this.ShowDmg = true;
       this.CanavarSaldirOto = true;
       this.CanavarHPOto = true;
 
@@ -234,10 +220,6 @@ export default {
       this.logsB.push({ log: this.SaldirPuan + " damage" });
       this.P1W = this.P1W - this.SaldirPuan;
     },
-    // RandomPosition() {
-    //   this.RandomTop = Math.floor(Math.random() * (70 - 10)) + 10;
-    //   this.RandomLeft = Math.floor(Math.random() * (80 - 0)) + 0;
-    // },
     ResultClose() {
       button.play();
       call_war.play();
@@ -261,8 +243,6 @@ export default {
       this.P2W = 100;
       this.SaldirPuan = 0;
       this.CanavarSaldirPuan = 0;
-      // this.ShowDmg1 = false;
-      // this.ShowDmg2 = false;
       document.getElementById("round").style.transform = "scale(1)";
       document.getElementById("round").style.background = "transparent";
       this.AttackBtnControl = true;
@@ -278,15 +258,16 @@ export default {
     },
   },
   mounted() {
+    gsap.config({
+      nullTargetWarn: false,
+    });
     this.socket = io("http://178.193.216.170:3333/");
-    //SERVERDAN USER_CONNECTED ile socket.id alınıyor
     this.socket.on("users", (data) => {
       this.users = data;
     });
     // Return Messages on server
     this.socket.on("messagesserver", (messages) => {
       this.messages = messages;
-      // console.log(this.messages);
     });
     // Keyboard Event
     window.addEventListener("keyup", this.AttackKeyUp);
@@ -294,8 +275,11 @@ export default {
     window.addEventListener("keyup", this.HPKeyUp);
     window.addEventListener("keyup", this.SlashKeyUp);
 
-    //var dark = new Audio ('./sounds/dark.wav');
-    //  dark.play();
+    // Animations
+    gsap.from(".main-logo", {
+      duration: 0.5,
+      scale: 5,
+    });
   },
   watch: {
     CanavarSaldirOto: function (value) {
@@ -325,16 +309,12 @@ export default {
         document.getElementById("Sword_2_10").style.animationPlayState =
           "paused";
         document.getElementById("hearth_4").style.animationPlayState = "paused";
-        // this.ShowDmg2 = false;
-        // this.ShowDmg1 = false;
         this.CanavarSaldirOto = false;
       }
     },
     CanavarHPOto: function (value) {
       if (value == true && this.P1W <= 100) {
         this.CHPO_Interval = setInterval(() => {
-          // this.ShowDmg1 = true;
-          // this.RandomPosition();
           this.logsB.push({
             log: "+ " + this.CanavarSaldirPuan + " life points",
           });
@@ -600,18 +580,16 @@ export default {
   <div v-if="Login == 0" class="NicknameScreen">
     <img class="main-logo" src="/img/logo.svg" alt="" />
     <div class="welcome">Welcome</div>
-    <form @submit.prevent="NextPage(1)">
-    <input 
-      id="textbox"
-      v-model="PlayerName"
-      maxlength="12"
-      class="textbox"
-      type="text"
-      placeholder="Write Nickname"
-    />
-    <button v-if="PlayerName !== ''" id="Basla">
-      Next
-    </button>
+    <form class="FormFlex" @submit.prevent="NextPage(1)">
+      <input
+        id="textbox"
+        v-model="PlayerName"
+        maxlength="12"
+        class="textbox"
+        type="text"
+        placeholder="Write Nickname"
+      />
+      <button v-if="PlayerName !== ''" id="Basla">Next</button>
     </form>
   </div>
   <!--! Nickname Screen-->
@@ -658,7 +636,7 @@ export default {
       <input class="SOPlayers" type="text" v-model="SOPlayers" />
       <p v-for="user in OSPlayersFilter" :key="user.id">
         <button class="OnlineUsers" @click="ConnectionFriend()">
-        {{ user.name }}
+          {{ user.name }}
         </button>
       </p>
     </div>
@@ -769,12 +747,6 @@ export default {
     <div class="MainPlayer">
       <p>{{ PlayerName }}</p>
       <span v-if="CharacterID == 1" class="Damage">
-        <!-- For the damage image on the character. Will be looked at later due to performance loss. -->
-        <!-- <strong
-          v-if="ShowDmg1"
-          :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
-          >-{{ CanavarSaldirPuan }}</strong
-        > -->
         <Characters name="Ch_A" />
       </span>
       <span v-if="CharacterID == 2" class="Damage">
@@ -835,11 +807,6 @@ export default {
         </div>
       </div>
       <span class="DamageBeast">
-        <!-- <strong
-          v-show="ShowDmg2"
-          :style="{ top: RandomTop + 'px', left: RandomLeft + 'px' }"
-          >-{{ SaldirPuan }}</strong
-        > -->
         <Othersvg name="Beast1" />
       </span>
       <div class="ProgressBarSBg">

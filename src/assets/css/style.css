@@ -673,95 +673,6 @@ svg {
     fill: #ff0000;
   }
 }
-#Vector_9 {
-  animation: BeastTeeth linear 0.4s 4;
-  transform-box: fill-box;
-  transform-origin: top;
-  transform: scale3d(1.5, 1.5, 2.5);
-  animation-play-state: running;
-  animation-iteration-count: 4, 4;
-}
-@keyframes BeastTeeth {
-  0% {
-    transform: scale3d(1.5, 1.5, 2.5);
-  }
-  40% {
-    transform: scale3d(1.5, 2.5, 2.5);
-  }
-  100% {
-    transform: scale3d(1.5, 1.5, 2.5);
-  }
-}
-
-#Vector_beast_3 {
-  animation: BeastBody ease-in-out 0.9s infinite;
-  transform-origin: bottom;
-  transform-box: fill-box;
-  transform: skew(1deg, 1deg);
-}
-@keyframes BeastBody {
-  10% {
-    transform: skew(1deg, 1deg);
-  }
-  40% {
-    transform: skew(5deg, 5deg);
-  }
-  100% {
-    transform: skew(1deg, 1deg);
-  }
-}
-#Vector_beast_2 {
-  animation: BeasthandLeft linear 0.5s infinite;
-  transform-origin: bottom;
-  transform-box: fill-box;
-}
-@keyframes BeasthandLeft {
-  10% {
-    transform: translate(-1px, 0%);
-  }
-  40% {
-    transform: translate(4px, 0%);
-  }
-  100% {
-    transform: translate(-1px, 0%);
-  }
-}
-#Vector_beast {
-  animation: BeasthandRight linear 0.5s infinite;
-  transform-origin: bottom;
-  transform-box: fill-box;
-  transform: translate(-15px, 0%);
-}
-@keyframes BeasthandRight {
-  10% {
-    transform: translate(-15px, 0%);
-  }
-  40% {
-    transform: translate(-10px, 0%);
-  }
-  100% {
-    transform: translate(-15px, 0%);
-  }
-}
-
-#Vector_7,
-#Vector_6 {
-  animation: Beastgozler linear 2s infinite;
-  transform-origin: bottom;
-  transform-box: fill-box;
-}
-
-@keyframes Beastgozler {
-  10% {
-    transform: translate(0px, 0%);
-  }
-  40% {
-    transform: translate(10px, 2%);
-  }
-  100% {
-    transform: translate(0px, 0%);
-  }
-}
 #Sword_2_10 {
   animation: sword2 linear 0.3s infinite;
   transform-origin: center;
@@ -799,89 +710,6 @@ svg {
   }
 }
 
-#GroupGirl2_17,
-#GroupGirl2_19 {
-  animation: EyesGirls ease-in-out 3s infinite;
-  transform-origin: bottom;
-  transform-box: fill-box;
-  animation-delay: 2s;
-}
-
-@keyframes EyesGirls {
-  0% {
-    transform: rotateX(0deg);
-    animation-timing-function: steps(1, end);
-  }
-  50% {
-    transform: rotateX(80deg);
-  }
-  100% {
-    transform: rotateX(0deg);
-  }
-}
-
-#Girl-3V_83,
-#Girl-3V_82,
-#Girl-3V_84,
-#Girl-3V_81,
-#Girl-3V_87,
-#Girl-3V_88,
-#Girl-3V_89,
-#Girl-3V_79,
-#Girl-3V_80,
-#Girl-3V_85,
-#Girl-3V_86 {
-  animation: GirlCrown ease 1s infinite;
-  transform-origin: center;
-  transform-box: fill-box;
-}
-
-@keyframes GirlCrown {
-  from {
-    fill: white;
-  }
-  to {
-    fill: red;
-  }
-}
-
-#Man-4_7,
-#Man-4_8 {
-  animation: ManEars 0.5s infinite;
-  transform-origin: center;
-  transform-box: fill-box;
-}
-
-@keyframes ManEars {
-  0% {
-    transform: translate3d(0px, 0px, 0px);
-  }
-
-  50% {
-    transform: translate3d(0px, -10px, 0px);
-  }
-  100% {
-    transform: translate3d(0px, 0px, 0px);
-  }
-}
-
-#Group_15,
-#Group_17 {
-  animation: EyesBoys ease-in-out 0.5s infinite;
-  transform-origin: bottom;
-  transform-box: fill-box;
-  animation-delay: 2s;
-}
-
-@keyframes EyesBoys {
-  from {
-    transform: rotateX(0deg);
-  }
-  to {
-    transform: rotateX(80deg);
-  }
-}
-
 @keyframes beastani {
   0% {
     left: 0px;
@@ -910,7 +738,7 @@ svg {
     top: 0px;
   }
 }
-
+/* 
 #Man6_20 {
   animation: Man6Glass ease 0.5s infinite;
   transform-origin: center;
@@ -927,7 +755,7 @@ svg {
   100% {
     transform: translateY(0px);
   }
-}
+} */
 
 .Damage {
   text-align: center;
@@ -1645,18 +1473,24 @@ color:white;
   user-select: inherit;
   touch-action: inherit;
 }
-
 .YourMessage {
   display: flex;
   width: 50px;
 }
-
 .SOPlayers{
   pointer-events: all;
   color:black;
   touch-action: auto;
 }
-
+.FormFlex{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
 @keyframes info {
   0% {
     background-color: #39274a;
