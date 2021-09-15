@@ -34,9 +34,8 @@ svg {
   justify-content: space-between;
 }
 .logo {
-  width: 100px;
-  margin-left: 30px;
-  z-index: 99;
+  width: 70px;
+  z-index: 20;
 }
 .main-logo {
   width: 200px;
@@ -73,14 +72,14 @@ svg {
 }
 .nav {
   display: flex;
-  width: 100%;
+  width: 90%;
   flex-direction: row;
   text-align: center;
   align-items: flex-start;
   padding: 1em 0em 0em 0em;
   border-radius: 0em 0em 0em 6em;
   height: auto;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-content: center;
   justify-content: space-between;
 }
@@ -548,14 +547,25 @@ svg {
   border: none;
   background: #3d1e63;
   padding: 5px;
+  margin:2px;
   border-radius: 4px;
   touch-action: auto;
   pointer-events: all;
   cursor: pointer;
 }
 
+.HeaderButtons{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
 .Result {
   top: 0;
+  left:0;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -1250,7 +1260,7 @@ svg {
   border-color: white;
 }
 
-.HowToPlay {
+.HowToPlay,.OnlinePlayersBtn {
   width: 50px;
   display: flex;
   z-index: 11;
@@ -1263,6 +1273,7 @@ svg {
   pointer-events: all;
   cursor: pointer;
   text-align: center;
+  margin-left:10px;
   padding: 0px;
   transition: all 0.2s ease-out;
   flex-wrap: nowrap;
@@ -1273,16 +1284,22 @@ svg {
   animation: info 0.3s;
   animation-iteration-count: 10;
 }
-.HowToPlay:hover {
+
+.OnlinePlayersBtn{
+  background-color: #44c76763;
+}
+.HowToPlay:hover,.OnlinePlayersBtn:hover {
   background-color: rgba(153, 45, 255, 0.5);
 }
-.HowToPlay span {
+.HowToPlay, .OnlinePlayersBtn span {
   font-size: 27pt;
   color: white;
   padding: 0px;
   text-transform: capitalize;
   font-weight: 600;
 }
+
+
 
 .ConnectionStat {
   position: absolute;
@@ -1291,6 +1308,34 @@ svg {
   width: auto;
   height: auto;
   padding: 10px;
+}
+
+.ResultOnlinePlayers{
+  display: flex;
+  justify-items: center;
+  position: fixed;
+  right: 0;
+  top: 10vh;
+  height: 80vh;
+  margin: 0px;
+  background: linear-gradient(to top, #1b2465, #300944);
+  z-index: 31;
+  border: 2px solid rgb(93 31 117 / 50%);
+  border-right: 0;
+  color: white;
+  border-radius: 10px 0px 0px 10px;
+  pointer-events: all;
+  user-select: all;
+  padding: 10px;
+  width: 170px;
+  touch-action: auto;
+  flex-wrap: nowrap;
+  align-content: flex-end;
+  justify-content: flex-start;
+  transform: translateX(200px);
+  transition: all cubic-bezier(0.65, 0.05, 0.36, 1) .3s;
+  align-items: stretch;
+  flex-direction: column;
 }
 
 #leftbar {
@@ -1314,7 +1359,7 @@ svg {
   align-content: flex-end;
   justify-content: space-between;
   transform: translateX(-305px);
-  transition: all cubic-bezier(0.65, 0.05, 0.36, 1) 1s;
+  transition: all cubic-bezier(0.65, 0.05, 0.36, 1) .4s;
   align-items: stretch;
   flex-direction: column;
 }
@@ -1325,17 +1370,16 @@ svg {
   top: -10px;
   width: 50px;
   height: 50px;
-  background-color: #26123e !important;
+  background-color: #26123e;
   border: 2px solid #4b245a;
   z-index: 33;
   padding: 0px 0px 0px 0px;
-  background: none;
   outline: none;
   border-radius: 50%;
   touch-action: auto;
   cursor: pointer;
   pointer-events: all;
-  transition: ease-in-out all 0.3s;
+  transition: ease 0.1s;
 }
 #leftbar #chat:hover {
   background-color: #3d1e63 !important;
@@ -1356,7 +1400,7 @@ svg {
   flex-direction: column;
 }
 
-#leftbar input {
+#leftbar input, .ResultOnlinePlayers input {
   width: auto;
   color: rgb(255 255 255 / 70%);
   padding: 10px 15px;
@@ -1371,19 +1415,17 @@ svg {
   touch-action: auto;
 }
 
-#leftbar input::after {
-  content: "";
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
 #leftbar input::placeholder {
   color: rgb(233, 160, 255);
 }
 #leftbar input:focus {
+  background: #512a81;
+  color: white;
+}
+.ResultOnlinePlayers input::placeholder {
+  color: rgb(233, 160, 255);
+}
+.ResultOnlinePlayers input:focus {
   background: #512a81;
   color: white;
 }
@@ -1469,6 +1511,33 @@ svg {
   flex-direction: column;
   flex-wrap: nowrap;
 }
+
+.UsersFlex{
+  display: flex;
+  align-content: flex-end;
+  align-items: flex-start;
+  justify-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 120px;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  pointer-events: auto;
+}
+
+.UsersFlex::-webkit-scrollbar {
+  width: 2px;
+}
+
+.UsersFlex::-webkit-scrollbar-track {
+  background-color: rgba(25, 2, 31, 0.301);
+}
+
+.UsersFlex::-webkit-scrollbar-thumb {
+  background-color: rgb(139, 95, 150);
+}
+
 @keyframes info {
   0% {
     background-color: #39274a;

@@ -27,6 +27,7 @@ export default {
       message: null,
       messages: [],
       leftbar: false,
+      PlayersBar:false,
       //To remove the Attack button from the DOM at the end of the round.
       AttackBtnControl: true,
       //Public Path
@@ -104,7 +105,7 @@ export default {
       if (!this.socket.socket) {
         this.socket.connect();
       }
-      this.Socket.on("connection", function () {
+      this.Socket.on("connection", function() {
         this.Socket.emit("room", roomId);
       });
     },
@@ -115,6 +116,15 @@ export default {
       } else if (this.leftbar == false) {
         this.leftbar = true;
         gsap.to("#leftbar", { duration: 0.1, x: "0", y: 0, ease: "power2" });
+      }
+    },
+    ShowPlayersBar() {
+      if (this.PlayersBar == true) {
+        this.PlayersBar = false;
+        gsap.to(".ResultOnlinePlayers", { duration: 0.1, x: "200", y: 0, ease: "power2" });
+      } else if (this.PlayersBar == false) {
+        this.PlayersBar = true;
+        gsap.to(".ResultOnlinePlayers", { duration: 0.1, x: "0", y: 0, ease: "power2" });
       }
     },
     sendMessage() {
@@ -135,7 +145,7 @@ export default {
         }, 1);
       }
     },
-    NextPage: function (page) {
+    NextPage: function(page) {
       button.play();
       if (page == 1 && this.PlayerName != "" && this.PlayerName != " ") {
         button.play();
@@ -156,31 +166,31 @@ export default {
       }
     },
 
-    AttackKeyUp: function (e) {
+    AttackKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 49 && document.getElementById("Attack")) {
         document.getElementById("Attack").click();
       }
     },
-    SlashKeyUp: function (e) {
+    SlashKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 51 && document.getElementById("SlashAttack")) {
         document.getElementById("SlashAttack").click();
       }
     },
-    HPKeyUp: function (e) {
+    HPKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 50 && document.getElementById("HP")) {
         document.getElementById("HP").click();
       }
     },
-    HellKeyUp: function (e) {
+    HellKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 52 && document.getElementById("HellAttack")) {
         document.getElementById("HellAttack").click();
       }
     },
-    Attack: function () {
+    Attack: function() {
       document.getElementById("Attack").disabled = true;
       this.timerEnabledA = true;
       this.TimerDisabledBtnA = 1;
@@ -194,7 +204,7 @@ export default {
         this.logsB.push({ log: "Miss" });
       }
     },
-    hp: function () {
+    hp: function() {
       document.getElementById("HP").disabled = true;
       this.timerEnabledH = true;
       this.SaldirPuan = 2;
@@ -203,7 +213,7 @@ export default {
       this.logs.push({ log: "+ 5 life points" });
       3;
     },
-    HellAttack: function () {
+    HellAttack: function() {
       document.getElementById("HellAttack").disabled = true;
       this.timerEnabled = true;
       this.SaldirPuan = Math.floor(Math.random() * 20) + 2;
@@ -212,7 +222,7 @@ export default {
       this.logsB.push({ log: this.SaldirPuan + " damage" });
       setTimeout(() => {}, 2000);
     },
-    SlashAttack: function () {
+    SlashAttack: function() {
       this.timerEnabledS = true;
       this.TimerDisabledBtnS = 5;
       document.getElementById("SlashAttack").disabled = true;
@@ -250,11 +260,11 @@ export default {
     },
 
     ShowInfo() {
-      if (this.IconQuestion === "?") {
+        if (this.IconQuestion === "?") {
         this.IconQuestion = "x";
-      } else {
+        } else {
         this.IconQuestion = "?";
-      }
+        }
     },
   },
   mounted() {
@@ -267,6 +277,22 @@ export default {
     });
     // Return Messages on server
     this.socket.on("messagesserver", (messages) => {
+      var NtfMsg = gsap.timeline({ repeat: 10, duration: 0.1 });
+      NtfMsg.to("#chat", {
+        backgroundColor: "#26123e",
+        duration: 0.1,
+        ease: "back",
+      });
+      NtfMsg.to("#chat", {
+        backgroundColor: "#B42B51",
+        duration: 0.1,
+        ease: "back",
+      });
+      NtfMsg.to("#chat", {
+        backgroundColor: "#26123e",
+        duration: 0.1,
+        ease: "back",
+      });
       this.messages = messages;
     });
     // Keyboard Event
@@ -274,7 +300,6 @@ export default {
     window.addEventListener("keyup", this.HellKeyUp);
     window.addEventListener("keyup", this.HPKeyUp);
     window.addEventListener("keyup", this.SlashKeyUp);
-
     // Animations
     gsap.from(".main-logo", {
       duration: 0.5,
@@ -282,7 +307,7 @@ export default {
     });
   },
   watch: {
-    CanavarSaldirOto: function (value) {
+    CanavarSaldirOto: function(value) {
       if (value == true) {
         this.CSO_Interval = setInterval(() => {
           // this.ShowDmg1 = true;
@@ -312,7 +337,7 @@ export default {
         this.CanavarSaldirOto = false;
       }
     },
-    CanavarHPOto: function (value) {
+    CanavarHPOto: function(value) {
       if (value == true && this.P1W <= 100) {
         this.CHPO_Interval = setInterval(() => {
           this.logsB.push({
@@ -337,7 +362,7 @@ export default {
     },
 
     //* Player main
-    P2W: function (value) {
+    P2W: function(value) {
       if (value <= 0) {
         this.P2W = 0;
         this.AttackBtnControl = false;
@@ -369,7 +394,7 @@ export default {
     },
 
     //! Beast
-    P1W: function (value) {
+    P1W: function(value) {
       if (value <= 0) {
         this.P1W = 0;
         this.AttackBtnControl = false;
@@ -429,7 +454,7 @@ export default {
     },
     // !HellTiming
     // !SlashTiming
-    timerEnabledS: function (value) {
+    timerEnabledS: function(value) {
       if (value) {
         slash.play();
         setTimeout(() => {
@@ -457,7 +482,7 @@ export default {
     // !SlashTiming
     // !HP Timing
 
-    timerEnabledH: function (value) {
+    timerEnabledH: function(value) {
       if (value) {
         var hpup = new Audio("./sounds/hp.wav");
         hpup.play();
@@ -486,7 +511,7 @@ export default {
     },
     // !HP Timing
     // !Attack Timing Start
-    timerEnabledA: function (value) {
+    timerEnabledA: function(value) {
       if (value) {
         var attack_default = new Audio("./sounds/attack.wav");
         attack_default.play();
@@ -513,8 +538,7 @@ export default {
       },
     },
     // *GAME OVER BEGIN* //
-    Score1: function (say) {
-      console.log("Oyuncu Skoru: " + this.Score1);
+    Score1: function(say) {
       if (say == 3) {
         console.log("Oyunu Kazandın. Skorun: " + this.Score1);
         wtg.play();
@@ -525,8 +549,7 @@ export default {
         this.Sonuc = "✌️❤️ You defeated the monster ❤️✌️";
       }
     },
-    Score2: function (say) {
-      console.log("Canavar Skoru: " + this.Score2);
+    Score2: function(say) {
       if (say == 3) {
         console.log("Oyunu Kaybettin. Skorun: " + this.Score2);
         gol.play();
@@ -545,9 +568,9 @@ export default {
   <div class="stars">
     <div v-for="index in 10" :key="index" class="star"></div>
   </div>
-  <nav v-if="Login == 3" class="nav">
+  <nav v-if="Login == 1 || Login == 3" class="nav">
     <img class="logo" src="/img/logo.svg" alt="" />
-    <div class="score">
+    <div v-if="Login == 3" class="score">
       <Othersvg name="ScoreBar" />
       <span class="belirt">
         <span class="skor1">{{ Score1 }}</span>
@@ -557,9 +580,14 @@ export default {
         >Round: <strong>{{ Round }}</strong></span
       >
     </div>
-    <button style="margin-right: 70px" class="HowToPlay" @click="ShowInfo()">
-      <span>{{ IconQuestion }}</span>
-    </button>
+    <div class="HeaderButtons">
+      <button class="HowToPlay" @click="ShowInfo()">
+        <span>{{ IconQuestion }}</span>
+      </button>
+      <button class="OnlinePlayersBtn" @click="ShowPlayersBar()">
+        <span><Othersvg name="IconOnUser" /></span>
+      </button>
+    </div>
     <div
       v-if="IconQuestion === 'x'"
       class="Result"
@@ -574,6 +602,30 @@ export default {
         <Othersvg name="Keyboard" />
       </p>
     </div>
+
+ <!--  List Connected People -->
+    <div class="ResultOnlinePlayers">
+      <div id="ChatHead">Online Players</div>
+      <input placeholder="Search" class="SOPlayers" type="text" v-model="SOPlayers" />
+      <div class="UsersFlex">
+      <div v-for="user in OSPlayersFilter" :key="user.id">
+        <button class="OnlineUsers" @click="ConnectionFriend()">
+          {{ user.name }}
+        </button>
+      </div>
+      </div>
+      <div id="ChatHead" style="color:#80ED99;">Your friends</div>
+      <div class="UsersFlex" style="width:250px;">
+      <div v-for="user in OSPlayersFilter" :key="user.id">
+        <button class="OnlineUsers" @click="ConnectionFriend()">
+          {{ user.name }}
+        </button>
+      </div>
+      </div>
+    </div>
+    <!--  List Connected People -->
+
+
   </nav>
   <!--! Nickname Screen-->
 
@@ -619,7 +671,6 @@ export default {
         </ul>
       </div>
       <input
-        autofocus
         maxlength="100"
         type="text"
         v-model="message"
@@ -630,17 +681,6 @@ export default {
 
   <!--********************************************************************** Begin Choose your warrior screen-->
   <div v-if="Login == 1" class="ChooseScreen">
-    <!--  List Connected People -->
-    <div class="ConnectionStat">
-      Online Players
-      <input class="SOPlayers" type="text" v-model="SOPlayers" />
-      <p v-for="user in OSPlayersFilter" :key="user.id">
-        <button class="OnlineUsers" @click="ConnectionFriend()">
-          {{ user.name }}
-        </button>
-      </p>
-    </div>
-    <!--  List Connected People -->
     <div class="welcome">Choose your character</div>
     <div class="CharactersFlx">
       <span class="Characters"
