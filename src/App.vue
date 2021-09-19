@@ -27,7 +27,7 @@ export default {
       message: null,
       messages: [],
       leftbar: false,
-      PlayersBar:false,
+      PlayersBar: false,
       //To remove the Attack button from the DOM at the end of the round.
       AttackBtnControl: true,
       //Public Path
@@ -121,10 +121,20 @@ export default {
     ShowPlayersBar() {
       if (this.PlayersBar == true) {
         this.PlayersBar = false;
-        gsap.to(".ResultOnlinePlayers", { duration: 0.1, x: "200", y: 0, ease: "power2" });
+        gsap.to(".ResultOnlinePlayers", {
+          duration: 0.1,
+          x: "400",
+          y: 0,
+          ease: "power2",
+        });
       } else if (this.PlayersBar == false) {
         this.PlayersBar = true;
-        gsap.to(".ResultOnlinePlayers", { duration: 0.1, x: "0", y: 0, ease: "power2" });
+        gsap.to(".ResultOnlinePlayers", {
+          duration: 0.1,
+          x: "0",
+          y: 0,
+          ease: "power2",
+        });
       }
     },
     sendMessage() {
@@ -260,17 +270,20 @@ export default {
     },
 
     ShowInfo() {
-        if (this.IconQuestion === "?") {
+      if (this.IconQuestion === "?") {
         this.IconQuestion = "x";
-        } else {
+      } else {
         this.IconQuestion = "?";
-        }
+      }
     },
   },
   mounted() {
+    // GSAP Config
     gsap.config({
       nullTargetWarn: false,
     });
+
+    // Socket.io Config
     this.socket = io("http://178.193.216.170:3333/");
     this.socket.on("users", (data) => {
       this.users = data;
@@ -585,7 +598,7 @@ export default {
         <span>{{ IconQuestion }}</span>
       </button>
       <button class="OnlinePlayersBtn" @click="ShowPlayersBar()">
-        <span><Othersvg name="IconOnUser" /></span>
+        <span><Othersvg name="IconOnUser"/></span>
       </button>
     </div>
     <div
@@ -603,29 +616,28 @@ export default {
       </p>
     </div>
 
- <!--  List Connected People -->
+    <!--  List Connected People -->
     <div class="ResultOnlinePlayers">
       <div id="ChatHead">Online Players</div>
-      <input placeholder="Search" class="SOPlayers" type="text" v-model="SOPlayers" />
+      <input
+        placeholder="Search"
+        class="SOPlayers"
+        type="text"
+        v-model="SOPlayers"
+      />
       <div class="UsersFlex">
-      <div v-for="user in OSPlayersFilter" :key="user.id">
-        <button class="OnlineUsers" @click="ConnectionFriend()">
-          {{ user.name }}
-        </button>
+        <div class="UsersFlexFor" v-for="user in OSPlayersFilter" :key="user.id">
+              <div class="OnlineUsers"> {{ user.name }}</div> <Othersvg class="AddUsers" name="IconAddUser" />
+        </div>
       </div>
-      </div>
-      <div id="ChatHead" style="color:#80ED99;">Your friends</div>
-      <div class="UsersFlex" style="width:250px;">
-      <div v-for="user in OSPlayersFilter" :key="user.id">
-        <button class="OnlineUsers" @click="ConnectionFriend()">
-          {{ user.name }}
-        </button>
-      </div>
+      <div id="ChatHead" style="color: #5089c6; border-bottom: 1.5pt solid #5089c6;">Your friends</div>
+     <div class="UsersFlex">
+        <div class="UsersFlexFor" v-for="user in users" :key="user.id">
+              <div class="OnlineUsers" style="background-color:#5089C6;"> {{ user.name }}</div> <Othersvg class="AddUsers" style="background-color:#035397;" name="IconPlay" />
+        </div>
       </div>
     </div>
     <!--  List Connected People -->
-
-
   </nav>
   <!--! Nickname Screen-->
 

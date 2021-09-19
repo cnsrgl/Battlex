@@ -34,7 +34,7 @@ svg {
   justify-content: space-between;
 }
 .logo {
-  width: 70px;
+  width: 100px;
   z-index: 20;
 }
 .main-logo {
@@ -546,12 +546,35 @@ svg {
 .OnlineUsers {
   border: none;
   background: #3d1e63;
-  padding: 5px;
-  margin:2px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  height: 22px;
+  width: auto;
+  margin: 0px;
+  border-radius: 15px 0px 0px 15px;
   touch-action: auto;
   pointer-events: all;
   cursor: pointer;
+  overflow: hidden;
+}
+
+.AddUsers{
+  border: none;
+  background: #4caf506e;
+  padding: 5px 9px;
+  width: auto;
+  display: flex;
+  margin: 0px;
+  border-radius: 0px 4px 4px 0px;
+  touch-action: auto;
+  pointer-events: all;
+  cursor: pointer;
+  transition: background-color .3s;
+  align-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.AddUsers:hover{
+  background: #496aa8;
 }
 
 .HeaderButtons{
@@ -653,8 +676,6 @@ svg {
   width: 100px;
   height: 100px;
   position: relative;
-  animation-duration: 0.3s;
-  animation-iteration-count: 1;
 }
 .you {
   opacity: 1;
@@ -1043,97 +1064,81 @@ svg {
   position: inherit;
   left: 50%;
   bottom: 0;
-  -webkit-animation: 1.5s fire infinite;
   animation: 1.5s fire infinite;
 }
 .fire-wrapper .fire-element:nth-of-type(1) {
   height: 100%;
   left: 50%;
-  -webkit-animation-delay: 0.1s;
   animation-delay: 0.1s;
 }
 .fire-wrapper .fire-element:nth-of-type(2) {
   height: 90%;
   left: 55%;
-  -webkit-animation-delay: 0.2s;
   animation-delay: 0.2s;
 }
 .fire-wrapper .fire-element:nth-of-type(3) {
   height: 80%;
   left: 45%;
-  -webkit-animation-delay: 0.3s;
   animation-delay: 0.3s;
 }
 .fire-wrapper .fire-element:nth-of-type(4) {
   height: 70%;
   left: 60%;
-  -webkit-animation-delay: 0.4s;
   animation-delay: 0.4s;
 }
 .fire-wrapper .fire-element:nth-of-type(5) {
   height: 60%;
   left: 40%;
-  -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
 }
 .fire-wrapper .fire-element:nth-of-type(6) {
   height: 50%;
   left: 65%;
-  -webkit-animation-delay: 0.6s;
   animation-delay: 0.6s;
 }
 .fire-wrapper .fire-element:nth-of-type(7) {
   height: 40%;
   left: 35%;
-  -webkit-animation-delay: 0.7s;
   animation-delay: 0.7s;
 }
 .fire-wrapper .fire-element:nth-of-type(8) {
   height: 30%;
   left: 70%;
-  -webkit-animation-delay: 0.8s;
   animation-delay: 0.8s;
 }
 .fire-wrapper .fire-element:nth-of-type(9) {
   height: 20%;
   left: 30%;
-  -webkit-animation-delay: 0.9s;
   animation-delay: 0.9s;
 }
 .fire-wrapper .fire-element:nth-of-type(10) {
   height: 10%;
   left: 75%;
-  -webkit-animation-delay: 1s;
   animation-delay: 1s;
 }
 .fire-wrapper .fire-element:nth-of-type(11) {
   height: 60%;
   left: 50%;
-  -webkit-animation-delay: 0.1s;
   animation-delay: 0.1s;
 }
 .fire-wrapper .fire-element:nth-of-type(12) {
   height: 50%;
   left: 55%;
-  -webkit-animation-delay: 0.2s;
   animation-delay: 0.2s;
 }
 .fire-wrapper .fire-element:nth-of-type(13) {
   height: 40%;
   left: 45%;
-  -webkit-animation-delay: 0.3s;
   animation-delay: 0.3s;
 }
 .fire-wrapper .fire-element:nth-of-type(14) {
   height: 30%;
   left: 60%;
-  -webkit-animation-delay: 0.4s;
   animation-delay: 0.4s;
 }
 .fire-wrapper .fire-element:nth-of-type(15) {
   height: 20%;
   left: 40%;
-  -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
 }
 .stars {
@@ -1242,6 +1247,7 @@ svg {
   height: 100px;
   padding: 1em 1em;
 }
+
 .Characters svg {
   height: initial;
   background: radial-gradient(circle, #eceff1 0%, #607d8b 100%);
@@ -1281,8 +1287,6 @@ svg {
   justify-content: center;
   align-items: stretch;
   flex-direction: row;
-  animation: info 0.3s;
-  animation-iteration-count: 10;
 }
 
 .OnlinePlayersBtn{
@@ -1314,25 +1318,26 @@ svg {
   display: flex;
   justify-items: center;
   position: fixed;
+  width: 25vh;
   right: 0;
   top: 10vh;
-  height: 80vh;
+  height: 70vh;
   margin: 0px;
-  background: linear-gradient(to top, #1b2465, #300944);
+  background-image: linear-gradient( 
+64.5deg, rgb(37 3 53) 14.7%, rgb(39 0 58) 88.7% );
   z-index: 31;
-  border: 2px solid rgb(93 31 117 / 50%);
+  border: 1.5pt solid rgb(75 36 90);
   border-right: 0;
   color: white;
   border-radius: 10px 0px 0px 10px;
   pointer-events: all;
   user-select: all;
-  padding: 10px;
-  width: 170px;
+  padding: 20px;
   touch-action: auto;
   flex-wrap: nowrap;
   align-content: flex-end;
   justify-content: flex-start;
-  transform: translateX(200px);
+  transform: translateX(400px);
   transition: all cubic-bezier(0.65, 0.05, 0.36, 1) .3s;
   align-items: stretch;
   flex-direction: column;
@@ -1432,7 +1437,7 @@ svg {
 
 #ChatHead {
   font-weight: 600;
-  font-size: 0.9em;
+  font-size: 1.2em;
   color: #f3c1ff;
   margin: 15px;
   padding: 5px;
@@ -1514,16 +1519,35 @@ svg {
 
 .UsersFlex{
   display: flex;
-  align-content: flex-end;
-  align-items: flex-start;
+  align-content: flex-start;
+  align-items: center;
   justify-items: center;
-  flex-direction: column;
-  flex-wrap: nowrap;
+  flex-direction: row;
+  flex-wrap: wrap;
   height: 120px;
   overflow: hidden;
   overflow-x: hidden;
   overflow-y: scroll;
   pointer-events: auto;
+  justify-content: flex-start;
+}
+.UsersFlexFor{
+  display: flex;
+  align-content: flex-end;
+  align-items: flex-start;
+  margin: 5px;
+  justify-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  pointer-events: auto;
+}
+
+.FlexUserAll{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
 }
 
 .UsersFlex::-webkit-scrollbar {
@@ -1538,47 +1562,6 @@ svg {
   background-color: rgb(139, 95, 150);
 }
 
-@keyframes info {
-  0% {
-    background-color: #39274a;
-  }
-  50% {
-    background-color: rgba(255, 0, 0, 0.5);
-  }
-  100% {
-    background-color: #39274a;
-  }
-}
-
-@-webkit-keyframes fire {
-  0% {
-    transform: scale(0.8) rotate(-10deg);
-  }
-  10% {
-    transform: scale(1) rotateY(90deg);
-  }
-  20% {
-    transform: scale(1.2) rotate(0deg);
-  }
-  40% {
-    transform: scale(0.8) rotate(10deg);
-  }
-  50% {
-    transform: scale(0.6) rotateY(-90deg);
-  }
-  60% {
-    transform: scale(0.8) rotate(-10deg);
-  }
-  70% {
-    transform: scale(0.5) rotateY(60deg);
-  }
-  80% {
-    transform: scale(1.1) rotate(15deg);
-  }
-  100% {
-    transform: scale(0.8) rotate(-10deg);
-  }
-}
 @keyframes fire {
   0% {
     transform: scale(0.8) rotate(-10deg);
@@ -1606,17 +1589,6 @@ svg {
   }
   100% {
     transform: scale(0.8) rotate(-10deg);
-  }
-}
-@-webkit-keyframes stars {
-  0% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.1;
   }
 }
 @keyframes stars {
