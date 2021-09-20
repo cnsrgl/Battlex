@@ -14,7 +14,9 @@ const wtg = new Audio("./sounds/winthisgame.ogg");
 const BeastAttack = new Audio("./sounds/beast-attack.wav");
 const burning = new Audio("./sounds/burning.wav");
 const slash = new Audio("./sounds/slash.mp3");
+const dark = new Audio("./sounds/dark.wav");
 BeastAttack.volume = 0.1;
+dark.volume = 0.3;
 //Sounds Game
 
 export default {
@@ -28,6 +30,7 @@ export default {
       messages: [],
       leftbar: false,
       PlayersBar: false,
+      isSounds: true,
       //To remove the Attack button from the DOM at the end of the round.
       AttackBtnControl: true,
       //Public Path
@@ -100,12 +103,21 @@ export default {
   },
 
   methods: {
+    isSound() {
+      if (this.isSounds == true) {
+        this.isSounds = false;
+        dark.pause();
+      } else if (this.isSounds == false) {
+        this.isSounds = true;
+        dark.play();
+      }
+    },
     ConnectionFriend() {
       var roomId = Math.floor(Math.random() * 999999999) + 1;
       if (!this.socket.socket) {
         this.socket.connect();
       }
-      this.Socket.on("connection", function() {
+      this.Socket.on("connection", function () {
         this.Socket.emit("room", roomId);
       });
     },
@@ -155,10 +167,13 @@ export default {
         }, 1);
       }
     },
-    NextPage: function(page) {
+    NextPage: function (page) {
       button.play();
       if (page == 1 && this.PlayerName != "" && this.PlayerName != " ") {
+        //Sounds
         button.play();
+        dark.loop = true;
+        dark.play();
         //socket
         this.socket.emit("new_user", this.PlayerName);
         //socket
@@ -176,31 +191,31 @@ export default {
       }
     },
 
-    AttackKeyUp: function(e) {
+    AttackKeyUp: function (e) {
       var keyCode = e.keyCode;
       if (keyCode == 49 && document.getElementById("Attack")) {
         document.getElementById("Attack").click();
       }
     },
-    SlashKeyUp: function(e) {
+    SlashKeyUp: function (e) {
       var keyCode = e.keyCode;
       if (keyCode == 51 && document.getElementById("SlashAttack")) {
         document.getElementById("SlashAttack").click();
       }
     },
-    HPKeyUp: function(e) {
+    HPKeyUp: function (e) {
       var keyCode = e.keyCode;
       if (keyCode == 50 && document.getElementById("HP")) {
         document.getElementById("HP").click();
       }
     },
-    HellKeyUp: function(e) {
+    HellKeyUp: function (e) {
       var keyCode = e.keyCode;
       if (keyCode == 52 && document.getElementById("HellAttack")) {
         document.getElementById("HellAttack").click();
       }
     },
-    Attack: function() {
+    Attack: function () {
       document.getElementById("Attack").disabled = true;
       this.timerEnabledA = true;
       this.TimerDisabledBtnA = 1;
@@ -214,7 +229,7 @@ export default {
         this.logsB.push({ log: "Miss" });
       }
     },
-    hp: function() {
+    hp: function () {
       document.getElementById("HP").disabled = true;
       this.timerEnabledH = true;
       this.SaldirPuan = 2;
@@ -223,7 +238,7 @@ export default {
       this.logs.push({ log: "+ 5 life points" });
       3;
     },
-    HellAttack: function() {
+    HellAttack: function () {
       document.getElementById("HellAttack").disabled = true;
       this.timerEnabled = true;
       this.SaldirPuan = Math.floor(Math.random() * 20) + 2;
@@ -232,7 +247,7 @@ export default {
       this.logsB.push({ log: this.SaldirPuan + " damage" });
       setTimeout(() => {}, 2000);
     },
-    SlashAttack: function() {
+    SlashAttack: function () {
       this.timerEnabledS = true;
       this.TimerDisabledBtnS = 5;
       document.getElementById("SlashAttack").disabled = true;
@@ -318,9 +333,17 @@ export default {
       duration: 0.5,
       scale: 5,
     });
+    gsap.set(".NicknameScreen", { scale: 0 });
+    var NicknameScreen = gsap.timeline({});
+    NicknameScreen.to(".NicknameScreen", {
+      duration: 0.5,
+      stagger: { from: "end", amount: 1.5 },
+      y: 10,
+      scale: 1,
+    });
   },
   watch: {
-    CanavarSaldirOto: function(value) {
+    CanavarSaldirOto: function (value) {
       if (value == true) {
         this.CSO_Interval = setInterval(() => {
           // this.ShowDmg1 = true;
@@ -350,7 +373,7 @@ export default {
         this.CanavarSaldirOto = false;
       }
     },
-    CanavarHPOto: function(value) {
+    CanavarHPOto: function (value) {
       if (value == true && this.P1W <= 100) {
         this.CHPO_Interval = setInterval(() => {
           this.logsB.push({
@@ -375,7 +398,7 @@ export default {
     },
 
     //* Player main
-    P2W: function(value) {
+    P2W: function (value) {
       if (value <= 0) {
         this.P2W = 0;
         this.AttackBtnControl = false;
@@ -407,7 +430,7 @@ export default {
     },
 
     //! Beast
-    P1W: function(value) {
+    P1W: function (value) {
       if (value <= 0) {
         this.P1W = 0;
         this.AttackBtnControl = false;
@@ -467,7 +490,7 @@ export default {
     },
     // !HellTiming
     // !SlashTiming
-    timerEnabledS: function(value) {
+    timerEnabledS: function (value) {
       if (value) {
         slash.play();
         setTimeout(() => {
@@ -495,7 +518,7 @@ export default {
     // !SlashTiming
     // !HP Timing
 
-    timerEnabledH: function(value) {
+    timerEnabledH: function (value) {
       if (value) {
         var hpup = new Audio("./sounds/hp.wav");
         hpup.play();
@@ -524,7 +547,7 @@ export default {
     },
     // !HP Timing
     // !Attack Timing Start
-    timerEnabledA: function(value) {
+    timerEnabledA: function (value) {
       if (value) {
         var attack_default = new Audio("./sounds/attack.wav");
         attack_default.play();
@@ -551,7 +574,7 @@ export default {
       },
     },
     // *GAME OVER BEGIN* //
-    Score1: function(say) {
+    Score1: function (say) {
       if (say == 3) {
         console.log("Oyunu Kazandın. Skorun: " + this.Score1);
         wtg.play();
@@ -562,14 +585,14 @@ export default {
         this.Sonuc = "✌️❤️ You defeated the monster ❤️✌️";
       }
     },
-    Score2: function(say) {
+    Score2: function (say) {
       if (say == 3) {
         console.log("Oyunu Kaybettin. Skorun: " + this.Score2);
         gol.play();
         this.ResultLose = false;
         this.GameOver = true;
         this.ResultCss =
-          "z-index: 12;background-color: #FF2E2E; transform:scale(1)";
+          "z-index: 12;background-color: #380c44; transform:scale(1)";
         this.Sonuc = " 🖕👹 The monster slapped you 👹🖕 ";
       }
     }, // *GAME OVER END* //
@@ -581,8 +604,18 @@ export default {
   <div class="stars">
     <div v-for="index in 10" :key="index" class="star"></div>
   </div>
-  <nav v-if="Login == 1 || Login == 3" class="nav">
-    <img class="logo" src="/img/logo.svg" alt="" />
+  <nav v-if="Login != 0" class="nav">
+    <div class="HeaderButtons" style="justify-content: flex-start;">
+      <button v-if="Login != 3" class="BackIcon" @click="Login--">
+        <span><Othersvg name="IconBack" /> </span>
+      </button>
+      <button class="HowToPlay" @click="ShowInfo()">
+        <span>{{ IconQuestion }}</span>
+      </button>
+       
+    </div>
+    <div>
+    <img v-if="Login != 0 && Login != 3" class="logo" src="/img/logo.svg" alt="Logo" />
     <div v-if="Login == 3" class="score">
       <Othersvg name="ScoreBar" />
       <span class="belirt">
@@ -593,12 +626,16 @@ export default {
         >Round: <strong>{{ Round }}</strong></span
       >
     </div>
+    </div>
     <div class="HeaderButtons">
-      <button class="HowToPlay" @click="ShowInfo()">
-        <span>{{ IconQuestion }}</span>
+      <button v-if="isSounds == true" class="IconSounds" @click="isSound()">
+        <span><Othersvg name="IconVolUp" /></span>
+      </button>
+      <button v-else class="IconSounds" @click="isSound()">
+        <span><Othersvg name="IconVolOff" /></span>
       </button>
       <button class="OnlinePlayersBtn" @click="ShowPlayersBar()">
-        <span><Othersvg name="IconOnUser"/></span>
+        <span><Othersvg name="IconOnUser" /></span>
       </button>
     </div>
     <div
@@ -612,7 +649,7 @@ export default {
     >
       <p>How to Play ?</p>
       <p>
-        <Othersvg name="Keyboard" />
+        <Othersvg style="width:3em;" name="Keyboard" />
       </p>
     </div>
 
@@ -626,14 +663,31 @@ export default {
         v-model="SOPlayers"
       />
       <div class="UsersFlex">
-        <div class="UsersFlexFor" v-for="user in OSPlayersFilter" :key="user.id">
-              <div class="OnlineUsers"> {{ user.name }}</div> <Othersvg class="AddUsers" name="IconAddUser" />
+        <div
+          class="UsersFlexFor"
+          v-for="user in OSPlayersFilter"
+          :key="user.id"
+        >
+          <div class="OnlineUsers">{{ user.name }}</div>
+          <Othersvg class="AddUsers" name="IconAddUser" />
         </div>
       </div>
-      <div id="ChatHead" style="color: #5089c6; border-bottom: 1.5pt solid #5089c6;">Your friends</div>
-     <div class="UsersFlex">
+      <div
+        id="ChatHead"
+        style="color: #5089c6; border-bottom: 1.5pt solid #5089c6"
+      >
+        Your friends
+      </div>
+      <div class="UsersFlex">
         <div class="UsersFlexFor" v-for="user in users" :key="user.id">
-              <div class="OnlineUsers" style="background-color:#5089C6;"> {{ user.name }}</div> <Othersvg class="AddUsers" style="background-color:#035397;" name="IconPlay" />
+          <div class="OnlineUsers" style="background-color: #5089c6">
+            {{ user.name }}
+          </div>
+          <Othersvg
+            class="AddUsers"
+            style="background-color: #035397"
+            name="IconPlay"
+          />
         </div>
       </div>
     </div>
@@ -654,6 +708,7 @@ export default {
         placeholder="Write Nickname"
       />
       <button v-if="PlayerName !== ''" id="Basla">Next</button>
+      <button v-else id="Basla" disabled>Next</button>
     </form>
   </div>
   <!--! Nickname Screen-->
@@ -690,9 +745,26 @@ export default {
       />
     </form>
   </div>
-
-  <!--********************************************************************** Begin Choose your warrior screen-->
   <div v-if="Login == 1" class="ChooseScreen">
+    <div class="BtnFlex">
+    <button
+      @keyup.enter="NextPage(2)"
+      id="SingleBtn"
+      @click="NextPage(2)"
+    >
+      <p>training</p>
+    </button>
+    <button
+      @keyup.enter="NextPage(4)"
+      id="MultiBtn"
+      @click="NextPage(4)"
+    >
+      <p>Multiplayers</p>
+    </button>
+    </div>
+  </div>
+  <!-- Begin Choose your warrior screen-->
+  <div v-if="Login == 2" class="ChooseScreen">
     <div class="welcome">Choose your character</div>
     <div class="CharactersFlx">
       <span class="Characters"
@@ -768,12 +840,13 @@ export default {
     </div>
     <button
       @keyup.enter="NextPage(3)"
-      v-show="CharacterID > 0"
+      v-if="CharacterID > 0"
       id="Basla"
       @click="NextPage(3)"
     >
       Start
     </button>
+    <button v-else id="Basla" disabled>Start</button>
   </div>
   <!--********************************************************************** Finish Choose your warrior screen-->
   <div class="Result" :style="ResultCss">
@@ -830,7 +903,7 @@ export default {
       </span>
 
       <div class="ProgressBarSBg">
-        <span class="Usstekal"><strong>HP : </strong>{{ P2W }} </span>
+        <span class="Usstekal">{{ P2W }} </span>
         <div v-if="P2W > 0" class="ProgressBarM" :style="{ width: P2W + '%' }">
           <!-- !HP svg-->
           <Othersvg name="HealthSvg" />
@@ -845,6 +918,7 @@ export default {
     </div>
     <div class="sword">
       <!-- !sword svg-->
+      <img v-if="Login == 3" class="logoPlay" src="/img/logo.svg" alt="Logo" />
       <Othersvg name="Swords" />
     </div>
     <div class="SecondePlayer">
@@ -862,7 +936,7 @@ export default {
         <Othersvg name="Beast1" />
       </span>
       <div class="ProgressBarSBg">
-        <span class="Usstekal"> <strong>HP : </strong>{{ P1W }} </span>
+        <span class="Usstekal">{{ P1W }} </span>
         <div v-if="P1W > 0" class="ProgressBarS" :style="{ width: P1W + '%' }">
           <!-- Hearth svg -->
           <Othersvg name="HealthSvg" />
@@ -883,34 +957,33 @@ export default {
   <div v-if="Login == 3" class="buttons">
     <!-- Saldırı Butonu -->
     <div class="bgpower">
-      <button v-if="AttackBtnControl" id="Attack" @click="Attack">
-        Attack
-        <span v-if="TimerDisabledBtnA" class="ButtonTime">
+       <span v-show="TimerDisabledBtnA > 0" class="ButtonTime">
           {{ TimerDisabledBtnA }}
         </span>
+      <button v-if="AttackBtnControl" id="Attack" @click="Attack">
       </button>
     </div>
     <div class="bgpower">
-      <button v-if="CanavarSaldirOto" id="HP" @click="hp">
-        <span v-if="TimerDisabledBtnH" class="ButtonTime">
+       <span v-if="TimerDisabledBtnH > 0" class="ButtonTime">
           {{ TimerDisabledBtnH }}
         </span>
+      <button v-if="CanavarSaldirOto" id="HP" @click="hp">
       </button>
     </div>
     <div class="bgpower">
-      <button v-if="CanavarSaldirOto" id="SlashAttack" @click="SlashAttack">
-        Slash
-        <span v-if="TimerDisabledBtnS" class="ButtonTime">
+      <span v-if="TimerDisabledBtnS > 0" class="ButtonTime">
           {{ TimerDisabledBtnS }}
         </span>
+      <button v-if="CanavarSaldirOto" id="SlashAttack" @click="SlashAttack">
+        Slash
       </button>
     </div>
     <div class="bgpower">
-      <button v-if="CanavarSaldirOto" id="HellAttack" @click="HellAttack">
-        Hell
-        <span v-if="TimerDisabledBtn" class="ButtonTime">
+      <span v-if="TimerDisabledBtn > 0" class="ButtonTime">
           {{ TimerDisabledBtn }}
         </span>
+      <button v-if="CanavarSaldirOto" id="HellAttack" @click="HellAttack">
+        Hell
       </button>
     </div>
     <div class="bgpower">

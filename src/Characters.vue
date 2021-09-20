@@ -287,7 +287,7 @@
       <stop offset="1" stop-color="#FFEADB"/>
     </linearGradient>
   </defs>
-</svg>
+  </svg>
   <svg
     v-else-if="name == 'Ch_B'"
     tabindex="2"
@@ -8717,14 +8717,19 @@ export default {
       nullTargetWarn: false,
     });
     //GSAP ANIMATIONS TIMELINES
-    gsap.set(".Characters", { scale: 0 });
+    gsap.set(".Characters, .welcome", { scale: 0 });
     var char = gsap.timeline();
     char.to(".Characters", {
-      duration: 1,
-      stagger: { from: "edges", amount: 1 },
+      duration: .5,
+      stagger: { from: "center", amount: 1.5 },
       y: 10,
       scale: 1,
-      ease: "back",
+    });
+    char.to(".welcome", {
+      duration: .4,
+      stagger: { from: "center", amount: 1 },
+      y: 10,
+      scale: 1.3,
     });
 
     var tl = gsap.timeline({ repeat: -1 });

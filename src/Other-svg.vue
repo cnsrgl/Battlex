@@ -1295,6 +1295,25 @@ width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/
   width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 14.5L14 10L8 5.5V14.5ZM10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18Z" fill="white"/>
 </svg>
+<svg 
+v-else-if="name == 'IconVolUp'"
+width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 5.77V11.77H4L9 16.77V0.77L4 5.77H0ZM13.5 8.77C13.5 7 12.48 5.48 11 4.74V12.79C12.48 12.06 13.5 10.54 13.5 8.77ZM11 0V2.06C13.89 2.92 16 5.6 16 8.77C16 11.94 13.89 14.62 11 15.48V17.54C15.01 16.63 18 13.05 18 8.77C18 4.49 15.01 0.91 11 0V0Z" fill="white"/>
+</svg>
+<svg 
+v-else-if="name == 'IconVolOff'"
+width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.5 9C13.5 7.23 12.48 5.71 11 4.97V7.18L13.45 9.63C13.48 9.43 13.5 9.22 13.5 9V9ZM16 9C16 9.94 15.8 10.82 15.46 11.64L16.97 13.15C17.63 11.91 18 10.5 18 9C18 4.72 15.01 1.14 11 0.23V2.29C13.89 3.15 16 5.83 16 9ZM1.27 0L0 1.27L4.73 6H0V12H4L9 17V10.27L13.25 14.52C12.58 15.04 11.83 15.45 11 15.7V17.76C12.38 17.45 13.63 16.81 14.69 15.95L16.73 18L18 16.73L9 7.73L1.27 0ZM9 1L6.91 3.09L9 5.18V1Z" fill="white"/>
+</svg>
+
+<svg 
+v-else-if="name == 'IconBack'"
+width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.67 1.77L9.9 0L0 9.9L9.9 19.8L11.67 18.03L3.54 9.9L11.67 1.77Z" fill="white"/>
+</svg>
+
+
+
 
   <!-- IconUsers-->
 

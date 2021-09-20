@@ -34,8 +34,15 @@ svg {
   justify-content: space-between;
 }
 .logo {
-  width: 100px;
+  width: 130px;
+  transform: scale(1);
   z-index: 20;
+}
+
+.logoPlay {
+  width: 50px;
+  position: absolute;
+  top: -25px;
 }
 .main-logo {
   width: 200px;
@@ -48,14 +55,16 @@ svg {
 }
 .bgpower {
   display: flex;
-  width: 83px;
-  height: 100px;
+  width: 80px;
+  height: 95px;
   padding: 0px 0px;
   flex-direction: row;
   align-content: center;
   align-items: center;
   flex-wrap: nowrap;
+  transform: scale(1);
   justify-content: center;
+  transition: all .3s;
 }
 .bgpower::after {
   background: url(/img/bg-power.svg);
@@ -66,9 +75,13 @@ svg {
   position: absolute;
   top: 0;
   left: 0;
-  width: 85px;
-  height: 103px;
+  width: 80px;
+  height: 95px;
   z-index: 0;
+}
+
+.bgpower:hover{
+  transform:scale(1.2);
 }
 .nav {
   display: flex;
@@ -92,7 +105,6 @@ svg {
   transform: scale(1);
   z-index: 11;
   justify-content: center;
-  transition: all cubic-bezier(0.18, 0.89, 0.32, 1.28) 1s;
   align-content: center;
   flex-wrap: wrap;
 }
@@ -104,12 +116,12 @@ svg {
   height: 100vh;
   transform: scale(1);
   justify-content: space-evenly;
-  transition: all cubic-bezier(0.18, 0.89, 0.32, 1.28) 1s;
+  transition: all cubic-bezier(0.18, 0.89, 0.32, 1.28) 0.3s;
   align-content: center;
   flex-wrap: wrap;
 }
 .MainPlayer {
-  margin-right: 9%;
+  margin-right: 0%;
   margin-top: 20px;
   border: 0px solid black;
   display: flex;
@@ -122,11 +134,11 @@ svg {
 }
 .MainPlayer p {
   font-size: 1em;
-  background: rgb(104 159 56 / 30%);
+  background: rgb(55 7 82);
   font-weight: 500;
-  border-radius: 10px;
+  border-radius: 100px;
   height: 25px;
-  border: 1px solid #3f3147;
+  border: 10px solid #2e0742;
   padding: 0px 10px;
   color: rgb(255 255 255);
   text-shadow: 1px 1px 9px black;
@@ -162,11 +174,11 @@ svg {
 }
 .SecondePlayer p {
   font-size: 1em;
-  background: rgb(244 67 54 / 20%);
-  font-weight: 400;
-  border-radius: 25px;
+  background: rgb(255 0 0 / 40%);
+  font-weight: 500;
+  border-radius: 100px;
   height: 25px;
-  border: 1px solid #3f3147;
+  border: 10px solid #420707;
   padding: 0px 10px;
   color: rgb(255 255 255);
   text-shadow: 1px 1px 9px black;
@@ -203,13 +215,13 @@ svg {
 }
 .ProgressBarM {
   width: 100px;
-  background-color: #689f38;
+  background-color: #4caf50;
   height: 30px;
   max-width: 100%;
   text-align: center;
   color: white;
   display: flex;
-  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s ease;
   justify-content: flex-end;
 }
 .ProgressBarM svg {
@@ -222,7 +234,7 @@ svg {
 }
 .ProgressBarS {
   width: 100%;
-  background-color: #ff0f0f;
+  background-color: #f44336;
   height: 30px;
   text-align: center;
   max-width: 100%;
@@ -243,15 +255,20 @@ svg {
 }
 .ProgressBarSBg {
   width: 100%;
-  background-color: #f3f3f3;
+  background-color: #2d282f;
   height: 30px;
   text-align: center;
+  display: flex;
   overflow: hidden;
   box-shadow: rgb(0 0 0 / 49%) 1px 1px 10px 0px;
   color: white;
   max-width: 100%;
   border-radius: 100px;
-  transition: all ease-in-out 2s;
+  transition: all ease 0.2s;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
 }
 #hearth_4 {
   transform-origin: bottom;
@@ -301,26 +318,30 @@ svg {
 }
 
 #Attack {
-  background-color: rgb(212, 58, 58);
-  color: White;
-  width: 4em;
-  height: 4em;
+  background-color: transparent;
+  background-image: url(/img/attackBtn.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #ffffff;
+  display: flex;
+  width: 100%;
+  height: 100%;
   font-weight: 600;
   border: 0;
   pointer-events: all;
-  border-radius: 50%;
+  top: 0px;
   cursor: pointer;
   text-align: center;
   margin: 0px;
-  font-size: 1em;
-  text-shadow: -1px 3px 4px rgb(0 0 0 / 62%);
   z-index: 1;
   padding: 0px;
   transition: all 0.2s ease-out;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
-#Attack:hover {
-  background-color: rgb(224, 54, 54);
-}
+
 #Basla {
   background-color: #e91e63;
   color: White;
@@ -343,14 +364,21 @@ svg {
   border: 10px solid rgb(75 52 86 / 45%);
 }
 
+#Basla:disabled {
+  opacity: 0.5;
+  background-color: #3d1e63;
+  pointer-events: none;
+  touch-action: none;
+}
 #Attack:disabled {
   opacity: 0.1;
 }
 
 #HellAttack {
-  background-color: #37474f;
+  background-color: #b2d9ed;
   background-image: url(/img/hell-fire.svg);
-  background-size: cover;
+  background-size: contain;
+  background-position: center;
   background-blend-mode: normal;
   background-repeat: no-repeat;
   color: white;
@@ -397,7 +425,7 @@ svg {
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
 #SlashAttack {
-  background-color: #921a1a;
+  background-color: #b2d9ed;
   background-image: url(/img/slash.svg);
   background-size: cover;
   background-blend-mode: normal;
@@ -557,7 +585,7 @@ svg {
   overflow: hidden;
 }
 
-.AddUsers{
+.AddUsers {
   border: none;
   background: #4caf506e;
   padding: 5px 9px;
@@ -568,27 +596,28 @@ svg {
   touch-action: auto;
   pointer-events: all;
   cursor: pointer;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   align-content: center;
   align-items: center;
   flex-wrap: nowrap;
 }
-.AddUsers:hover{
+.AddUsers:hover {
   background: #496aa8;
 }
 
-.HeaderButtons{
+.HeaderButtons {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-content: center;
-  justify-content: center;
+  width: 200px;
+  justify-content: flex-end;
   align-items: center;
 }
 
 .Result {
   top: 0;
-  left:0;
+  left: 0;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -599,7 +628,7 @@ svg {
   background: transparent;
   color: white;
   z-index: 10;
-  font-size: 6em;
+  font-size: 3em;
   font-weight: 700;
   position: fixed;
   width: 100%;
@@ -619,10 +648,12 @@ svg {
   position: absolute;
   width: 100%;
   z-index: 9;
-  left: 0;
   border-radius: 100px;
+  font-size: 3.2em;
+  font-weight: 800;
   max-width: 100%;
-  padding: 5px 0px;
+  letter-spacing: 2px;
+  padding: 0px 0px;
   text-shadow: black 1px 1px 1px;
 }
 .belirt {
@@ -829,24 +860,29 @@ svg {
 }
 
 .ButtonTime {
-  width: 100%;
-  height: 100%;
-  margin: 0;
+  width: 33px;
+  height: 33px;
   display: flex;
-  top: 0;
+  top: -20px;
   left: 0;
-  font-size: 2.7em;
+  font-size: 15pt;
+  padding: 0;
   position: absolute;
-  background-color: rgba(244, 67, 54, 0.705);
+  background-color: rgb(255 17 0 / 71%);
   color: white;
-  border-radius: 50%;
   overflow: hidden;
+  border-radius: 50%;
   font-weight: 500;
+  opacity: 1;
   transition: all ease 0.5s;
   z-index: 2;
-  flex-wrap: wrap;
-  align-items: stretch;
+  flex-wrap: nowrap;
+  justify-items: center;
+  align-items: center;
   flex-direction: column;
+  margin: 0;
+  justify-content: center;
+  align-content: center;
 }
 
 .score {
@@ -870,12 +906,12 @@ svg {
 }
 
 .sword {
-  width: 80px;
-  background-color: rgb(154 64 50 / 32%);
+  width: 5em;
+  background-color: rgb(69 0 103 / 56%);
   height: 5em;
   display: flex;
-  position: absolute;
-  top: 60px;
+  border: 10px solid #2e0742;
+  top: -100px;
   border-radius: 50%;
   flex-wrap: nowrap;
   justify-content: center;
@@ -884,31 +920,30 @@ svg {
 }
 
 .sword svg {
-  width: 60px;
+  width: 50px;
   height: auto;
 }
 
 .PlayAgain {
-  background: linear-gradient(to bottom, #c7ba44 5%, #bf9c2a 100%);
-  background-color: #c7c544;
-  border-radius: 28px;
-  border: 2px solid #ffffff;
+  background: #3e1353;
+  border-radius: 50%;
+  border: none;
   display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
+  color: #e2e2e2;
   pointer-events: all;
+  width: 100px;
+  height: 100px;
+  white-space: nowrap;
+  border: 6px solid rgb(103 58 183 / 13%);
   cursor: pointer;
-  font-size: 23px;
-  width: auto;
-  transition: all 1;
+  font-size: 18px;
+  transition: all 1s;
   margin: 25px 0 0 0;
-  padding: 10px 25px;
+  padding: 0px 0px;
   text-decoration: none;
-  text-shadow: 0px 1px 0px #2f6627;
 }
 .PlayAgain:hover {
-  background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
-  background-color: #5cbf2a;
+  background-color: #571b75;
 }
 .PlayAgain:active {
   position: relative;
@@ -1235,6 +1270,7 @@ svg {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  width: 50%;
   align-content: center;
   justify-content: center;
   align-items: center;
@@ -1242,10 +1278,10 @@ svg {
 
 .Characters {
   display: flex;
-  width: 100px;
+  width: 80px;
   pointer-events: all;
-  height: 100px;
-  padding: 1em 1em;
+  height: 80px;
+  padding: .4em .4em;
 }
 
 .Characters svg {
@@ -1254,7 +1290,7 @@ svg {
   border-radius: 20px;
   border-color: #483253;
   pointer-events: initial;
-  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s;
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
   cursor: pointer;
   padding: 0px;
   border: 2px solid white;
@@ -1264,9 +1300,14 @@ svg {
   background: radial-gradient(circle, rgb(0 0 0) 0%, #3cff78 100%);
   outline: none;
   border-color: white;
+  transition: all 0.3s;
+  transform: scale(1.2);
 }
 
-.HowToPlay,.OnlinePlayersBtn {
+.HowToPlay,
+.OnlinePlayersBtn,
+.IconSounds,
+.BackIcon {
   width: 50px;
   display: flex;
   z-index: 11;
@@ -1279,7 +1320,7 @@ svg {
   pointer-events: all;
   cursor: pointer;
   text-align: center;
-  margin-left:10px;
+  margin-left: 10px;
   padding: 0px;
   transition: all 0.2s ease-out;
   flex-wrap: nowrap;
@@ -1289,13 +1330,28 @@ svg {
   flex-direction: row;
 }
 
-.OnlinePlayersBtn{
+.OnlinePlayersBtn {
   background-color: #44c76763;
 }
-.HowToPlay:hover,.OnlinePlayersBtn:hover {
+.IconSounds {
+  background-color: #8bc7ff63;
+  align-items: center;
+}
+
+.BackIcon {
+  background-color: #ff8bb763;
+  align-items: center;
+  font-size: 0em;
+}
+
+.HowToPlay:hover,
+.OnlinePlayersBtn:hover,
+.IconSounds:hover,
+.BackIcon:hover {
   background-color: rgba(153, 45, 255, 0.5);
 }
-.HowToPlay, .OnlinePlayersBtn span {
+.HowToPlay,
+.OnlinePlayersBtn span {
   font-size: 27pt;
   color: white;
   padding: 0px;
@@ -1303,7 +1359,53 @@ svg {
   font-weight: 600;
 }
 
+#SingleBtn,
+#MultiBtn {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(2);
+  font-size: 1.2em;
+  font-weight: 600;
+  text-transform: capitalize;
+  background-color: #3d1e63;
+  color: rgba(228, 228, 228, 0.692);
+  overflow: hidden;
+  cursor: pointer;
+  margin: 2em 0px;
+  pointer-events: all;
+  border: none;
+  border-radius: 50px;
+  padding: 10px;
+  text-shadow: 0px 2px 4px black;
+  box-shadow: 0 5px #2d144b;
+  text-align: center;
+  transition: all 0.3s ease;
+}
 
+#SingleBtn:hover,
+#MultiBtn:hover {
+  background-color: #532886;
+  box-shadow: 0 5px #39195f;
+}
+
+#SingleBtn {
+  transform: scale(1.3);
+}
+
+#SingleBtn p,
+#MultiBtn p {
+  color: #91a0d4;
+  text-shadow: 0 2px 1px rgb(0 0 0 / 50%);
+  transform: rotateX(30deg);
+}
+
+.BtnFlex {
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+}
 
 .ConnectionStat {
   position: absolute;
@@ -1314,7 +1416,7 @@ svg {
   padding: 10px;
 }
 
-.ResultOnlinePlayers{
+.ResultOnlinePlayers {
   display: flex;
   justify-items: center;
   position: fixed;
@@ -1323,8 +1425,11 @@ svg {
   top: 10vh;
   height: 70vh;
   margin: 0px;
-  background-image: linear-gradient( 
-64.5deg, rgb(37 3 53) 14.7%, rgb(39 0 58) 88.7% );
+  background-image: linear-gradient(
+    64.5deg,
+    rgb(37 3 53) 14.7%,
+    rgb(39 0 58) 88.7%
+  );
   z-index: 31;
   border: 1.5pt solid rgb(75 36 90);
   border-right: 0;
@@ -1338,7 +1443,7 @@ svg {
   align-content: flex-end;
   justify-content: flex-start;
   transform: translateX(400px);
-  transition: all cubic-bezier(0.65, 0.05, 0.36, 1) .3s;
+  transition: all cubic-bezier(0.65, 0.05, 0.36, 1) 0.3s;
   align-items: stretch;
   flex-direction: column;
 }
@@ -1364,7 +1469,7 @@ svg {
   align-content: flex-end;
   justify-content: space-between;
   transform: translateX(-305px);
-  transition: all cubic-bezier(0.65, 0.05, 0.36, 1) .4s;
+  transition: all cubic-bezier(0.65, 0.05, 0.36, 1) 0.4s;
   align-items: stretch;
   flex-direction: column;
 }
@@ -1405,7 +1510,8 @@ svg {
   flex-direction: column;
 }
 
-#leftbar input, .ResultOnlinePlayers input {
+#leftbar input,
+.ResultOnlinePlayers input {
   width: auto;
   color: rgb(255 255 255 / 70%);
   padding: 10px 15px;
@@ -1517,7 +1623,7 @@ svg {
   flex-wrap: nowrap;
 }
 
-.UsersFlex{
+.UsersFlex {
   display: flex;
   align-content: flex-start;
   align-items: center;
@@ -1531,7 +1637,7 @@ svg {
   pointer-events: auto;
   justify-content: flex-start;
 }
-.UsersFlexFor{
+.UsersFlexFor {
   display: flex;
   align-content: flex-end;
   align-items: flex-start;
@@ -1542,7 +1648,7 @@ svg {
   pointer-events: auto;
 }
 
-.FlexUserAll{
+.FlexUserAll {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
