@@ -1305,20 +1305,12 @@ v-else-if="name == 'IconVolOff'"
 width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M13.5 9C13.5 7.23 12.48 5.71 11 4.97V7.18L13.45 9.63C13.48 9.43 13.5 9.22 13.5 9V9ZM16 9C16 9.94 15.8 10.82 15.46 11.64L16.97 13.15C17.63 11.91 18 10.5 18 9C18 4.72 15.01 1.14 11 0.23V2.29C13.89 3.15 16 5.83 16 9ZM1.27 0L0 1.27L4.73 6H0V12H4L9 17V10.27L13.25 14.52C12.58 15.04 11.83 15.45 11 15.7V17.76C12.38 17.45 13.63 16.81 14.69 15.95L16.73 18L18 16.73L9 7.73L1.27 0ZM9 1L6.91 3.09L9 5.18V1Z" fill="white"/>
 </svg>
-
 <svg 
 v-else-if="name == 'IconBack'"
 width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.67 1.77L9.9 0L0 9.9L9.9 19.8L11.67 18.03L3.54 9.9L11.67 1.77Z" fill="white"/>
 </svg>
-
-
-
-
   <!-- IconUsers-->
-
-
-
 
 </template>
 <script>
@@ -1332,12 +1324,13 @@ export default {
     });
     //The monster arm stood apart. I set the default location with this code.
     gsap.set("#Vector_beast", { x: -10 });
+    gsap.set("#Score_32,#Score_38", { fill:'white'});
     var Beast = gsap.timeline({ repeat: -1 });
     Beast.to("#Vector_beast_3,#Vector_beast,#Vector_beast_2", {
       skewY: "1deg",
       skewX: "1deg",
       transformOrigin: "bottom",
-      duration: 0.1,
+      duration: 0.3,
     });
     Beast.to("#Vector_beast_3,#Vector_beast,#Vector_beast_2", {
       skewY: "7deg",
@@ -1346,10 +1339,16 @@ export default {
       duration: 0.3,
     });
     Beast.to("#Vector_beast_3,#Vector_beast,#Vector_beast_2", {
+      skewY: "4deg",
+      skewX: "3deg",
+      transformOrigin: "bottom",
+      duration: 0.2,
+    });
+    Beast.to("#Vector_beast_3,#Vector_beast,#Vector_beast_2", {
       skewY: "1deg",
       skewX: "1deg",
       transformOrigin: "bottom",
-      duration: 0.1,
+      duration: 0.3,
     });
     var BeastEyes = gsap.timeline({ repeat: -1 });
     BeastEyes.to("#Vector_7,#Vector_6", {
@@ -1398,6 +1397,23 @@ export default {
       y: 0,
       transformOrigin: "bottom",
       duration: 0.5,
+    });
+
+    var ScoreBarFill = gsap.timeline({ repeat: -1 });
+    ScoreBarFill.to("#Score_32,#Score_38", {
+      fill: 'purple',
+      duration: 2,
+      ease: 'none'
+    });
+    ScoreBarFill.to("#Score_32,#Score_38", {
+      fill: 'aqua',
+      duration: .7,
+      ease: 'none'
+    });
+    ScoreBarFill.to("#Score_32,#Score_38", {
+      fill: 'white',
+      duration: .7,
+      ease: 'none'
     });
   },
 };

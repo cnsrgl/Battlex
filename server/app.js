@@ -23,7 +23,7 @@ io.on("connection", socket => {
           id: socket.id,
           name
         });
-        io.emit('users', users);
+        socket.emit('users', users);
       });
 
 //       //ONLINE
@@ -44,14 +44,18 @@ io.on("connection", socket => {
       socket.on('sendmessageclient',(info) => {
           messages.push(info)
           console.log(info);
-          io.emit("messagesserver",messages.slice(-20))
+          socket.emit("messagesserver",messages.slice(-20))
+          socket.broadcast.emit("Notification")
       })
-      io.emit("messagesserver",messages)
+      
+      setInterval(() => {
+      socket.emit("messagesserver",messages)
+      }, 500);
 
       socket.on('disconnect', () => {
         const index = users.indexOf(socket.id);
         users.splice(index, 1);
-        io.emit('users', users);
+        socket.emit('users', users);
         console.log(users);
       })
     });

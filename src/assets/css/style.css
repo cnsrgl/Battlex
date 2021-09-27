@@ -16,10 +16,10 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: white;
 }
-svg {
+/* svg {
   shape-rendering: auto;
   image-rendering: auto;
-}
+} */
 #app {
   display: flex;
   flex-direction: column;
@@ -718,22 +718,7 @@ svg {
   width: 150px;
   height: 90px;
 }
-#Score_32,
-#Score_38 {
-  animation: Score_Lights ease 2s infinite;
-  transform-box: fill-box;
-  transform-origin: top;
-  animation-play-state: running;
-}
 
-@keyframes Score_Lights {
-  from {
-    fill: #18ab29;
-  }
-  to {
-    fill: #ff0000;
-  }
-}
 #Sword_2_10 {
   animation: sword2 linear 0.3s infinite;
   transform-origin: center;

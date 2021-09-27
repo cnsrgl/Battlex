@@ -14,7 +14,7 @@
       <g id="Group_3">
         <g id="Group_4">
           <g id="Group_5">
-            <path id="Man1" d="M58.8 172s-1.1 45.5-2.2 49.7C55.5 225.9 0 249.5 0 249.5h212s-60.3-21.3-62-26.2c-1.6-4.8-.1-50-.1-50l-91-1.3Z" fill="url(#paint0_linear)"/>
+           <path id="Man1" d="M58.8 172s-1.1 45.5-2.2 49.7C55.5 225.9 0 249.5 0 249.5h212s-60.3-21.3-62-26.2c-1.6-4.8-.1-50-.1-50l-91-1.3Z" fill="url(#paint0_linear)"/>
             <path id="Man1_2" d="M56.8 220.5s-4.4-.6-5 0c-.4.5 0 4 0 4L0 249.5h212l-56-23.8s-2-5.3-6-2.4l1.4 2s-18.8 20.1-50.1 20.1a51.6 51.6 0 0 1-44.5-25Z" fill="#8460B8"/>
             <path d="M58.5 191.8s10.5 3 13 7.5c2.6 4.5 18.8 38.5 31.6 39 12.9.5 21.2-17.5 27.7-21.7 6.5-4.1 18.2-4.4 18.2-4.4l.8-39-91-1.2-.3 19.8Z" fill="#B42F97" id="Man1_3" style="mix-blend-mode:multiply" opacity=".6"/>
             <path id="Man1_4" style="mix-blend-mode:multiply" opacity=".6" d="m120.7 189.3-4.2 42.8s8-9 12-15.4 11.7-38 11.7-38l-19.5 10.6Z" fill="url(#paint1_linear)"/>
@@ -23,7 +23,7 @@
             <path d="M65 230.8s14.2 13 38.8 13c24.6 0 39.5-11.7 39.5-11.7a73 73 0 0 1-41.9 13.3c-25 0-36.4-14.6-36.4-14.6Z" fill="#B42F97" id="Man1_7" style="mix-blend-mode:multiply" opacity=".6"/>
           </g>
           <g id="Group_6">
-            <path id="Man1_8" d="M164.9 102.5S173.7 89 179.8 89c3.6 0 12.5 7.7 12.4 15-.2 9.8-8.9 21-11 26.7-2.2 5.7-7.8 13.2-11.5 14-3.8.7-8.6-6.4-8.6-6.4s1.8-26.9 3.8-35.8Z" fill="url(#paint4_linear)"/>
+          <path id="Man1_8" d="M164.9 102.5S173.7 89 179.8 89c3.6 0 12.5 7.7 12.4 15-.2 9.8-8.9 21-11 26.7-2.2 5.7-7.8 13.2-11.5 14-3.8.7-8.6-6.4-8.6-6.4s1.8-26.9 3.8-35.8Z" fill="url(#paint4_linear)"/>
             <path id="Man1_9" style="mix-blend-mode:multiply" opacity=".6" d="M165.5 116.9s14.6-18 19.9-18c5.3 0 5.3 10.2 3.2 16-1.5 4-4.4 10-4.4 10s2.3-6.3 2.6-11c.4-7.3-1.2-12.5-3-12.5-3.4 0-6 4.6-6.5 6.2-.4 1.6 2.7 8.8 1.9 13.7-.8 5-3.8 7-4.8 6.4-1-.6.5-6.2-.4-8.2-.9-2-3.5-4.8-5-4.2-1.6.6-3.5 1.6-3.5 1.6Z" fill="url(#paint5_linear)"/>
             <path id="Man1_10" style="mix-blend-mode:multiply" opacity=".6" d="M165.5 116.9s3.6-2.2 4.7-1.5c1.1.7 3.9 3.2 4 4.8.2 1.6-.9 6 0 6.8.9.8 4-4.3 4.2-8.7.1-4.4-2.4-9.6-2.4-10.2 0-.6.6-3.4.6-3.4s-8.4 8-11 12.2Z" fill="url(#paint6_linear)"/>
           </g>
@@ -8721,22 +8721,22 @@ export default {
     var char = gsap.timeline();
     char.to(".Characters", {
       duration: .5,
-      stagger: { from: "center", amount: 1.5 },
+      stagger: { from: "center", amount: 1 },
       y: 10,
       scale: 1,
     });
     char.to(".welcome", {
-      duration: .4,
+      duration: .3,
       stagger: { from: "center", amount: 1 },
       y: 10,
-      scale: 1.3,
+      scale: 1,
     });
 
     var tl = gsap.timeline({ repeat: -1 });
     tl.to("#Man6_20", { y: 0, duration: 0.3 });
     tl.to("#Man6_20", { y: -20, duration: 0.3 });
     tl.to("#Man6_20", { y: 0, duration: 0.3 });
-
+   
     var Man4 = gsap.timeline({ repeat: -1 });
     Man4.to("#Man-4_7,#Man-4_8", { y: 0, duration: 0.1 });
     Man4.to("#Man-4_7,#Man-4_8", { y: -5, duration: 0.1 });

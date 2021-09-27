@@ -31,6 +31,7 @@ export default {
       leftbar: false,
       PlayersBar: false,
       isSounds: true,
+      Notification:0,
       //To remove the Attack button from the DOM at the end of the round.
       AttackBtnControl: true,
       //Public Path
@@ -155,16 +156,18 @@ export default {
           sender: this.PlayerName,
           message: this.message,
         };
+
         this.socket.emit("sendmessageclient", info);
         // Return Messages on server
         this.socket.on("messagesserver", (messages) => {
-          this.messages = messages;
+        this.messages = messages;
         });
         this.message = "";
         setTimeout(() => {
           var MsgBox = document.getElementById("MessagesPlayers");
-          MsgBox.scrollTop = MsgBox.scrollHeight;
-        }, 1);
+          MsgBox.scrollTop = MsgBox.scrollHeight-1;
+          console.log(MsgBox.scrollHeight-1);
+        }, 100);
       }
     },
     NextPage: function (page) {
@@ -304,24 +307,22 @@ export default {
       this.users = data;
     });
     // Return Messages on server
-    this.socket.on("messagesserver", (messages) => {
-      var NtfMsg = gsap.timeline({ repeat: 10, duration: 0.1 });
+
+    this.socket.on("Notification", () => {
+      var NtfMsg = gsap.timeline({ repeat: 2, duration: 1 });
       NtfMsg.to("#chat", {
         backgroundColor: "#26123e",
-        duration: 0.1,
-        ease: "back",
       });
       NtfMsg.to("#chat", {
         backgroundColor: "#B42B51",
-        duration: 0.1,
-        ease: "back",
       });
       NtfMsg.to("#chat", {
         backgroundColor: "#26123e",
-        duration: 0.1,
-        ease: "back",
       });
-      this.messages = messages;
+    });
+
+    this.socket.on("messagesserver", (messages) => {
+    this.messages = messages;
     });
     // Keyboard Event
     window.addEventListener("keyup", this.AttackKeyUp);
@@ -767,27 +768,27 @@ export default {
   <div v-if="Login == 2" class="ChooseScreen">
     <div class="welcome">Choose your character</div>
     <div class="CharactersFlx">
-      <span class="Characters"
+      <div class="Characters"
         ><Characters
           tabindex="1"
           @click="CharacterID = 1"
           name="Ch_A"
-        /><!-- Component --></span
+        /><!-- Component --></div
       >
-      <span class="Characters"
+      <div class="Characters"
         ><Characters
           tabindex="2"
           @click="CharacterID = 2"
           name="Ch_B"
-        /><!-- Component --></span
+        /><!-- Component --></div
       >
-      <span class="Characters"
+      <div class="Characters"
         ><Characters
           tabindex="3"
           @click="CharacterID = 5"
           name="Ch_E"
         /><!-- Component -->
-      </span>
+      </div>
       <span class="Characters">
         <Characters
           tabindex="4"
@@ -795,13 +796,13 @@ export default {
           name="Ch_C"
         /><!-- Component --></span
       >
-      <span class="Characters"
+      <div class="Characters"
         ><Characters
           tabindex="5"
           @click="CharacterID = 4"
           name="Ch_D"
         /><!-- Component -->
-      </span>
+      </div>
       <span class="Characters"
         ><Characters
           tabindex="6"
@@ -809,34 +810,34 @@ export default {
           name="Ch_F"
         /><!-- Component -->
       </span>
-      <span class="Characters"
+      <div class="Characters"
         ><Characters
           tabindex="7"
           @click="CharacterID = 7"
           name="Ch_G"
         /><!-- Component -->
-      </span>
-      <span class="Characters"
+      </div>
+      <div class="Characters"
         ><Characters
           tabindex="8"
           @click="CharacterID = 8"
           name="Ch_H"
         /><!-- Component -->
-      </span>
-      <span class="Characters"
+      </div>
+      <div class="Characters"
         ><Characters
           tabindex="9"
           @click="CharacterID = 9"
           name="Ch_I"
         /><!-- Component -->
-      </span>
-      <span class="Characters"
+      </div>
+      <div class="Characters"
         ><Characters
           tabindex="10"
           @click="CharacterID = 10"
           name="Ch_J"
         /><!-- Component -->
-      </span>
+      </div>
     </div>
     <button
       @keyup.enter="NextPage(3)"
@@ -871,36 +872,36 @@ export default {
   <div v-if="Login == 3" class="players">
     <div class="MainPlayer">
       <p>{{ PlayerName }}</p>
-      <span v-if="CharacterID == 1" class="Damage">
+      <div v-if="CharacterID == 1" class="Damage">
         <Characters name="Ch_A" />
-      </span>
-      <span v-if="CharacterID == 2" class="Damage">
+      </div>
+      <div v-if="CharacterID == 2" class="Damage">
         <Characters name="Ch_B" />
-      </span>
-      <span v-if="CharacterID == 3" class="Damage">
+      </div>
+      <div v-if="CharacterID == 3" class="Damage">
         <Characters name="Ch_C" />
-      </span>
-      <span v-if="CharacterID == 4" class="Damage">
+      </div>
+      <div v-if="CharacterID == 4" class="Damage">
         <Characters name="Ch_D" />
-      </span>
-      <span v-if="CharacterID == 5" class="Damage">
+      </div>
+      <div v-if="CharacterID == 5" class="Damage">
         <Characters name="Ch_E" />
-      </span>
-      <span v-if="CharacterID == 6" class="Damage">
+      </div>
+      <div v-if="CharacterID == 6" class="Damage">
         <Characters name="Ch_F" />
-      </span>
-      <span v-if="CharacterID == 7" class="Damage">
+      </div>
+      <div v-if="CharacterID == 7" class="Damage">
         <Characters name="Ch_G" />
-      </span>
-      <span v-if="CharacterID == 8" class="Damage">
+      </div>
+      <div v-if="CharacterID == 8" class="Damage">
         <Characters name="Ch_H" />
-      </span>
-      <span v-if="CharacterID == 9" class="Damage">
+      </div>
+      <div v-if="CharacterID == 9" class="Damage">
         <Characters name="Ch_I" />
-      </span>
-      <span v-if="CharacterID == 10" class="Damage">
+      </div>
+      <div v-if="CharacterID == 10" class="Damage">
         <Characters name="Ch_J" />
-      </span>
+      </div>
 
       <div class="ProgressBarSBg">
         <span class="Usstekal">{{ P2W }} </span>
