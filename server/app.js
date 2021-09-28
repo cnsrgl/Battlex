@@ -26,20 +26,6 @@ io.on("connection", socket => {
         socket.emit('users', users);
       });
 
-//       //ONLINE
-//       let playerIndex = -1;
-//       for (const i in connections) {
-//         if (connections[i] === null) {
-//           playerIndex = i;
-//         }
-//       }
-//       socket.emit('player-number', playerIndex);
-//       console.log(`Player: ${playerIndex}  Conn ID: ${socket.id} has connected`);
-//       if (playerIndex == -1) return;
-//       connections[playerIndex] = socket;
-//  // Tell everyone else what player number just connected
-//       socket.broadcast.emit('player-connect', playerIndex);
-
       //CHAT
       socket.on('sendmessageclient',(info) => {
           messages.push(info)
@@ -51,6 +37,7 @@ io.on("connection", socket => {
       setInterval(() => {
       socket.emit("messagesserver",messages)
       }, 500);
+
 
       socket.on('disconnect', () => {
         const index = users.indexOf(socket.id);
