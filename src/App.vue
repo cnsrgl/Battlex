@@ -1,11 +1,12 @@
 <script>
+//LocalStorage
+
 //Import components and path..
 import io from "socket.io-client";
 import Characters from "@/Characters.vue";
 import Othersvg from "./Other-svg.vue";
 import gsap from "gsap";
 //Import components
-
 //Sounds Game
 const button = new Audio("./sounds/button.wav");
 const call_war = new Audio("./sounds/call-war.wav");
@@ -14,9 +15,7 @@ const wtg = new Audio("./sounds/winthisgame.ogg");
 const BeastAttack = new Audio("./sounds/beast-attack.wav");
 const burning = new Audio("./sounds/burning.wav");
 const slash = new Audio("./sounds/slash.mp3");
-const dark = new Audio("./sounds/dark.wav");
 BeastAttack.volume = 0.1;
-dark.volume = 0.3;
 //Sounds Game
 
 export default {
@@ -31,7 +30,7 @@ export default {
       leftbar: false,
       PlayersBar: false,
       isSounds: true,
-      Notification:0,
+      Notification: 0,
       //To remove the Attack button from the DOM at the end of the round.
       AttackBtnControl: true,
       //Public Path
@@ -45,9 +44,7 @@ export default {
       P2W: 100,
       SaldirPuan: 0,
       CanavarSaldirPuan: 0,
-
       Sonuc: "",
-
       GameOver: false,
       ResultWin: false,
       ResultLose: false,
@@ -66,7 +63,7 @@ export default {
       CanavarHPOto: false,
       CHPO_Interval: null,
       CSO_Interval: null,
-      PlayerName: "",
+      PlayerName: localStorage.getItem('PlayerName'),
       //HELL ATTACK TIMER
       timerEnabled: false,
       timerCount: 10,
@@ -94,7 +91,6 @@ export default {
     Characters,
     Othersvg,
   },
-
   computed: {
     OSPlayersFilter() {
       return this.users.filter((user) =>
@@ -102,15 +98,18 @@ export default {
       );
     },
   },
-
   methods: {
     isSound() {
       if (this.isSounds == true) {
         this.isSounds = false;
-        dark.pause();
+        call_war.pause();
+        gol.pause();
+        wtg.pause();
+        BeastAttack.pause();
+        burning.pause();
+        slash.pause();
       } else if (this.isSounds == false) {
         this.isSounds = true;
-        dark.play();
       }
     },
     ConnectionFriend() {
@@ -118,7 +117,7 @@ export default {
       if (!this.socket.socket) {
         this.socket.connect();
       }
-      this.Socket.on("connection", function () {
+      this.Socket.on("connection", function() {
         this.Socket.emit("room", roomId);
       });
     },
@@ -150,33 +149,33 @@ export default {
         });
       }
     },
+    SlideMsgBox() {
+      setTimeout(() => {
+        var MsgBox = document.getElementById("MessagesPlayers");
+        MsgBox.scrollTop = MsgBox.scrollHeight - 100;
+      }, 300);
+    },
     sendMessage() {
       if (this.message != "") {
         var info = {
           sender: this.PlayerName,
           message: this.message,
         };
-
         this.socket.emit("sendmessageclient", info);
         // Return Messages on server
         this.socket.on("messagesserver", (messages) => {
-        this.messages = messages;
+          this.messages = messages;
         });
         this.message = "";
-        setTimeout(() => {
-          var MsgBox = document.getElementById("MessagesPlayers");
-          MsgBox.scrollTop = MsgBox.scrollHeight-1;
-          console.log(MsgBox.scrollHeight-1);
-        }, 100);
+        this.SlideMsgBox();
       }
     },
-    NextPage: function (page) {
+    NextPage: function(page) {
       button.play();
       if (page == 1 && this.PlayerName != "" && this.PlayerName != " ") {
         //Sounds
+        localStorage.setItem('PlayerName',this.PlayerName)
         button.play();
-        dark.loop = true;
-        dark.play();
         //socket
         this.socket.emit("new_user", this.PlayerName);
         //socket
@@ -187,38 +186,40 @@ export default {
       } else if (page == 3) {
         button.play();
         call_war.currentTime = 0;
-        call_war.play(); // Begin game
+        if (this.isSounds == true) {
+          call_war.play(); // Begin game
+        }
         return (this.Login = 3);
       } else if (page == 4) {
         return (this.Login = 4);
       }
     },
 
-    AttackKeyUp: function (e) {
+    AttackKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 49 && document.getElementById("Attack")) {
         document.getElementById("Attack").click();
       }
     },
-    SlashKeyUp: function (e) {
+    SlashKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 51 && document.getElementById("SlashAttack")) {
         document.getElementById("SlashAttack").click();
       }
     },
-    HPKeyUp: function (e) {
+    HPKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 50 && document.getElementById("HP")) {
         document.getElementById("HP").click();
       }
     },
-    HellKeyUp: function (e) {
+    HellKeyUp: function(e) {
       var keyCode = e.keyCode;
       if (keyCode == 52 && document.getElementById("HellAttack")) {
         document.getElementById("HellAttack").click();
       }
     },
-    Attack: function () {
+    Attack: function() {
       document.getElementById("Attack").disabled = true;
       this.timerEnabledA = true;
       this.TimerDisabledBtnA = 1;
@@ -232,7 +233,7 @@ export default {
         this.logsB.push({ log: "Miss" });
       }
     },
-    hp: function () {
+    hp: function() {
       document.getElementById("HP").disabled = true;
       this.timerEnabledH = true;
       this.SaldirPuan = 2;
@@ -241,7 +242,7 @@ export default {
       this.logs.push({ log: "+ 5 life points" });
       3;
     },
-    HellAttack: function () {
+    HellAttack: function() {
       document.getElementById("HellAttack").disabled = true;
       this.timerEnabled = true;
       this.SaldirPuan = Math.floor(Math.random() * 20) + 2;
@@ -250,7 +251,7 @@ export default {
       this.logsB.push({ log: this.SaldirPuan + " damage" });
       setTimeout(() => {}, 2000);
     },
-    SlashAttack: function () {
+    SlashAttack: function() {
       this.timerEnabledS = true;
       this.TimerDisabledBtnS = 5;
       document.getElementById("SlashAttack").disabled = true;
@@ -260,7 +261,9 @@ export default {
     },
     ResultClose() {
       button.play();
-      call_war.play();
+      if (this.isSounds == true) {
+        call_war.play();
+      }
       this.ResultWin = false;
       this.ResultLose = false;
       this.ResultCss = "";
@@ -301,28 +304,33 @@ export default {
       nullTargetWarn: false,
     });
 
+    
+
     // Socket.io Config
     this.socket = io("http://178.193.216.170:3333/");
     this.socket.on("users", (data) => {
       this.users = data;
     });
     // Return Messages on server
+    this.socket.on("messagesserver", (data) => {
+      this.messages = data;
+    });
 
     this.socket.on("Notification", () => {
-      var NtfMsg = gsap.timeline({ repeat: 2, duration: 1 });
+      this.SlideMsgBox();
+      var NtfMsg = gsap.timeline({ repeat: 5 });
       NtfMsg.to("#chat", {
         backgroundColor: "#26123e",
+        duration: 0.1,
       });
       NtfMsg.to("#chat", {
         backgroundColor: "#B42B51",
+        duration: 0.1,
       });
       NtfMsg.to("#chat", {
         backgroundColor: "#26123e",
+        duration: 0.1,
       });
-    });
-
-    this.socket.on("messagesserver", (messages) => {
-    this.messages = messages;
     });
     // Keyboard Event
     window.addEventListener("keyup", this.AttackKeyUp);
@@ -344,11 +352,13 @@ export default {
     });
   },
   watch: {
-    CanavarSaldirOto: function (value) {
+    CanavarSaldirOto: function(value) {
       if (value == true) {
         this.CSO_Interval = setInterval(() => {
           // this.ShowDmg1 = true;
-          BeastAttack.play();
+          if (this.isSounds == true) {
+            BeastAttack.play();
+          }
           // this.RandomPosition();
           this.CanavarSaldirPuan = Math.floor(Math.random() * 11) + 0;
           if (this.P2W > 0) {
@@ -374,7 +384,7 @@ export default {
         this.CanavarSaldirOto = false;
       }
     },
-    CanavarHPOto: function (value) {
+    CanavarHPOto: function(value) {
       if (value == true && this.P1W <= 100) {
         this.CHPO_Interval = setInterval(() => {
           this.logsB.push({
@@ -399,12 +409,18 @@ export default {
     },
 
     //* Player main
-    P2W: function (value) {
+    P2W: function(value) {
       if (value <= 0) {
         this.P2W = 0;
         this.AttackBtnControl = false;
-        gol.play();
+        if (this.isSounds == true) {
+          gol.play();
+        }
         this.timerEnabledA = false;
+        this.timerEnabledS = false;
+        this.timerEnabled = false;
+        this.timerEnabledH = false;
+        
         this.ResultCss =
           "z-index: 12;background-color: #f44336; transform:scale(1)";
         this.Sonuc = this.Round + ".Round - You Lost";
@@ -431,12 +447,17 @@ export default {
     },
 
     //! Beast
-    P1W: function (value) {
+    P1W: function(value) {
       if (value <= 0) {
         this.P1W = 0;
         this.AttackBtnControl = false;
-        wtg.play();
-        this.timerEnabledA = false;
+        if (this.isSounds == true) {
+          wtg.play();
+        }
+         this.timerEnabledA = false;
+        this.timerEnabledS = false;
+        this.timerEnabled = false;
+        this.timerEnabledH = false;
         this.ResultWin = true;
         this.ResultCss =
           "z-index: 12;background-color: #4caf50; transform:scale(1)";
@@ -465,7 +486,9 @@ export default {
     // !HellTiming
     timerEnabled(value) {
       if (value) {
-        burning.play();
+        if (this.isSounds == true) {
+          burning.play();
+        }
         setTimeout(() => {
           this.timerCount--;
         }, 1000);
@@ -491,9 +514,11 @@ export default {
     },
     // !HellTiming
     // !SlashTiming
-    timerEnabledS: function (value) {
+    timerEnabledS: function(value) {
       if (value) {
-        slash.play();
+        if (this.isSounds == true) {
+          slash.play();
+        }
         setTimeout(() => {
           this.timerCountS--;
         }, 1000);
@@ -519,10 +544,12 @@ export default {
     // !SlashTiming
     // !HP Timing
 
-    timerEnabledH: function (value) {
+    timerEnabledH: function(value) {
       if (value) {
         var hpup = new Audio("./sounds/hp.wav");
-        hpup.play();
+        if (this.isSounds == true) {
+          hpup.play();
+        }
         setTimeout(() => {
           this.timerCountH--;
         }, 1000);
@@ -548,10 +575,12 @@ export default {
     },
     // !HP Timing
     // !Attack Timing Start
-    timerEnabledA: function (value) {
+    timerEnabledA: function(value) {
       if (value) {
-        var attack_default = new Audio("./sounds/attack.wav");
-        attack_default.play();
+        if (this.isSounds == true) {
+          var attack_default = new Audio("./sounds/attack.wav");
+          attack_default.play();
+        }
         setTimeout(() => {
           this.timerCountA--;
         }, 1000);
@@ -575,10 +604,12 @@ export default {
       },
     },
     // *GAME OVER BEGIN* //
-    Score1: function (say) {
+    Score1: function(say) {
       if (say == 3) {
         console.log("Oyunu Kazandın. Skorun: " + this.Score1);
-        wtg.play();
+        if (this.isSounds == true) {
+          wtg.play();
+        }
         this.ResultWin = false;
         this.GameOver = true;
         this.ResultCss =
@@ -586,10 +617,12 @@ export default {
         this.Sonuc = "✌️❤️ You defeated the monster ❤️✌️";
       }
     },
-    Score2: function (say) {
+    Score2: function(say) {
       if (say == 3) {
         console.log("Oyunu Kaybettin. Skorun: " + this.Score2);
-        gol.play();
+        if (this.isSounds == true) {
+          gol.play();
+        }
         this.ResultLose = false;
         this.GameOver = true;
         this.ResultCss =
@@ -613,30 +646,34 @@ export default {
       <button class="HowToPlay" @click="ShowInfo()">
         <span>{{ IconQuestion }}</span>
       </button>
-       
     </div>
     <div>
-    <img v-if="Login != 0 && Login != 3" class="logo" src="/img/logo.svg" alt="Logo" />
-    <div v-if="Login == 3" class="score">
-      <Othersvg name="ScoreBar" />
-      <span class="belirt">
-        <span class="skor1">{{ Score1 }}</span>
-        <span class="skor2">{{ Score2 }}</span>
-      </span>
-      <span id="round"
-        >Round: <strong>{{ Round }}</strong></span
-      >
-    </div>
+      <img
+        v-if="Login != 0 && Login != 3"
+        class="logo"
+        src="/img/logo.svg"
+        alt="Logo"
+      />
+      <div v-if="Login == 3" class="score">
+        <Othersvg name="ScoreBar" />
+        <span class="belirt">
+          <span class="skor1">{{ Score1 }}</span>
+          <span class="skor2">{{ Score2 }}</span>
+        </span>
+        <span id="round"
+          >Round: <strong>{{ Round }}</strong></span
+        >
+      </div>
     </div>
     <div class="HeaderButtons">
       <button v-if="isSounds == true" class="IconSounds" @click="isSound()">
-        <span><Othersvg name="IconVolUp" /></span>
+        <span><Othersvg name="IconVolUp"/></span>
       </button>
       <button v-else class="IconSounds" @click="isSound()">
-        <span><Othersvg name="IconVolOff" /></span>
+        <span><Othersvg name="IconVolOff"/></span>
       </button>
       <button class="OnlinePlayersBtn" @click="ShowPlayersBar()">
-        <span><Othersvg name="IconOnUser" /></span>
+        <span><Othersvg name="IconOnUser"/></span>
       </button>
     </div>
     <div
@@ -650,7 +687,7 @@ export default {
     >
       <p>How to Play ?</p>
       <p>
-        <Othersvg style="width:3em;" name="Keyboard" />
+        <Othersvg name="Keyboard" />
       </p>
     </div>
 
@@ -722,7 +759,7 @@ export default {
     <form @submit.prevent="sendMessage">
       <div id="MessagesPlayers">
         <ul>
-          <li v-for="(message, index) in messages" :key="index">
+          <li v-for="(message, index) in messages.slice(-20)" :key="index">
             <div
               style="background: rgb(38 18 62)"
               v-if="message.sender == PlayerName"
@@ -748,42 +785,34 @@ export default {
   </div>
   <div v-if="Login == 1" class="ChooseScreen">
     <div class="BtnFlex">
-    <button
-      @keyup.enter="NextPage(2)"
-      id="SingleBtn"
-      @click="NextPage(2)"
-    >
-      <p>training</p>
-    </button>
-    <button
-      @keyup.enter="NextPage(4)"
-      id="MultiBtn"
-      @click="NextPage(4)"
-    >
-      <p>Multiplayers</p>
-    </button>
+      <button @keyup.enter="NextPage(2)" id="SingleBtn" @click="NextPage(2)">
+        <p>training</p>
+      </button>
+      <button @keyup.enter="NextPage(4)" id="MultiBtn" @click="NextPage(4)">
+        <p>Multiplayers</p>
+      </button>
     </div>
   </div>
   <!-- Begin Choose your warrior screen-->
   <div v-if="Login == 2" class="ChooseScreen">
     <div class="welcome">Choose your character</div>
     <div class="CharactersFlx">
-      <div class="Characters"
-        ><Characters
+      <div class="Characters">
+        <Characters
           tabindex="1"
           @click="CharacterID = 1"
           name="Ch_A"
-        /><!-- Component --></div
-      >
-      <div class="Characters"
-        ><Characters
+        /><!-- Component -->
+      </div>
+      <div class="Characters">
+        <Characters
           tabindex="2"
           @click="CharacterID = 2"
           name="Ch_B"
-        /><!-- Component --></div
-      >
-      <div class="Characters"
-        ><Characters
+        /><!-- Component -->
+      </div>
+      <div class="Characters">
+        <Characters
           tabindex="3"
           @click="CharacterID = 5"
           name="Ch_E"
@@ -796,8 +825,8 @@ export default {
           name="Ch_C"
         /><!-- Component --></span
       >
-      <div class="Characters"
-        ><Characters
+      <div class="Characters">
+        <Characters
           tabindex="5"
           @click="CharacterID = 4"
           name="Ch_D"
@@ -810,29 +839,29 @@ export default {
           name="Ch_F"
         /><!-- Component -->
       </span>
-      <div class="Characters"
-        ><Characters
+      <div class="Characters">
+        <Characters
           tabindex="7"
           @click="CharacterID = 7"
           name="Ch_G"
         /><!-- Component -->
       </div>
-      <div class="Characters"
-        ><Characters
+      <div class="Characters">
+        <Characters
           tabindex="8"
           @click="CharacterID = 8"
           name="Ch_H"
         /><!-- Component -->
       </div>
-      <div class="Characters"
-        ><Characters
+      <div class="Characters">
+        <Characters
           tabindex="9"
           @click="CharacterID = 9"
           name="Ch_I"
         /><!-- Component -->
       </div>
-      <div class="Characters"
-        ><Characters
+      <div class="Characters">
+        <Characters
           tabindex="10"
           @click="CharacterID = 10"
           name="Ch_J"
@@ -958,31 +987,29 @@ export default {
   <div v-if="Login == 3" class="buttons">
     <!-- Saldırı Butonu -->
     <div class="bgpower">
-       <span v-show="TimerDisabledBtnA > 0" class="ButtonTime">
-          {{ TimerDisabledBtnA }}
-        </span>
-      <button v-if="AttackBtnControl" id="Attack" @click="Attack">
-      </button>
+      <span v-show="TimerDisabledBtnA > 0" class="ButtonTime">
+        {{ TimerDisabledBtnA }}
+      </span>
+      <button v-if="AttackBtnControl" id="Attack" @click="Attack"></button>
     </div>
     <div class="bgpower">
-       <span v-if="TimerDisabledBtnH > 0" class="ButtonTime">
-          {{ TimerDisabledBtnH }}
-        </span>
-      <button v-if="CanavarSaldirOto" id="HP" @click="hp">
-      </button>
+      <span v-if="TimerDisabledBtnH > 0" class="ButtonTime">
+        {{ TimerDisabledBtnH }}
+      </span>
+      <button v-if="CanavarSaldirOto" id="HP" @click="hp"></button>
     </div>
     <div class="bgpower">
       <span v-if="TimerDisabledBtnS > 0" class="ButtonTime">
-          {{ TimerDisabledBtnS }}
-        </span>
+        {{ TimerDisabledBtnS }}
+      </span>
       <button v-if="CanavarSaldirOto" id="SlashAttack" @click="SlashAttack">
         Slash
       </button>
     </div>
     <div class="bgpower">
       <span v-if="TimerDisabledBtn > 0" class="ButtonTime">
-          {{ TimerDisabledBtn }}
-        </span>
+        {{ TimerDisabledBtn }}
+      </span>
       <button v-if="CanavarSaldirOto" id="HellAttack" @click="HellAttack">
         Hell
       </button>
