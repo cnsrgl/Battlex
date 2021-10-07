@@ -63,7 +63,7 @@ export default {
       CanavarHPOto: false,
       CHPO_Interval: null,
       CSO_Interval: null,
-      PlayerName: localStorage.getItem('PlayerName'),
+      PlayerName: localStorage.getItem("PlayerName"),
       //HELL ATTACK TIMER
       timerEnabled: false,
       timerCount: 10,
@@ -174,7 +174,7 @@ export default {
       button.play();
       if (page == 1 && this.PlayerName != "" && this.PlayerName != " ") {
         //Sounds
-        localStorage.setItem('PlayerName',this.PlayerName)
+        localStorage.setItem("PlayerName", this.PlayerName);
         button.play();
         //socket
         this.socket.emit("new_user", this.PlayerName);
@@ -304,8 +304,6 @@ export default {
       nullTargetWarn: false,
     });
 
-    
-
     // Socket.io Config
     this.socket = io("http://178.193.216.170:3333/");
     this.socket.on("users", (data) => {
@@ -420,7 +418,7 @@ export default {
         this.timerEnabledS = false;
         this.timerEnabled = false;
         this.timerEnabledH = false;
-        
+
         this.ResultCss =
           "z-index: 12;background-color: #f44336; transform:scale(1)";
         this.Sonuc = this.Round + ".Round - You Lost";
@@ -454,7 +452,7 @@ export default {
         if (this.isSounds == true) {
           wtg.play();
         }
-         this.timerEnabledA = false;
+        this.timerEnabledA = false;
         this.timerEnabledS = false;
         this.timerEnabled = false;
         this.timerEnabledH = false;
