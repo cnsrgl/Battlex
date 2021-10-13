@@ -3,8 +3,9 @@
 
 //Import components and path..
 import io from "socket.io-client";
-import Characters from "@/Characters.vue";
-import Othersvg from "./Other-svg.vue";
+import Characters from "@/components/Characters.vue";
+import Chat from "@/components/Chat.vue";
+import Othersvg from "@/components/Other-svg.vue";
 import gsap from "gsap";
 //Import components
 //Sounds Game
@@ -23,10 +24,6 @@ export default {
   data() {
     return {
       SOPlayers: "",
-      socket: {},
-      users: [],
-      message: null,
-      messages: [],
       leftbar: false,
       PlayersBar: false,
       isSounds: true,
@@ -63,7 +60,7 @@ export default {
       CanavarHPOto: false,
       CHPO_Interval: null,
       CSO_Interval: null,
-      PlayerName: localStorage.getItem("PlayerName"),
+    
       //HELL ATTACK TIMER
       timerEnabled: false,
       timerCount: 10,
@@ -90,15 +87,24 @@ export default {
   components: {
     Characters,
     Othersvg,
+    Chat,
   },
   computed: {
     OSPlayersFilter() {
-      return this.users.filter((user) =>
+      return this.$store.state.users.filter((user) =>
         user.name.toLowerCase().includes(this.SOPlayers.toLowerCase())
       );
     },
+    PlayerName(){
+      return this.$store.state.PlayerName
+    }
   },
   methods: {
+    StartInvitation(){
+      alert("Deneme")
+    },
+
+
     isSound() {
       if (this.isSounds == true) {
         this.isSounds = false;
@@ -114,22 +120,14 @@ export default {
     },
     ConnectionFriend() {
       var roomId = Math.floor(Math.random() * 999999999) + 1;
-      if (!this.socket.socket) {
-        this.socket.connect();
+      if (!this.$store.state.socket.socket) {
+        this.$store.state.socket.connect();
       }
-      this.Socket.on("connection", function() {
-        this.Socket.emit("room", roomId);
+      this.$store.state.socket.on("connection", function() {
+        this.$store.state.socket.emit("room", roomId);
       });
     },
-    ShowLeftBar() {
-      if (this.leftbar == true) {
-        this.leftbar = false;
-        gsap.to("#leftbar", { duration: 0.1, x: "-305", y: 0, ease: "power2" });
-      } else if (this.leftbar == false) {
-        this.leftbar = true;
-        gsap.to("#leftbar", { duration: 0.1, x: "0", y: 0, ease: "power2" });
-      }
-    },
+   
     ShowPlayersBar() {
       if (this.PlayersBar == true) {
         this.PlayersBar = false;
@@ -155,29 +153,17 @@ export default {
         MsgBox.scrollTop = MsgBox.scrollHeight - 100;
       }, 300);
     },
-    sendMessage() {
-      if (this.message != "") {
-        var info = {
-          sender: this.PlayerName,
-          message: this.message,
-        };
-        this.socket.emit("sendmessageclient", info);
-        // Return Messages on server
-        this.socket.on("messagesserver", (messages) => {
-          this.messages = messages;
-        });
-        this.message = "";
-        this.SlideMsgBox();
-      }
-    },
+    
     NextPage: function(page) {
       button.play();
-      if (page == 1 && this.PlayerName != "" && this.PlayerName != " ") {
+      if (page == 1 && this.$store.state.PlayerName != "" && this.$store.state.PlayerName != " ") {
         //Sounds
-        localStorage.setItem("PlayerName", this.PlayerName);
+        console.log(this.$store.state.PlayerName);
+        this.$store.state.PlayerName = document.getElementById("textbox").value 
+        localStorage.setItem("PlayerName", this.$store.state.PlayerName);
         button.play();
         //socket
-        this.socket.emit("new_user", this.PlayerName);
+        this.$store.state.socket.emit("new_user", this.$store.state.PlayerName);
         //socket
         return (this.Login = 1);
       } else if (page == 2) {
@@ -304,32 +290,15 @@ export default {
       nullTargetWarn: false,
     });
 
+   document.getElementById('textbox').value = localStorage.getItem("PlayerName")
+
     // Socket.io Config
-    this.socket = io("http://178.193.216.170:3333/");
-    this.socket.on("users", (data) => {
-      this.users = data;
+    this.$store.state.socket = io("http://178.193.216.170:3333/");
+    this.$store.state.socket.on("users", (data) => {
+      this.$store.users = data;
     });
     // Return Messages on server
-    this.socket.on("messagesserver", (data) => {
-      this.messages = data;
-    });
-
-    this.socket.on("Notification", () => {
-      this.SlideMsgBox();
-      var NtfMsg = gsap.timeline({ repeat: 5 });
-      NtfMsg.to("#chat", {
-        backgroundColor: "#26123e",
-        duration: 0.1,
-      });
-      NtfMsg.to("#chat", {
-        backgroundColor: "#B42B51",
-        duration: 0.1,
-      });
-      NtfMsg.to("#chat", {
-        backgroundColor: "#26123e",
-        duration: 0.1,
-      });
-    });
+    
     // Keyboard Event
     window.addEventListener("keyup", this.AttackKeyUp);
     window.addEventListener("keyup", this.HellKeyUp);
@@ -705,7 +674,7 @@ export default {
           :key="user.id"
         >
           <div class="OnlineUsers">{{ user.name }}</div>
-          <Othersvg class="AddUsers" name="IconAddUser" />
+          <Othersvg @click="StartInvitation()" class="AddUsers" name="IconAddUser" />
         </div>
       </div>
       <div
@@ -737,7 +706,6 @@ export default {
     <form class="FormFlex" @submit.prevent="NextPage(1)">
       <input
         id="textbox"
-        v-model="PlayerName"
         maxlength="12"
         class="textbox"
         type="text"
@@ -749,38 +717,7 @@ export default {
   </div>
   <!--! Nickname Screen-->
 
-  <div v-if="Login == 1 || Login == 3" id="leftbar">
-    <div id="ChatHead">#General</div>
-    <button id="chat" @click="ShowLeftBar()">
-      <Othersvg name="chat" />
-    </button>
-    <form @submit.prevent="sendMessage">
-      <div id="MessagesPlayers">
-        <ul>
-          <li v-for="(message, index) in messages.slice(-20)" :key="index">
-            <div
-              style="background: rgb(38 18 62)"
-              v-if="message.sender == PlayerName"
-            >
-              {{ message.message }}
-            </div>
-            <div v-else>
-              <strong style="color: #b996f7"
-                >{{ message.sender }}:&nbsp;
-              </strong>
-              {{ message.message }}
-            </div>
-          </li>
-        </ul>
-      </div>
-      <input
-        maxlength="100"
-        type="text"
-        v-model="message"
-        placeholder="Message"
-      />
-    </form>
-  </div>
+  <Chat />
   <div v-if="Login == 1" class="ChooseScreen">
     <div class="BtnFlex">
       <button @keyup.enter="NextPage(2)" id="SingleBtn" @click="NextPage(2)">
